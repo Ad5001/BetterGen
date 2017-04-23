@@ -1,5 +1,5 @@
 <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/banner.png"></img>     
-<center><h1>PocketMine's Tomorrow's Generator.</h1></center>
+<center><h1>PocketMine's Tomorrow's World Generator.</h1></center>
 Welcome user to the home of a new PocketMine World Generator which features 9 new/modified biomes:
 ------
 # Commun:
