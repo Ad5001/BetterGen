@@ -1,0 +1,126 @@
+BoxOfDevs General Software License 1.1.3
+=========================================
+This license is designed to be used with any software which would like to have no selling for profits, nor any public redistribution without giving the original author credits.
+--------------------------------------------------------------------------------------------------------------------------------------
+The License: refers to the BoxOfDevs International Software License 1.1.2
+The Software: refers to any works licensed under The License.
+The Modification: refers to any modified version of The Software.
+The Redistribution: refers to any redistributions of The Software/The Modification.
+The User: refers to any user of The Software licensed under The License.
+The Author: refers to any developer, organisation, legal owner, or creator of The Software that has been licensed under the The License.
+--------------------------------------------------------------------------------------------------------------------------------------
+Section 1 - Allowances:
+
+  1. Both The User & The Author Can:
+    a. Modify private copies of The Software and use in any way they wish.
+    b. Change which license The Software/The Modification is licensed under.
+
+  2. The User Can:
+    a. Request new features, support, or more rights from The Author.
+    b. Redistribute The Software/The Modification, ensuring The User gives all appropriate credit to The Author and alerting The Author to The Redistribution.
+
+  3. The Author Can:
+    a. Change or update The Software in any way they wish, ensuring they follow the other terms of The License.
+    b. Grant extra rights to The User who has requested them.
+    c. Reserve the right to request The User to take down their instance of The Software/The Modification/The Redistribution.
+
+Section 2 - Restrictions:
+  1. Both The User & The Author Cannot:
+    a. Introduce any malicious code into The Software/The Modification.
+    b. Sell any part of The Software/The Modification for profit.
+
+  2. The User Cannot:
+    a. Hold The Author responsible for any unknown errors.
+    b. Claim The Software/The Modification/The Redistribution as entirely The User's product.
+    c. Use the software without crediting the Author.
+
+  3. The Author Cannot:
+    a. Restrict The User in any way not specified by The License.
+    b. Distribute any form of The Software without proper documentation.
+
+  Term. The term of this License is specified in Section 6(a).
+    Media and formats; technical modifications allowed. The Author authorizes You to exercise the Licensed Rights in all media and formats whether now known or hereafter created, and to make technical modifications necessary to do so. The Author waives and/or agrees not to assert any right or authority to forbid You from making technical modifications necessary to exercise the Licensed Rights, including technical modifications necessary to circumvent Effective Technological Measures. For purposes of this License, simply making modifications authorized by this Section 2(a)(4) never produces Modification.
+
+  Downstream recipients.
+    Offer from the Author – Software. Every recipient of the Software automatically receives an offer from the Author to exercise the Licensed Rights under the terms and conditions of this License.
+    Additional offer from the Author – the Modification. Every recipient of the Modification from You automatically receives an offer from the Author to exercise the Licensed Rights in the Modification under the conditions of the Adapter’s License You apply.
+    No downstream restrictions. You may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, the Software if doing so restricts exercise of the Licensed Rights by any recipient of the Software.
+    No endorsement. Nothing in this License constitutes or may be construed as permission to assert or imply that You are, or that Your use of the Software is, connected with, or sponsored, endorsed, or granted official status by, the Author or others designated to receive attribution as provided in Section 3(a)(1)(A)(i).
+
+  Other rights.
+    Moral rights, such as the right of integrity, are not licensed under this License, nor are publicity, privacy, and/or other similar personality rights; however, to the extent possible, the Author waives and/or agrees not to assert any such rights held by the Author to the limited extent necessary to allow You to exercise the Licensed Rights, but not otherwise.
+    Patent and trademark rights are not licensed under this License.
+    To the extent possible, the Author waives any right to collect royalties from You for the exercise of the Licensed Rights, whether directly or through a collecting society under any voluntary or waivable statutory or compulsory licensing scheme. In all other cases the Author expressly reserves any right to collect such royalties.
+
+Section 3 – License Conditions.
+  Your exercise of the Licensed Rights is expressly made subject to the following conditions.
+
+  a) Attribution.
+    If You Share the Software (including in modified form), You must:
+      retain the following if it is supplied by the Author with the Software:
+        identification of the creator(s) of the Software and any others designated to receive attribution, in any reasonable manner requested by the Author (including by pseudonym if designated);
+        a copyright notice;
+        a notice that refers to this License;
+        a notice that refers to the disclaimer of warranties;
+        a URI or hyperlink to the Software to the extent reasonably practicable;
+        indicate if You modified the Software and retain an indication of any previous modifications; and
+        indicate the Software is licensed under this License, and include the text of, or the URI or hyperlink to, this License.
+      You may satisfy the conditions in Section 3(a)(1) in any reasonable manner based on the medium, means, and context in which You Share the Software. For example, it may be reasonable to satisfy the conditions by providing a URI or hyperlink to a resource that includes the required information.
+      If requested by the Author, You must remove any of the information required by Section 3(a)(1)(A) to the extent reasonably practicable.
+
+    b) ShareAlike.
+      In addition to the conditions in Section 3(a), if You Share the Modification You produce, the following conditions also apply.
+        The Adapter’s License You apply must be a BoxOfDevs General License with the same License Elements, this version or later, or a BY-SA Compatible License.
+        You must include the text of, or the URI or hyperlink to, the Adapter's License You apply. You may satisfy this condition in any reasonable manner based on the medium, means, and context in which You Share the Modification.
+        You may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, Modification that restrict exercise of the rights granted under the Adapter's License You apply.
+
+    c) Forever Open Source.
+      In addition to the conditions in Section 3(a) and Section 3(b), if You Share the Modification You produce, the following conditions also apply.
+        The Adapted work must have an open source existing repertory, accessible by anyone anytime linked in the Redistribution Description/Documentation.
+        You may not restrict anyone from accessing the source code, use it, and redistribute it under anything not explicily specified by the License.
+
+    d) Free.
+      In addition to the conditions in Section 3(a), Section 3(b) and Section 3(c), if You Share by any way Modification and/or the Software You produce, the following conditions also apply.
+      The Work must be redistributed entirely free, under this license.
+      You may not impose fees to anyone that gets the Modification/The Software.
+
+
+Section 4 – Sui Generis Database Rights.
+  Where the Licensed Rights include Sui Generis Database Rights that apply to Your use of the Software:
+
+    for the avoidance of doubt, Section 2(a)(1) grants You the right to extract, reuse, reproduce, and Share all or a substantial portion of the contents of the database;
+    if You include all or a substantial portion of the database contents in a database in which You have Sui Generis Database Rights, then the database in which You have Sui Generis Database Rights (but not its individual contents) is Modification, including for purposes of Section 3(b); and
+    You must comply with the conditions in Section 3(a) if You Share all or a substantial portion of the contents of the database.
+
+    For the avoidance of doubt, this Section 4 supplements and does not replace Your obligations under this License where the Licensed Rights include other Copyright and Similar Rights.
+
+Section 5 – Disclaimer of Warranties and Limitation of Liability.
+
+  Unless otherwise separately undertaken by the Author, to the extent possible, the Author offers the Software as-is and as-available, and makes no representations or warranties of any kind concerning the Software, whether express, implied, statutory, or other. This includes, without limitation, warranties of title, merchantability, fitness for a particular purpose, non-infringement, absence of latent or other defects, accuracy, or the presence or absence of errors, whether or not known or discoverable. Where disclaimers of warranties are not allowed in full or in part, this disclaimer may not apply to You.
+  To the extent possible, in no event will the Author be liable to You on any legal theory (including, without limitation, negligence) or otherwise for any direct, special, indirect, incidental, consequential, punitive, exemplary, or other losses, costs, expenses, or damages arising out of this License or use of the Software, even if the Author has been advised of the possibility of such losses, costs, expenses, or damages. Where a limitation of liability is not allowed in full or in part, this limitation may not apply to You.
+
+  The disclaimer of warranties and limitation of liability provided above shall be interpreted in a manner that, to the extent possible, most closely approximates an absolute disclaimer and waiver of all liability.
+
+Section 6 – Term and Termination.
+  This License applies for the term of the Copyright and Similar Rights licensed here. However, if You fail to comply with this License, then Your rights under this License terminate automatically.
+
+  Where Your right to use the Software has terminated under Section 6(a), it reinstates:
+    automatically as of the date the violation is cured, provided it is cured within 30 days of Your discovery of the violation; or
+    upon express reinstatement by the Author.
+  For the avoidance of doubt, this Section 6(b) does not affect any right the Author may have to seek remedies for Your violations of this License.
+  For the avoidance of doubt, the Author may also offer the Software under separate terms or conditions or stop distributing the Software at any time; however, doing so will not terminate this License.
+  Sections 1, 5, 6, 7, and 8 survive termination of this License.
+
+Section 7 – Other Terms and Conditions.
+
+  The Author shall not be bound by any additional or different terms or conditions communicated by You unless expressly agreed.
+  Any arrangements, understandings, or agreements regarding the Software not stated herein are separate from and independent of the terms and conditions of this License.
+  In the event that The License is updated/changed on the official github repository/on the official website, you automatically agree.
+  The Author is not required to notify The User that The License has been updated/changed.
+
+Section 8 – Interpretation.
+  For the avoidance of doubt, this License does not, and shall not be interpreted to, reduce, limit, restrict, or impose conditions on any use of the Software that could lawfully be made without permission under this License.
+
+  To the extent possible, if any provision of this License is deemed unenforceable, it shall be automatically reformed to the minimum extent necessary to make it enforceable. If the provision cannot be reformed, it shall be severed from this License without affecting the enforceability of the remaining terms and conditions.
+  No term or condition of this License will be waived and no failure to comply consented to unless expressly agreed to by the Author.
+Nothing in this License constitutes or may be interpreted as a limitation upon, or waiver of, any privileges and immunities that apply to the Author or You, including from the legal processes of any jurisdiction or authority.

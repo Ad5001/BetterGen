@@ -1,0 +1,154 @@
+{
+	"max": 27,
+	"bone": {
+		"percentage": 71,
+		"minCount": 4,
+		"maxCount": 6,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 352,
+		"data": 0
+	},
+	"rotten_flesh": {
+		"percentage": 71,
+		"minCount": 3,
+		"maxCount": 7,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 367,
+		"data": 0
+	},
+	"gunpowder": {
+		"percentage": 59,
+		"minCount": 1,
+		"maxCount": 8,
+		"minStacks": 4,
+		"maxStacks": 4,
+		"id": 289,
+		"data": 0
+	},
+	"sand": {
+		"percentage": 59,
+		"minCount": 1,
+		"maxCount": 8,
+		"minStacks": 4,
+		"maxStacks": 4,
+		"id": 12,
+		"data": 0
+	},
+	"string": {
+		"percentage": 59,
+		"minCount": 1,
+		"maxCount": 8,
+		"minStacks": 4,
+		"maxStacks": 4,
+		"id": 287,
+		"data": 0
+	},
+	"spider_eye": {
+		"percentage": 29,
+		"minCount": 1,
+		"maxCount": 3,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 375,
+		"data": 0
+	},
+	"enchanted_book": {
+		"percentage": 24,
+		"minCount": 1,
+		"maxCount": 1,
+		"id": 403,
+		"data": 0
+	},
+	"saddle": {
+		"percentage": 24,
+		"minCount": 1,
+		"maxCount": 1,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 329,
+		"data": 0
+	},
+	"golden_apple": {
+		"percentage": 24,
+		"minCount": 1,
+		"maxCount": 1,
+		"minStacks": 1,
+		"maxStacks": 1,
+		"id": 322,
+		"data": 0
+	},
+	"gold_ingot": {
+		"percentage": 18,
+		"minCount": 2,
+		"maxCount": 7,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 266,
+		"data": 0
+	},
+	"iron_ingot": {
+		"percentage": 18,
+		"minCount": 1,
+		"maxCount": 5,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 265,
+		"data": 0
+	},
+	"emerald": {
+		"percentage": 18,
+		"minCount": 1,
+		"maxCount": 3,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 388,
+		"data": 0
+	},
+	"iron_horse_armor": {
+		"percentage": 18,
+		"minCount": 1,
+		"maxCount": 1,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 417,
+		"data": 0
+	},
+	"gold_horse_armor": {
+		"percentage": 12,
+		"minCount": 1,
+		"maxCount": 1,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 418,
+		"data": 0
+	},
+	"diamond": {
+		"percentage": 6,
+		"minCount": 1,
+		"maxCount": 3,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 264,
+		"data": 0
+	},
+	"diamond_horse_armor": {
+		"percentage": 6,
+		"minCount": 1,
+		"maxCount": 1,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 419,
+		"data": 0
+	},
+	"enchanted_golden_apple": {
+		"percentage": 3,
+		"minCount": 1,
+		"maxCount": 1,
+		"minStacks": 2,
+		"maxStacks": 4,
+		"id": 466,
+		"data": 0
+	}
+}
