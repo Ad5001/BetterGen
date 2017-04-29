@@ -16,21 +16,21 @@ class BetterRiver extends Biome {
 	public function __construct() {
 		$this->clearPopulators ();
 		
-		$this->setGroundCover ( [ 
-				Block::get ( Block::SAND, 0 ),
-				Block::get ( Block::SAND, 0 ),
-				Block::get ( Block::SAND, 0 ),
-				Block::get ( Block::SANDSTONE, 0 ),
-				Block::get ( Block::SANDSTONE, 0 ),
-				Block::get ( Block::SANDSTONE, 0 ),
-				Block::get ( Block::SANDSTONE, 0 ),
-				Block::get ( Block::SANDSTONE, 0 ),
-				Block::get ( Block::SANDSTONE, 0 ),
-				Block::get ( Block::SANDSTONE, 0 ),
-				Block::get ( Block::SANDSTONE, 0 ) 
-		] );
+		$this->setGroundCover([ 
+				Block::get(Block::SAND, 0 ),
+				Block::get(Block::SAND, 0 ),
+				Block::get(Block::SAND, 0 ),
+				Block::get(Block::SANDSTONE, 0 ),
+				Block::get(Block::SANDSTONE, 0 ),
+				Block::get(Block::SANDSTONE, 0 ),
+				Block::get(Block::SANDSTONE, 0 ),
+				Block::get(Block::SANDSTONE, 0 ),
+				Block::get(Block::SANDSTONE, 0 ),
+				Block::get(Block::SANDSTONE, 0 ),
+				Block::get(Block::SANDSTONE, 0 ) 
+		]);
 		
-		$this->setElevation ( 60, 60 );
+		$this->setElevation(60, 60);
 		
 		$this->temperature = 0.5;
 		$this->rainfall = 0.7;

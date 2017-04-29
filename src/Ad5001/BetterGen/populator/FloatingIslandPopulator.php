@@ -60,7 +60,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
 		for($y = 127; $y > 0; -- $y) {
-			$b = $this->level->getBlockIdAt ( $x, $y, $z );
+			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL or $b === Block::SAND) {
 				break;
 			} elseif ($b !== 0 and $b !== Block::SNOW_LAYER) {
@@ -68,7 +68,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 			}
 		}
 		
-		return ++ $y;
+		return $y++;
 	}
 	
 	
@@ -138,14 +138,14 @@ class FloatingIslandPopulator extends AmountPopulator {
 	 */
 	public function populateOres(ChunkManager $level, Vector3 $pos, int $width, int $height, Random $random) {
 		$ores = new Ore ();
-		$ores->setOreTypes ( [
-				new OreType ( new CoalOre (), 20, 16, $pos->y - $height, $pos->y ),
-				new OreType ( new IronOre (), 20, 8,  $pos->y - $height, $pos->y - round($height * 0.75)),
-				new OreType ( new RedstoneOre (), 8, 7,  $pos->y - $height, $pos->y - round($height / 2)),
-				new OreType ( new LapisOre (), 1, 6, $pos->y - $height, $pos->y - round($height / 2)),
-				new OreType ( new GoldOre (), 2, 8, $pos->y - $height, $pos->y - round($height / 2)),
-				new OreType ( new DiamondOre (), 1, 7, $pos->y - $height, $pos->y - round($height / 4))
-		] );
+		$ores->setOreTypes([
+				new OreType(new CoalOre (), 20, 16, $pos->y - $height, $pos->y ),
+				new OreType(new IronOre (), 20, 8,  $pos->y - $height, $pos->y - round($height * 0.75)),
+				new OreType(new RedstoneOre (), 8, 7,  $pos->y - $height, $pos->y - round($height / 2)),
+				new OreType(new LapisOre (), 1, 6, $pos->y - $height, $pos->y - round($height / 2)),
+				new OreType(new GoldOre (), 2, 8, $pos->y - $height, $pos->y - round($height / 2)),
+				new OreType(new DiamondOre (), 1, 7, $pos->y - $height, $pos->y - round($height / 4))
+		]);
 		$ores->populate($level, $x >> 4, $z >> 4, $random);
 	}
 }

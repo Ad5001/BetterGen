@@ -36,17 +36,17 @@ class BushPopulator extends AmountPopulator {
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
-		$amount = $this->getAmount ( $random );
-		for($i = 0; $i < $amount; ++ $i) {
-			$x = $random->nextRange ( $chunkX << 4, ($chunkX << 4) + 15 );
-			$z = $random->nextRange ( $chunkZ << 4, ($chunkZ << 4) + 15 );
-			$y = $this->getHighestWorkableBlock ( $x, $z );
-			if ($y === - 1) {
+		$amount = $this->getAmount($random);
+		for($i = 0; $i < $amount; $i++) {
+			$x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
+			$z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
+			$y = $this->getHighestWorkableBlock($x, $z);
+			if ($y === -1) {
 				continue;
 			}
 			$tree = new TreePopulator::$types [$this->type] ();
-			$bush = new Bush ( $tree->leafBlock, $tree->leafType ?? $tree->type);
-			$bush->placeObject ( $level, $x, $y, $z, $random );
+			$bush = new Bush($tree->leafBlock, $tree->leafType ?? $tree->type);
+			$bush->placeObject($level, $x, $y, $z, $random);
 		}
 	}
 	
@@ -57,7 +57,7 @@ class BushPopulator extends AmountPopulator {
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
 		for($y = 127; $y > 0; -- $y) {
-			$b = $this->level->getBlockIdAt ( $x, $y, $z );
+			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL) {
 				break;
 			} elseif ($b !== 0 and $b !== Block::SNOW_LAYER) {
@@ -65,6 +65,6 @@ class BushPopulator extends AmountPopulator {
 			}
 		}
 		
-		return ++ $y;
+		return $y++;
 	}
 }

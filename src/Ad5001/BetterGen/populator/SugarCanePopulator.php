@@ -21,8 +21,8 @@ class SugarCanePopulator extends AmountPopulator {
 	 * Constructs the class
 	 */
 	public function __construct() {
-		$this->setBaseAmount ( 1 );
-		$this->setRandomAmount ( 2 );
+		$this->setBaseAmount(1);
+		$this->setRandomAmount(2);
 	}
 	
 	/*
@@ -34,14 +34,14 @@ class SugarCanePopulator extends AmountPopulator {
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
-		$amount = $this->getAmount ( $random );
+		$amount = $this->getAmount($random);
 		$sugarcane = new SugarCane ();
-		for($i = 0; $i < $amount; ++ $i) {
-			$x = $random->nextRange ( $chunkX * 16, $chunkX * 16 + 15 );
-			$z = $random->nextRange ( $chunkZ * 16, $chunkZ * 16 + 15 );
-			$y = $this->getHighestWorkableBlock ( $x, $z );
-			if ($y !== - 1 and $sugarcane->canPlaceObject ( $level, $x, $y, $z, $random )) {
-				$sugarcane->placeObject ( $level, $x, $y, $z );
+		for($i = 0; $i < $amount; $i++) {
+			$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
+			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
+			$y = $this->getHighestWorkableBlock($x, $z);
+			if ($y !== -1 and $sugarcane->canPlaceObject($level, $x, $y, $z, $random )) {
+				$sugarcane->placeObject($level, $x, $y, $z);
 			}
 		}
 	}
@@ -53,11 +53,11 @@ class SugarCanePopulator extends AmountPopulator {
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
 		for($y = 127; $y >= 0; -- $y) {
-			$b = $this->level->getBlockIdAt ( $x, $y, $z );
+			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b !== Block::AIR and $b !== Block::LEAVES and $b !== Block::LEAVES2) {
 				break;
 			}
 		}
-		return $y === 0 ? - 1 : ++ $y;
+		return $y === 0 ? - 1 : $y++;
 	}
 }

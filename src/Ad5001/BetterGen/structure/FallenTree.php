@@ -23,23 +23,23 @@ class Bush extends Object {
 			Block::SNOW_LAYER => true,
 			Block::LOG2 => true 
 	];
-	protected $leaf;
-	protected $height;
+	protected $trunk;
+	protected $direction;
 	
 	/*
 	 * Constructs the class
-	 * @param $leafId int
-	 * @param $leafData int
+	 * @param $trunkId int
+	 * @param $trunkData int
 	 */
-	public function __construct($leafId = Block::LEAVES, $leafData = 0) {
-		$this->leaf = [ 
-				$leafId,
-				$leafData 
+	public function __construct($trunk = Block::WOOD, $trunkData = 0) {
+		$this->trunk = [ 
+				$trunkId,
+				$trunkData 
 		];
 	}
 	
 	/*
-	 * Places a bush
+	 * Places a fallen tree
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $x int
 	 * @param $y int
@@ -52,7 +52,7 @@ class Bush extends Object {
 		$this->placeLeaf($pos->x, $pos->y, $pos->z, $level);
 		for($i = 0; $i < $number; $i ++) {
 			$transfer = $random->nextBoolean ();
-			$direction = $random->nextBoundedInt(6);
+			$direction = $random->nextBoundedInt(4);
 			$newPos = $pos->getSide($direction);
 			if ($transfer)
 				$pos = $newPos;
@@ -61,16 +61,16 @@ class Bush extends Object {
 	}
 	
 	/*
-	 * Places a leaf
+	 * Places a Block
 	 * @param $x int
 	 * @param $y int
 	 * @param $z int
 	 * @param $level pocketmine\level\ChunkManager
 	 */
-	public function placeLeaf($x, $y, $z, ChunkManager $level) {
+	public function placeBlock($x, $y, $z, ChunkManager $level) {
 		if (isset($this->overridable [$level->getBlockIdAt($x, $y, $z )] ) && ! isset($this->overridable [$level->getBlockIdAt($x, $y - 1, $z )] )) {
-			$level->setBlockIdAt($x, $y, $z, $this->leaf [0]);
-			$level->setBlockDataAt($x, $y, $z, $this->leaf [1]);
+			$level->setBlockIdAt($x, $y, $z, $this->trunk [0]);
+			$level->setBlockDataAt($x, $y, $z, $this->trunk [1]);
 		}
 	}
 }

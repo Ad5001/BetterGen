@@ -448,24 +448,24 @@ class SakuraTree extends Tree {
 	 * @param $random $random
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
-		$percentage = $random->nextBoundedInt ( 100 );
+		$percentage = $random->nextBoundedInt(100);
 		if ($percentage > 10) {
 			return;
 		}
-		$trunkHeight = 7 + $random->nextBoundedInt ( 7 );
+		$trunkHeight = 7 + $random->nextBoundedInt(7);
 		
-		$direction = $random->nextBoundedInt ( 3 ); // Choosing building north east west south
+		$direction = $random->nextBoundedInt(3); // Choosing building north east west south
 		switch ($direction) {
 			case 0 :
 				$xDiff = 0;
-				$zDiff = - 1;
+				$zDiff = -1;
 				break;
 			case 1 :
 				$xDiff = 0;
 				$zDiff = 1;
 				break;
 			case 2 :
-				$xDiff = - 1;
+				$xDiff = -1;
 				$zDiff = 0;
 				break;
 			case 3 :
@@ -473,10 +473,10 @@ class SakuraTree extends Tree {
 				$zDiff = 0;
 				break;
 		}
-		list ( $vParts, $hParts ) = self::TRUNK_POS [$trunkHeight];
+		list($vParts, $hParts ) = self::TRUNK_POS [$trunkHeight];
 		
-		$this->setLog ( $level, $x, $y, $z );
-		list ( $lastX, $lastY, $lastZ ) = [ 
+		$this->setLog($level, $x, $y, $z);
+		list($lastX, $lastY, $lastZ ) = [ 
 				$x,
 				$y,
 				$z 
@@ -488,8 +488,8 @@ class SakuraTree extends Tree {
 				$lastX += $xDiff * 2;
 				$lastY ++;
 				$lastZ += $zDiff * 2;
-				$this->setLog ( $level, $lastX - $xDiff, $lastY, $lastZ - $zDiff );
-				$this->setLog ( $level, $lastX, $lastY, $lastZ );
+				$this->setLog($level, $lastX - $xDiff, $lastY, $lastZ - $zDiff);
+				$this->setLog($level, $lastX, $lastY, $lastZ);
 			}
 		}
 		
@@ -497,7 +497,7 @@ class SakuraTree extends Tree {
 		$lastX += $xDiff;
 		$lastY ++;
 		$lastZ += $zDiff;
-		$this->setLog ( $level, $lastX, $lastY, $lastZ );
+		$this->setLog($level, $lastX, $lastY, $lastZ);
 		
 		// Filling verticaly
 		if ($vParts > 0) {
@@ -505,8 +505,8 @@ class SakuraTree extends Tree {
 				$lastX += $xDiff;
 				$lastY += 2;
 				$lastZ += $zDiff;
-				$this->setLog ( $level, $lastX, $lastY - 1, $lastZ );
-				$this->setLog ( $level, $lastX, $lastY, $lastZ );
+				$this->setLog($level, $lastX, $lastY - 1, $lastZ);
+				$this->setLog($level, $lastX, $lastY, $lastZ);
 			}
 		}
 		// Filling the top trunk.
@@ -514,26 +514,26 @@ class SakuraTree extends Tree {
 		$lastY ++;
 		$lastZ += $zDiff;
 		for($i = 0; $i < 4; $i ++) {
-			$this->setLog ( $level, $lastX, $lastY + $i, $lastZ );
+			$this->setLog($level, $lastX, $lastY + $i, $lastZ);
 		}
 		$lastY ++;
 		// FIlling the branches.
 		$branchLen2 = function ($base) {
-			return ceil ( $base / 2 );
+			return ceil($base / 2);
 		};
 		
 		for($dir = 0; $dir < 4; $dir ++) {
 			switch ($dir) {
 				case 0 :
 					$xd = 0;
-					$zd = - 1;
+					$zd = -1;
 					break;
 				case 1 :
 					$xd = 0;
 					$zd = 1;
 					break;
 				case 2 :
-					$xd = - 1;
+					$xd = -1;
 					$zd = 0;
 					break;
 				case 3 :
@@ -542,8 +542,8 @@ class SakuraTree extends Tree {
 					break;
 			}
 			
-			$stickLen = round ( $trunkHeight / 3 );
-			$stickLen2 = call_user_func ( $branchLen2, $stickLen );
+			$stickLen = round($trunkHeight / 3);
+			$stickLen2 = call_user_func($branchLen2, $stickLen);
 			$totalLength = $stickLen + $stickLen2; // Length of the stick
 			$sideLen = $totalLength ** 2; // Side length
 			                              
@@ -553,13 +553,13 @@ class SakuraTree extends Tree {
 				$lZ1 = $lastZ + ($zd * $i);
 				if ($zd !== 0)
 					for($x = $lX1 - $numForward; $x !== $lX1 + $numForward + 1; $x ++) {
-						$this->setLeave ( $level, $x, $lastY + 3, $lZ1, $random );
+						$this->setLeave($level, $x, $lastY + 3, $lZ1, $random);
 					}
 				if ($xd !== 0)
 					for($z = $lZ1 - $numForward; $z !== $lZ1 + $numForward + 1; $z ++) {
-						$this->setLeave ( $level, $lX1, $lastY + 3, $z, $random );
+						$this->setLeave($level, $lX1, $lastY + 3, $z, $random);
 					}
-				$this->setLog ( $level, $lX1, $lastY, $lZ1 );
+				$this->setLog($level, $lX1, $lastY, $lZ1);
 			}
 			
 			// Second branch part. + second leave part
@@ -569,13 +569,13 @@ class SakuraTree extends Tree {
 				$lZ = $lZ1 + ($zd * $i);
 				if ($zd !== 0)
 					for($x = $lX - $numForward; $x !== $lX + $numForward + 1; $x ++) {
-						$this->setLeave ( $level, $x, $lastY + 2, $lZ, $random );
+						$this->setLeave($level, $x, $lastY + 2, $lZ, $random);
 					}
 				if ($xd !== 0)
 					for($z = $lZ - $numForward; $z !== $lZ + $numForward + 1; $z ++) {
-						$this->setLeave ( $level, $lX, $lastY + 2, $z, $random );
+						$this->setLeave($level, $lX, $lastY + 2, $z, $random);
 					}
-				$this->setLog ( $level, $lX, $lastY + 1, $lZ );
+				$this->setLog($level, $lX, $lastY + 1, $lZ);
 			}
 			
 			$lX += $xd;
@@ -583,15 +583,15 @@ class SakuraTree extends Tree {
 			// Leaves falling from the tree forward
 			if ($lastZ !== $lZ) { // Z has changed, using X for setting
 				for($x = $lX - $numForward; $x <= $lX + $numForward; $x ++) {
-					$numDown = $random->nextBoundedInt ( 3 ) + 1;
+					$numDown = $random->nextBoundedInt(3 ) + 1;
 					for($y = $lastY + 1; $y > $lastY - $numDown; $y --)
-						$this->setLeave ( $level, $x, $y, $lZ, $random );
+						$this->setLeave($level, $x, $y, $lZ, $random);
 				}
 			} else { // Z have stayed, X has changed
 				for($z = $lZ - $numForward; $z <= $lZ + $numForward; $z ++) {
-					$numDown = $random->nextBoundedInt ( 3 ) + 1;
+					$numDown = $random->nextBoundedInt(3 ) + 1;
 					for($y = $lastY + 1; $y > $lastY + 1 - $numDown; $y --)
-						$this->setLeave ( $level, $lX, $y, $z, $random );
+						$this->setLeave($level, $lX, $y, $z, $random);
 				}
 			}
 			
@@ -600,14 +600,14 @@ class SakuraTree extends Tree {
 			switch ($dir + 1) {
 				case 4 :
 					$xd2 = 0;
-					$zd2 = - 1;
+					$zd2 = -1;
 					break;
 				case 1 :
 					$xd2 = 0;
 					$zd2 = 1;
 					break;
 				case 2 :
-					$xd2 = - 1;
+					$xd2 = -1;
 					$zd2 = 0;
 					break;
 				case 3 :
@@ -617,15 +617,15 @@ class SakuraTree extends Tree {
 			}
 			
 			// Leaves falling from the tree diagonaly
-			foreach ( self::DIAG_LEAVES [$trunkHeight] as $pos ) {
-				$numDown = $random->nextBoundedInt ( 3 ) + 1;
+			foreach(self::DIAG_LEAVES [$trunkHeight] as $pos ) {
+				$numDown = $random->nextBoundedInt(3 ) + 1;
 				for($y = $lastY + 1; $y > $lastY - $numDown; $y --)
-					$this->setLeave ( $level, $lastX + $pos [0], $y, $lastZ + $pos [1], $random );
+					$this->setLeave($level, $lastX + $pos [0], $y, $lastZ + $pos [1], $random);
 			}
 			
 			// Additional leaves
-			foreach ( self::ADDITIONAL_BLOCKS [$trunkHeight] as $pos ) {
-				$this->setLeave ( $level, $lastX + $pos [0], $lastY + 2, $lastZ + $pos [1], $random );
+			foreach(self::ADDITIONAL_BLOCKS [$trunkHeight] as $pos ) {
+				$this->setLeave($level, $lastX + $pos [0], $lastY + 2, $lastZ + $pos [1], $random);
 			}
 		}
 	}
@@ -638,8 +638,8 @@ class SakuraTree extends Tree {
 	 * @param $z int
 	 */
 	public function setLog(ChunkManager $level, $x, $y, $z) {
-		$level->setBlockIdAt ( $x, $y, $z, $this->trunkBlock );
-		$level->setBlockDataAt ( $x, $y, $z, $this->type );
+		$level->setBlockIdAt($x, $y, $z, $this->trunkBlock);
+		$level->setBlockDataAt($x, $y, $z, $this->type);
 	}
 	
 	/*
@@ -655,7 +655,7 @@ class SakuraTree extends Tree {
 				$this->leafType,
 				$this->leaf2Type 
 		] [( int ) $random->nextBoolean ()];
-		$level->setBlockIdAt ( $x, $y, $z, $this->leafBlock );
-		$level->setBlockDataAt ( $x, $y, $z, $data );
+		$level->setBlockIdAt($x, $y, $z, $this->leafBlock);
+		$level->setBlockDataAt($x, $y, $z, $data);
 	}
 }

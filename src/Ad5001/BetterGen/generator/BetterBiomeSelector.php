@@ -30,8 +30,8 @@ class BetterBiomeSelector extends BiomeSelector {
 	public function __construct(Random $random, callable $lookup, Biome $fallback) {
 		$this->fallback = $fallback;
 		$this->lookup = $lookup;
-		$this->temperature = new Simplex ( $random, 2, 1 / 16, 1 / 512 );
-		$this->rainfall = new Simplex ( $random, 2, 1 / 16, 1 / 512 );
+		$this->temperature = new Simplex($random, 2, 1 / 16, 1 / 512);
+		$this->rainfall = new Simplex($random, 2, 1 / 16, 1 / 512);
 	}
 	public function recalculate() {
 	} // Using our own system, No need for that
@@ -39,10 +39,10 @@ class BetterBiomeSelector extends BiomeSelector {
 		$this->biomes [$biome->getId ()] = $biome;
 	}
 	public function getTemperature($x, $z) {
-		return ($this->temperature->noise2D ( $x, $z, true ) + 1) / 2;
+		return ($this->temperature->noise2D($x, $z, true ) + 1) / 2;
 	}
 	public function getRainfall($x, $z) {
-		return ($this->rainfall->noise2D ( $x, $z, true ) + 1) / 2;
+		return ($this->rainfall->noise2D($x, $z, true ) + 1) / 2;
 	}
 	
 	/**
@@ -55,10 +55,10 @@ class BetterBiomeSelector extends BiomeSelector {
 	 * @return Biome
 	 */
 	public function pickBiome($x, $z) {
-		$temperature = ($this->getTemperature ( $x, $z ));
-		$rainfall = ($this->getRainfall ( $x, $z ));
+		$temperature = ($this->getTemperature($x, $z ));
+		$rainfall = ($this->getRainfall($x, $z ));
 		
-		$biomeId = BetterNormal::getBiome ( $temperature, $rainfall );
+		$biomeId = BetterNormal::getBiome($temperature, $rainfall);
 		// $biomeId = new \Ad5001\BetterGen\biome\BetterDesert();
 		$b = (($biomeId instanceof Biome) ? $biomeId : ($this->biomes [$biomeId] ?? $this->fallback));
 		return $b;

@@ -27,24 +27,24 @@ class BetterForest extends ForestBiome implements Mountainable {
 			Main::SAKURA_FOREST 
 	];
 	public function __construct($type = 0, array $infos = [0.6, 0.5]) {
-		parent::__construct ( $type );
+		parent::__construct($type);
 		$this->clearPopulators ();
 		
 		$this->type = $type;
 		
-		$bush = new BushPopulator ( $type );
-		$bush->setBaseAmount ( 10 );
-		$this->addPopulator ( $bush );
-		$trees = new TreePopulator ( $type );
-		$trees->setBaseAmount ( (null !== @constant ( TreePopulator::$types [$type] . "::maxPerChunk" )) ? constant ( TreePopulator::$types [$type] . "::maxPerChunk" ) : 5 );
-		$this->addPopulator ( $trees );
+		$bush = new BushPopulator($type);
+		$bush->setBaseAmount(10);
+		$this->addPopulator($bush);
+		$trees = new TreePopulator($type);
+		$trees->setBaseAmount((null !== @constant(TreePopulator::$types [$type] . "::maxPerChunk" )) ? constant(TreePopulator::$types [$type] . "::maxPerChunk" ) : 5);
+		$this->addPopulator($trees);
 		
 		$tallGrass = new TallGrass ();
-		$tallGrass->setBaseAmount ( 3 );
+		$tallGrass->setBaseAmount(3);
 		
-		$this->addPopulator ( $tallGrass );
+		$this->addPopulator($tallGrass);
 		
-		$this->setElevation ( 63, 81 );
+		$this->setElevation(63, 81);
 		
 		$this->temperature = $infos [0];
 		$this->rainfall = $infos [1];
@@ -68,9 +68,9 @@ class BetterForest extends ForestBiome implements Mountainable {
 	 * @return bool
 	 */
 	public static function registerForest(string $name, string $treeClass, array $infos): bool {
-		self::$types [] = str_ireplace ( "tree", "", explode ( "\\", $treeClass ) [count ( explode ( "\\", $treeClass ) )] ) . " Forest";
+		self::$types [] = str_ireplace("tree", "", explode("\\", $treeClass ) [count(explode("\\", $treeClass ) )] ) . " Forest";
 		TreePopulator::$types [] = $treeClass;
-		self::$ids [] = Main::SAKURA_FOREST + (count ( self::$types ) - 2);
-		Main::register ( Main::SAKURA_FOREST + (count ( self::$types ) - 2), new BetterForest ( count ( self::$types ) - 1, $infos ) );
+		self::$ids [] = Main::SAKURA_FOREST + (count(self::$types ) - 2);
+		Main::register(Main::SAKURA_FOREST + (count(self::$types ) - 2), new BetterForest(count(self::$types ) - 1, $infos ));
 	}
 }

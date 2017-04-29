@@ -27,22 +27,22 @@ class LakePopulator extends AmountPopulator {
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
-		$x = $random->nextRange ( $chunkX << 4, ($chunkX << 4) + 15 );
-		$z = $random->nextRange ( $chunkZ << 4, ($chunkZ << 4) + 15 );
-		$ory = $random->nextRange ( 20, 63 ); // Water level
+		$x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
+		$z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
+		$ory = $random->nextRange(20, 63); // Water level
 		$y = $ory;
 		for($i = 0; $i < 4; $i ++) {
-			$x += $random->nextRange ( - 1, 1 );
-			$y += $random->nextRange ( - 1, 1 );
-			$z += $random->nextRange ( - 1, 1 );
-			if ($level->getBlockIdAt ( $x, $y, $z ) !== Block::AIR)
-				BuildingUtils::buildRandom ( $this->level, new Vector3 ( $x, $y, $z ), new Vector3 ( 5, 5, 5 ), $random, Block::get ( Block::WATER ) );
+			$x += $random->nextRange(- 1, 1);
+			$y += $random->nextRange(- 1, 1);
+			$z += $random->nextRange(- 1, 1);
+			if ($level->getBlockIdAt($x, $y, $z ) !== Block::AIR)
+				BuildingUtils::buildRandom($this->level, new Vector3($x, $y, $z ), new Vector3(5, 5, 5 ), $random, Block::get(Block::WATER ));
 		}
 		for($xx = $x - 8; $xx <= $x + 8; $xx ++)
 			for($zz = $z - 8; $zz <= $z + 8; $zz ++)
 				for($yy = $ory + 1; $yy <= $y + 3; $yy ++)
-					if ($level->getBlockIdAt ( $xx, $yy, $zz ) == Block::WATER)
-						$level->setBlockIdAt ( $xx, $yy, $zz, Block::AIR );
+					if ($level->getBlockIdAt($xx, $yy, $zz ) == Block::WATER)
+						$level->setBlockIdAt($xx, $yy, $zz, Block::AIR);
 	}
 	
 	/*
@@ -52,7 +52,7 @@ class LakePopulator extends AmountPopulator {
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
 		for($y = 127; $y > 0; -- $y) {
-			$b = $this->level->getBlockIdAt ( $x, $y, $z );
+			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL) {
 				break;
 			} elseif ($b !== 0 and $b !== Block::SNOW_LAYER) {
@@ -60,6 +60,6 @@ class LakePopulator extends AmountPopulator {
 			}
 		}
 		
-		return ++ $y;
+		return $y++;
 	}
 }

@@ -26,9 +26,9 @@ class SugarCane extends Object {
 	 * @param $random pocketmine\utils\Random
 	 */
 	public function canPlaceObject(ChunkManager $level, int $x, int $y, int $z, Random $random): bool {
-		$this->totalHeight = 1 + $random->nextBoundedInt ( 3 );
-		$below = $level->getBlockIdAt ( $x, $y - 1, $z );
-		if (($below == Block::SAND || $below == Block::GRASS) && ($level->getBlockIdAt ( $x + 1, $y - 1, $z ) == Block::WATER || $level->getBlockIdAt ( $x - 1, $y - 1, $z ) == Block::WATER || $level->getBlockIdAt ( $x, $y - 1, $z + 1 ) == Block::WATER || $level->getBlockIdAt ( $x, $y - 1, $z - 1 ) == Block::WATER)) {
+		$this->totalHeight = 1 + $random->nextBoundedInt(3);
+		$below = $level->getBlockIdAt($x, $y - 1, $z);
+		if (($below == Block::SAND || $below == Block::GRASS) && ($level->getBlockIdAt($x + 1, $y - 1, $z ) == Block::WATER || $level->getBlockIdAt($x - 1, $y - 1, $z ) == Block::WATER || $level->getBlockIdAt($x, $y - 1, $z + 1 ) == Block::WATER || $level->getBlockIdAt($x, $y - 1, $z - 1 ) == Block::WATER)) {
 			return true;
 		}
 		return false;
@@ -43,10 +43,10 @@ class SugarCane extends Object {
 	 */
 	public function placeObject(ChunkManager $level, int $x, int $y, int $z) {
 		for($yy = 0; $yy < $this->totalHeight; $yy ++) {
-			if ($level->getBlockIdAt ( $x, $y + $yy, $z ) != Block::AIR) {
+			if ($level->getBlockIdAt($x, $y + $yy, $z ) != Block::AIR) {
 				return;
 			}
-			$level->setBlockIdAt ( $x, $y + $yy, $z, Block::SUGARCANE_BLOCK );
+			$level->setBlockIdAt($x, $y + $yy, $z, Block::SUGARCANE_BLOCK);
 		}
 	}
 }

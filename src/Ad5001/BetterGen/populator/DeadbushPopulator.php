@@ -26,14 +26,14 @@ class DeadbushPopulator extends AmountPopulator {
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
-		$amount = $this->getAmount ( $random );
-		for($i = 0; $i < $amount; ++ $i) {
-			$x = $random->nextRange ( $chunkX * 16, $chunkX * 16 + 15 );
-			$z = $random->nextRange ( $chunkZ * 16, $chunkZ * 16 + 15 );
-			$y = $this->getHighestWorkableBlock ( $x, $z );
-			if ($y !== - 1 && $level->getBlockIdAt ( $x, $y - 1, $z ) == Block::SAND) {
-				$level->setBlockIdAt ( $x, $y, $z, Block::DEAD_BUSH );
-				$level->setBlockDataAt ( $x, $y, $z, 1 );
+		$amount = $this->getAmount($random);
+		for($i = 0; $i < $amount; $i++) {
+			$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
+			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
+			$y = $this->getHighestWorkableBlock($x, $z);
+			if ($y !== -1 && $level->getBlockIdAt($x, $y - 1, $z ) == Block::SAND) {
+				$level->setBlockIdAt($x, $y, $z, Block::DEAD_BUSH);
+				$level->setBlockDataAt($x, $y, $z, 1);
 			}
 		}
 	}
@@ -45,11 +45,11 @@ class DeadbushPopulator extends AmountPopulator {
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
 		for($y = 127; $y >= 0; -- $y) {
-			$b = $this->level->getBlockIdAt ( $x, $y, $z );
+			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b !== Block::AIR and $b !== Block::LEAVES and $b !== Block::LEAVES2) {
 				break;
 			}
 		}
-		return $y === 0 ? - 1 : ++ $y;
+		return $y === 0 ? - 1 : $y++;
 	}
 }
