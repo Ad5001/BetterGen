@@ -10,7 +10,6 @@ namespace Ad5001\BetterGen\biome;
 
 use pocketmine\level\generator\normal\biome\ForestBiome;
 use pocketmine\level\generator\biome\Biome;
-use pocketmine\level\generator\populator\TallGrass;
 use Ad5001\BetterGen\Main;
 use Ad5001\BetterGen\populator\TreePopulator;
 use Ad5001\BetterGen\populator\BushPopulator;
@@ -39,7 +38,7 @@ class BetterForest extends ForestBiome implements Mountainable {
 		$trees->setBaseAmount((null !== @constant(TreePopulator::$types [$type] . "::maxPerChunk" )) ? constant(TreePopulator::$types [$type] . "::maxPerChunk" ) : 5);
 		$this->addPopulator($trees);
 		
-		$tallGrass = new TallGrass ();
+		$tallGrass = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\TallGrass () : new \pocketmine\level\generator\populator\TallGrass();
 		$tallGrass->setBaseAmount(3);
 		
 		$this->addPopulator($tallGrass);

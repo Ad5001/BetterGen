@@ -245,4 +245,12 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 		LootTable::fillChest($inv->getInventory(), $event->getBlock());
 		$event->setCancelled();
 	}
+
+	/*
+	* Check if it's a Tesseract like namespace
+	* @return 	bool
+	*/
+	public static function isOtherNS() {
+		return @class_exists("pocketmine\\level\\generator\\normal\\object\\OakTree");
+	}
 }

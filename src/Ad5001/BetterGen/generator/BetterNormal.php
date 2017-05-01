@@ -14,7 +14,7 @@ use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\Generator;
 use pocketmine\level\generator\noise\Simplex;
 use pocketmine\level\generator\object\OreType;
-use pocketmine\level\generator\populator\GroundCover;
+use pocketmine\level\generator\normal\object\OreType as OreType2;
 use pocketmine\level\generator\populator\Ore;
 use pocketmine\block\Block;
 use pocketmine\block\CoalOre;
@@ -38,6 +38,7 @@ use Ad5001\BetterGen\populator\RavinePopulator;
 use Ad5001\BetterGen\populator\LakePopulator;
 use Ad5001\BetterGen\populator\MineshaftPopulator;
 use Ad5001\BetterGen\populator\FloatingIslandPopulator;
+use Ad5001\BetterGen\Main;
 
 class BetterNormal extends Generator {
 	const NOT_OVERWRITABLE = [ 
@@ -135,7 +136,7 @@ class BetterNormal extends Generator {
 		
 		$this->selector->recalculate ();
 		
-		$cover = new GroundCover ();
+		$cover = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\GroundCover() : new \pocketmine\level\generator\populator\GroundCover();
 		$this->generationPopulators [] = $cover;
 		
 		$cave = new CavePopulator ();
@@ -163,8 +164,18 @@ class BetterNormal extends Generator {
 		$fisl->setRandomAmount(132);
 		$this->populators [] = $fisl;
 		
-		$ores = new Ore ();
-		$ores->setOreTypes([ 
+		$ores = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\Ore() : new \pocketmine\level\generator\populator\Ore();
+		if(Main::isOtherNS()) $ores->setOreTypes([ 
+				new OreType2(new CoalOre (), 20, 16, 0, 128 ),
+				new OreType2(new IronOre (), 20, 8, 0, 64 ),
+				new OreType2(new RedstoneOre (), 8, 7, 0, 16 ),
+				new OreType2(new LapisOre (), 1, 6, 0, 32 ),
+				new OreType2(new GoldOre (), 2, 8, 0, 32 ),
+				new OreType2(new DiamondOre (), 1, 7, 0, 16 ),
+				new OreType2(new Dirt (), 20, 32, 0, 128 ),
+				new OreType2(new Gravel (), 10, 16, 0, 128 ) 
+		]);
+		if(!Main::isOtherNS()) $ores->setOreTypes([ 
 				new OreType(new CoalOre (), 20, 16, 0, 128 ),
 				new OreType(new IronOre (), 20, 8, 0, 64 ),
 				new OreType(new RedstoneOre (), 8, 7, 0, 16 ),

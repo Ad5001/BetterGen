@@ -17,11 +17,13 @@ use Ad5001\BetterGen\populator\AmountPopulator;
 
 class FallenTreePopulator extends AmountPopulator {
 	protected $level;
+	protected $type;
 	/*
 	 * Constructs the class
 	 * @param $type int
 	 */
-	public function __construct() {
+	public function __construct(int $type = 0) {
+		
 		$this->setBaseAmount(1);
 		$this->setRandomAmount(2);
 	}
@@ -36,13 +38,13 @@ class FallenTreePopulator extends AmountPopulator {
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
 		$amount = $this->getAmount($random);
-		$fallenTree = new FallenTree();
+		$fallenTree = new FallenTree(new TreePopulator::$types[$this->type]());
 		for($i = 0; $i < $amount; $i++) {
 			$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
 			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
 			$y = $this->getHighestWorkableBlock($x, $z);
 			if ($y !== -1 and $fallenTree->canPlaceObject($level, $x, $y, $z, $random )) {
-				$fallenTree->placeObject($level, $x, $y, $z);
+				$fallenTree->placeObject($level, $x, $y, $z, $random);
 			}
 		}
 	}

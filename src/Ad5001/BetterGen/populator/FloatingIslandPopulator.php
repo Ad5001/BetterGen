@@ -6,8 +6,8 @@ use pocketmine\level\ChunkManager;
 use pocketmine\utils\Random;
 use Ad5001\BetterGen\generator\BetterNormal;
 use pocketmine\block\Block;
-use pocketmine\level\generator\populator\Ore;
 use pocketmine\level\generator\object\OreType;
+use pocketmine\level\generator\normal\object\OreType as OreType2;
 use pocketmine\math\Vector3;
 use pocketmine\block\CoalOre;
 use pocketmine\block\IronOre;
@@ -15,6 +15,7 @@ use pocketmine\block\RedstoneOre;
 use pocketmine\block\LapisOre;
 use pocketmine\block\GoldOre;
 use pocketmine\block\DiamondOre;
+use Ad5001\BetterGen\Main;
 
 /*
  * FloatingIslandPopulator from BetterGen
@@ -137,8 +138,16 @@ class FloatingIslandPopulator extends AmountPopulator {
 	 * @return 	void
 	 */
 	public function populateOres(ChunkManager $level, Vector3 $pos, int $width, int $height, Random $random) {
-		$ores = new Ore ();
-		$ores->setOreTypes([
+		$ores = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\Ore() : new \pocketmine\level\generator\populator\Ore();
+		if(Main::isOtherNS()) $ores->setOreTypes([
+				new OreType2(new CoalOre (), 20, 16, $pos->y - $height, $pos->y ),
+				new OreType2(new IronOre (), 20, 8,  $pos->y - $height, $pos->y - round($height * 0.75)),
+				new OreType2(new RedstoneOre (), 8, 7,  $pos->y - $height, $pos->y - round($height / 2)),
+				new OreType2(new LapisOre (), 1, 6, $pos->y - $height, $pos->y - round($height / 2)),
+				new OreType2(new GoldOre (), 2, 8, $pos->y - $height, $pos->y - round($height / 2)),
+				new OreType2(new DiamondOre (), 1, 7, $pos->y - $height, $pos->y - round($height / 4))
+		]);
+		if(!Main::isOtherNS()) $ores->setOreTypes([
 				new OreType(new CoalOre (), 20, 16, $pos->y - $height, $pos->y ),
 				new OreType(new IronOre (), 20, 8,  $pos->y - $height, $pos->y - round($height * 0.75)),
 				new OreType(new RedstoneOre (), 8, 7,  $pos->y - $height, $pos->y - round($height / 2)),

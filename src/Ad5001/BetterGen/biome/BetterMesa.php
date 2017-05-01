@@ -15,6 +15,7 @@ use pocketmine\level\generator\object\OreType;
 use pocketmine\level\generator\biome\Biome;
 use pocketmine\block\Block;
 use pocketmine\block\GoldOre;
+use Ad5001\BetterGen\Main;
 use Ad5001\BetterGen\populator\TreePopulator;
 use Ad5001\BetterGen\populator\CactusPopulator;
 use Ad5001\BetterGen\populator\DeadbushPopulator;
@@ -37,10 +38,10 @@ class BetterMesa extends SandyBiome {
 		$sugarCane = new TreePopulator ();
 		$sugarCane->setRandomAmount(2);
 		$sugarCane->setBaseAmount(0);
-		
-		$ores = new Ore ();
+				
+		$ores = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\Ore() : new \pocketmine\level\generator\populator\Ore();
 		$ores->setOreTypes([ 
-				new OreType(new GoldOre (), 2, 8, 0, 32 ) 
+				Main::isOtherNS() ? new \pocketmine\level\generator\normal\object\OreType(new GoldOre (), 2, 8, 0, 32 ) : new \pocketmine\level\generator\object\OreType(new GoldOre (), 2, 8, 0, 32 ) 
 		]);
 		
 		$this->addPopulator($cactus);

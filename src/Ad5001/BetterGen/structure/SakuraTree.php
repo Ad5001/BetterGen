@@ -13,7 +13,12 @@ use pocketmine\block\Block;
 use pocketmine\block\Wood;
 use pocketmine\level\ChunkManager;
 use pocketmine\utils\Random;
-use pocketmine\level\generator\object\Tree;
+use Ad5001\BetterGen\Main;
+if(Main::isOtherNS()) {
+	class_alias("pocketmine\\level\\generator\\normal\\object\\Tree", "Ad5001\\BetterGen\\structure\\Tree");
+} else {
+	class_alias("pocketmine\\level\\generator\\object\\Tree", "Ad5001\\BetterGen\\structure\\Tree");
+}
 
 class SakuraTree extends Tree {
 	const TRUNK_POS = [  // Checks for trees trunks. Not automaticly generated but there is no point of making more or less
@@ -427,6 +432,9 @@ class SakuraTree extends Tree {
 			] 
 	];
 	const maxPerChunk = 2;
+
+
+	public $trunkHeight = 11;
 	
 	/*
 	 * Constructs the class

@@ -14,6 +14,8 @@ use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
 use Ad5001\BetterGen\structure\SakuraTree;
 use Ad5001\BetterGen\populator\AmountPopulator;
+use Ad5001\BetterGen\Main;
+
 
 class TreePopulator extends AmountPopulator {
 	static $types = [ 
@@ -29,6 +31,13 @@ class TreePopulator extends AmountPopulator {
 	 */
 	public function __construct($type = 0) {
 		$this->type = $type;
+		if(Main::isOtherNS()) {
+			self::$types = [ 
+				"pocketmine\\level\\generator\\normal\\object\\OakTree",
+				"pocketmine\\level\\generator\\normal\\object\\BirchTree",
+				"Ad5001\\BetterGen\\structure\\SakuraTree" 
+			];
+		}
 	}
 	
 	/*

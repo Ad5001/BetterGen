@@ -44,7 +44,7 @@ class BushPopulator extends AmountPopulator {
 			if ($y === -1) {
 				continue;
 			}
-			$tree = new TreePopulator::$types [$this->type] ();
+			$tree = new TreePopulator::$types[$this->type]();
 			$bush = new Bush($tree->leafBlock, $tree->leafType ?? $tree->type);
 			$bush->placeObject($level, $x, $y, $z, $random);
 		}
