@@ -251,6 +251,10 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 	* @return 	bool
 	*/
 	public static function isOtherNS() {
-		return @class_exists("pocketmine\\level\\generator\\normal\\object\\OakTree");
+		try {
+			return @class_exists("pocketmine\\level\\generator\\normal\\object\\OakTree");
+		} catch(\Exception $e) {
+			return false;
+		}
 	}
 }
