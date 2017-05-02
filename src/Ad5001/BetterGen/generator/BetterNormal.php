@@ -154,10 +154,12 @@ class BetterNormal extends Generator {
 		$mineshaft->setRandomAmount(102);
 		$this->populators [] = $mineshaft;
 		
-		$lake = new LakePopulator ();
-		$lake->setBaseAmount(0);
-		$lake->setRandomAmount(1);
-		$this->generationPopulators [] = $lake;
+		// https://twitter.com/Ad5001P4F/status/859430935468670976
+		// $lake = new LakePopulator ();
+		// $lake->setBaseAmount(0);
+		// $lake->setRandomAmount(1);
+		// $this->generationPopulators [] = $lake;
+
 		
 		$fisl = new FloatingIslandPopulator();
 		$fisl->setBaseAmount(0);

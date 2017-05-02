@@ -8,11 +8,9 @@ Welcome user to the home of a new PocketMine World Generator which features 9 ne
     <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/Mineshaft.jpg" style="width: 500px"></img>
 2. <h3>Ravines:</h3>
     <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/MesaRavine.jpg" style="width: 500px"></img>
-3. <h3>Lakes:</h3>
-    <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/lake.png" style="width: 500px"></img>
-4. <h3>Caves:</h3>
+3. <h3>Caves:</h3>
     <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/cave.jpg" style="width: 500px"></img>
-5. <h3>Floating islands:</h3>
+4. <h3>Floating islands:</h3>
     <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/Island.jpg" style="width: 500px"></img>
 
 
