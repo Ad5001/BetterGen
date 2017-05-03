@@ -17,13 +17,21 @@ use pocketmine\math\Vector3;
 use pocketmine\level\generator\object\Tree;
 use pocketmine\level\generator\normal\object\Tree as Tree2;
 use pocketmine\level\generator\object\Object;
+use Ad5001\BetterGen\utils\BuildingUtils;
+
 
 class FallenTree extends Object {
 	public $overridable = [ 
 			Block::AIR => true,
+			6 => true,
 			17 => true,
+			18 => true,
+			Block::DANDELION => true,
+			Block::POPPY => true,
 			Block::SNOW_LAYER => true,
-			Block::LOG2 => true 
+			Block::LOG2 => true,
+			Block::LEAVES2 => true,
+			Block::CACTUS => true 
 	];
 	protected $tree;
 	protected $direction;
@@ -51,6 +59,26 @@ class FallenTree extends Object {
 	public function canPlaceObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		$randomHeight = round($random->nextBoundedInt(6) - 3);
 		$this->length = $this->tree->trunkHeight + $randomHeight;
+		$this->direction = $random->nextBoundedInt(4);
+		switch($this->direction) {
+			case 0:
+			case 1:// Z+
+			if(in_array(false, BuildingUtils::fillCallback(new Vector3($x, $y, $z), new Vector3($x, $y, $z + $this->length), function($v3, $level) {
+				if(!in_array($level->getBlockIdAt($v3->x, $v3->y, $v3->z), \Ad5001\BetterGen\structure\FallenTree::$overridable)) return false;
+			}, $level))) {
+				return false;
+			}
+			break;
+			case 2:
+			case 3:
+			if(in_array(false, BuildingUtils::fillCallback(new Vector3($x, $y, $z), new Vector3($x + $this->length, $y, $z), function($v3, $level) {
+				if(!in_array($level->getBlockIdAt($v3->x, $v3->y, $v3->z), \Ad5001\BetterGen\structure\FallenTree::$overridable)) return false;
+			}, $level))) {
+				return false;
+			}
+			break;
+		}
+		return true;
 	}
 	
 	/*
@@ -61,16 +89,25 @@ class FallenTree extends Object {
 	 * @param $z int
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z) {
-		$number = $random->nextBoundedInt(6);
-		$pos = new Vector3($x, $y, $z);
-		$this->placeLeaf($pos->x, $pos->y, $pos->z, $level);
-		for($i = 0; $i < $number; $i ++) {
-			$transfer = $random->nextBoolean ();
-			$direction = $random->nextBoundedInt(4);
-			$newPos = $pos->getSide($direction);
-			if ($transfer)
-				$pos = $newPos;
-			$this->placeLeaf($newPos->x, $newPos->y, $newPos->z, $level);
+		switch($this->direction) {
+			case 0:
+			$level->setBlockIdAt($x, $y, $z, $this->tree->trunkBlock);
+			$level->setBlockDataAt($x, $y, $z, $this->tree->type);
+			$z += 2;
+			case 1:// Z+
+			BuildingUtils::fill($level, new Vector3($x, $y, $z), new Vector3($x, $y, $z + $this->length), Block::get($this->tree->trunkBlock, $this->tree->type + 4));
+			break;
+			case 2:
+			$level->setBlockIdAt($x, $y, $z, $this->tree->trunkBlock);
+			$level->setBlockDataAt($x, $y, $z, $this->tree->type);
+			$x += 2;
+			case 3:
+			BuildingUtils::fill($level, new Vector3($x, $y, $z), new Vector3($x, $y, $z + $this->length), Block::get($this->tree->trunkBlock, $this->tree->type + 4));
+			break;
+		}
+		// Second call to build the last wood block
+		switch($this->direction) {
+
 		}
 	}
 	

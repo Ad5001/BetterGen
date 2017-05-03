@@ -85,15 +85,12 @@ class MineshaftPopulator extends AmountPopulator {
 						// First, filling everything blank.
 						BuildingUtils::fill($this->level, new Vector3($x, $y, $z - 1 ), new Vector3($x + 4, $y + 2, $z + 1 ), Block::get(Block::AIR ));
 						// Then, making sure the floor is solid.
-						BuildingUtils::fillCallback(new Vector3($x, $y - 1, $z - 1 ), new Vector3($x + 4, $y - 1, $z + 1 ), function ($v3, $params) {
-							$level = $params [0];
+						BuildingUtils::fillCallback(new Vector3($x, $y - 1, $z - 1 ), new Vector3($x + 4, $y - 1, $z + 1 ), function ($v3, $level) {
 							if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 						}, $this->level);
 						// Putting rails
-						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x + 4, $y, $z ), function ($v3, $params) {
-							$level = $params [0];
-							$random = $params [1];
+						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x + 4, $y, $z ), function ($v3, $level, $random) {
 							if ($random->nextBoundedInt(3 ) !== 0) {
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::RAIL);
 								$level->setBlockDataAt($v3->x, $v3->y, $v3->z, 1);
@@ -128,15 +125,13 @@ class MineshaftPopulator extends AmountPopulator {
 						// First, filling everything blank.
 						BuildingUtils::fill($this->level, new Vector3($x, $y, $z - 1 ), new Vector3($x - 4, $y + 2, $z + 1 ));
 						// Then, making sure the floor is solid.
-						BuildingUtils::fillCallback(new Vector3($x, $y - 1, $z - 1 ), new Vector3($x - 4, $y - 1, $z + 1 ), function ($v3, $params) {
-							$level = $params [0];
+						BuildingUtils::fillCallback(new Vector3($x, $y - 1, $z - 1 ), new Vector3($x - 4, $y - 1, $z + 1 ), function ($v3, $level) {
+							
 							if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 						}, $this->level);
 						// Putting rails
-						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x - 4, $y, $z ), function ($v3, $params) {
-							$level = $params [0];
-							$random = $params [1];
+						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x - 4, $y, $z ), function ($v3, $level, $level) {
 							if ($random->nextBoundedInt(3 ) !== 0) {
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::RAIL);
 								$level->setBlockDataAt($v3->x, $v3->y, $v3->z, 1);
@@ -171,15 +166,13 @@ class MineshaftPopulator extends AmountPopulator {
 						// First, filling everything blank.
 						BuildingUtils::fill($this->level, new Vector3($x - 1, $y, $z ), new Vector3($x + 1, $y + 2, $z + 4 ));
 						// Then, making sure the floor is solid.
-						BuildingUtils::fillCallback(new Vector3($x - 1, $y - 1, $z ), new Vector3($x + 1, $y - 1, $z + 4 ), function ($v3, $params) {
-							$level = $params [0];
+						BuildingUtils::fillCallback(new Vector3($x - 1, $y - 1, $z ), new Vector3($x + 1, $y - 1, $z + 4 ), function ($v3, $level) {
+							
 							if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 						}, $this->level);
 						// Putting rails
-						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x, $y, $z + 4 ), function ($v3, $params) {
-							$level = $params [0];
-							$random = $params [1];
+						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x, $y, $z + 4 ), function ($v3, $level, $random) {
 							if ($random->nextBoundedInt(3 ) !== 0) {
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::RAIL);
 								$level->setBlockDataAt($v3->x, $v3->y, $v3->z, 0);
@@ -214,15 +207,13 @@ class MineshaftPopulator extends AmountPopulator {
 						// First, filling everything blank.
 						BuildingUtils::fill($this->level, new Vector3($x - 1, $y, $z ), new Vector3($x + 1, $y + 2, $z - 4 ));
 						// Then, making sure the floor is solid.
-						BuildingUtils::fillCallback(new Vector3($x - 1, $y - 1, $z ), new Vector3($x + 1, $y - 1, $z - 4 ), function ($v3, $params) {
-							$level = $params [0];
+						BuildingUtils::fillCallback(new Vector3($x - 1, $y - 1, $z ), new Vector3($x + 1, $y - 1, $z - 4 ), function ($v3, $level) {
+							
 							if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 						}, $this->level);
 						// Putting rails
-						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x, $y, $z - 4 ), function ($v3, $params) {
-							$level = $params [0];
-							$random = $params [1];
+						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x, $y, $z - 4 ), function ($v3, $level, $random) {
 							if ($random->nextBoundedInt(3 ) !== 0) {
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::RAIL);
 								$level->setBlockDataAt($v3->x, $v3->y, $v3->z, 0);
@@ -291,8 +282,8 @@ class MineshaftPopulator extends AmountPopulator {
 				}
 				
 				// Then, making sure the floor is solid.
-				BuildingUtils::fillCallback(new Vector3($x + 1, $y - 1, $z - 1 ), new Vector3($x - 1, $y - 1, $z + 1 ), function ($v3, $params) {
-					$level = $params [0];
+				BuildingUtils::fillCallback(new Vector3($x + 1, $y - 1, $z - 1 ), new Vector3($x - 1, $y - 1, $z + 1 ), function ($v3, $level) {
+					
 					if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 						$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 				}, $this->level);
@@ -372,32 +363,31 @@ class MineshaftPopulator extends AmountPopulator {
 					switch ($path) {
 						case self::DIR_XPLUS :
 							BuildingUtils::fill($this->level, new Vector3($x + $i, $y - $i - 1, $z - 2 ), new Vector3($x + $i, $y - $i + 3, $z + 2 ), Block::get(Block::AIR ));
-							BuildingUtils::fillCallback(new Vector3($x + $i, $y - $i - 2, $z - 2 ), new Vector3($x + $i, $y - $i - 2, $z + 2 ), function ($v3, $params) {
-								$level = $params [0];
+							BuildingUtils::fillCallback(new Vector3($x + $i, $y - $i - 2, $z - 2 ), new Vector3($x + $i, $y - $i - 2, $z + 2 ), function ($v3, $level) {
 								if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 									$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 							}, $this->level);
 							break;
 						case self::DIR_XMIN :
 							BuildingUtils::fill($this->level, new Vector3($x - $i, $y - $i - 1, $z - 2 ), new Vector3($x - $i, $y - $i + 3, $z + 2 ), Block::get(Block::AIR ));
-							BuildingUtils::fillCallback(new Vector3($x - $i, $y - $i - 2, $z - 2 ), new Vector3($x - $i, $y - $i - 2, $z + 2 ), function ($v3, $params) {
-								$level = $params [0];
+							BuildingUtils::fillCallback(new Vector3($x - $i, $y - $i - 2, $z - 2 ), new Vector3($x - $i, $y - $i - 2, $z + 2 ), function ($v3, $level) {
+								
 								if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 									$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 							}, $this->level);
 							break;
 						case self::DIR_ZPLUS :
 							BuildingUtils::fill($this->level, new Vector3($x - 2, $y - $i - 1, $z + $i ), new Vector3($x + 2, $y - $i + 3, $z + $i ), Block::get(Block::AIR ));
-							BuildingUtils::fillCallback(new Vector3($x - 2, $y - $i - 2, $z + $i ), new Vector3($x + 2, $y - $i - 2, $z + $i ), function ($v3, $params) {
-								$level = $params [0];
+							BuildingUtils::fillCallback(new Vector3($x - 2, $y - $i - 2, $z + $i ), new Vector3($x + 2, $y - $i - 2, $z + $i ), function ($v3, $level) {
+								
 								if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 									$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 							}, $this->level);
 							break;
 						case self::DIR_ZMIN :
 							BuildingUtils::fill($this->level, new Vector3($x - 2, $y - $i - 1, $z - $i ), new Vector3($x + 2, $y - $i + 3, $z - $i ), Block::get(Block::AIR ));
-							BuildingUtils::fillCallback(new Vector3($x - 2, $y - $i - 2, $z - $i ), new Vector3($x + 2, $y - $i - 2, $z - $i ), function ($v3, $params) {
-								$level = $params [0];
+							BuildingUtils::fillCallback(new Vector3($x - 2, $y - $i - 2, $z - $i ), new Vector3($x + 2, $y - $i - 2, $z - $i ), function ($v3, $level) {
+								
 								if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 									$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 							}, $this->level);

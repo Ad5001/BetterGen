@@ -38,7 +38,8 @@ class FallenTreePopulator extends AmountPopulator {
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
 		$amount = $this->getAmount($random);
-		$fallenTree = new FallenTree(new TreePopulator::$types[$this->type]());
+		$tree =  TreePopulator::$types[$this->type];
+		$fallenTree = new FallenTree(new $tree());
 		for($i = 0; $i < $amount; $i++) {
 			$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
 			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);

@@ -51,15 +51,17 @@ class BuildingUtils {
 	 * @param $pos2 pocketmine\math\Vector3
 	 * @param $call callback
 	 * @param $params array
-	 * @return void
+	 * @return array
 	 */
-	public static function fillCallback(Vector3 $pos1, Vector3 $pos2, callable $call, ...$params) {
+	public static function fillCallback(Vector3 $pos1, Vector3 $pos2, callable $call, ...$params) : array {
 		list($pos1, $pos2 ) = self::minmax($pos1, $pos2);
+		$return = [];
 		for($x = $pos1->x; $x >= $pos2->x; $x --)
 			for($y = $pos1->y; $y >= $pos2->y; $y --)
 				for($z = $pos1->z; $z >= $pos2->z; $z --) {
-					call_user_func($call, new Vector3($x, $y, $z ), $params);
+					$return[] = call_user_func($call, new Vector3($x, $y, $z ), ...$params);
 				}
+		return $return;
 	}
 	
 	/*
