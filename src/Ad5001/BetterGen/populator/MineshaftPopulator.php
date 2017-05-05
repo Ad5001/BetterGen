@@ -131,7 +131,7 @@ class MineshaftPopulator extends AmountPopulator {
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 						}, $this->level);
 						// Putting rails
-						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x - 4, $y, $z ), function ($v3, $level, $level) {
+						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x - 4, $y, $z ), function ($v3, $level, $random) {
 							if ($random->nextBoundedInt(3 ) !== 0) {
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::RAIL);
 								$level->setBlockDataAt($v3->x, $v3->y, $v3->z, 1);

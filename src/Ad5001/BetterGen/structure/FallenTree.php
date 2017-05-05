@@ -107,7 +107,12 @@ class FallenTree extends Object {
 		}
 		// Second call to build the last wood block
 		switch($this->direction) {
-
+			case 1:
+			$level->setBlockIdAt($x, $y, $z + $this->length + 2, $this->tree->trunkBlock);
+			break;
+			case 3:
+			$level->setBlockIdAt($x + $this->length + 2, $y, $z, $this->tree->trunkBlock);
+			break;
 		}
 	}
 	
