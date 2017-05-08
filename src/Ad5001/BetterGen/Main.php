@@ -40,6 +40,7 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 	public function onEnable() {
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		Generator::addGenerator(BetterNormal::class, "betternormal");
+		if($this->isOtherNS()) $this->getLogger()->warning("Tesseract detected. Not that some parts of the generator could not work properly");
 		@mkdir($this->getDataFolder());
 		if(! file_exists(LootTable::getPluginFolder(). "processingLoots.json"))
 			file_put_contents(LootTable::getPluginFolder(). "processingLoots.json", "{}");
