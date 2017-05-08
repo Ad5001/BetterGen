@@ -1,4 +1,4 @@
-BoxOfDevs General Software License 1.1.3
+BoxOfDevs General Software License 1.1.4
 =========================================
 This license is designed to be used with any software which would like to have no selling for profits, nor any public redistribution without giving the original author credits.
 --------------------------------------------------------------------------------------------------------------------------------------
@@ -13,7 +13,6 @@ Section 1 - Allowances:
 
   1. Both The User & The Author Can:
     a. Modify private copies of The Software and use in any way they wish.
-    b. Change which license The Software/The Modification is licensed under.
 
   2. The User Can:
     a. Request new features, support, or more rights from The Author.
@@ -21,8 +20,9 @@ Section 1 - Allowances:
 
   3. The Author Can:
     a. Change or update The Software in any way they wish, ensuring they follow the other terms of The License.
-    b. Grant extra rights to The User who has requested them.
-    c. Reserve the right to request The User to take down their instance of The Software/The Modification/The Redistribution.
+    b. Change which license The Software/The Modification is licensed under.
+    c. Grant extra rights to The User who has requested them.
+    d. Reserve the right to request The User to take down their instance of The Software/The Modification/The Redistribution.
 
 Section 2 - Restrictions:
   1. Both The User & The Author Cannot:
