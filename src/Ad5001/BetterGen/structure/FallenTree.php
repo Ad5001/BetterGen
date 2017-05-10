@@ -1,10 +1,15 @@
 <?php
-
-/*
- * FallenTree from BetterGen
- * Copyright (C) Ad5001 2017
- * Licensed under the BoxOfDevs Public General LICENSE which can be found in the file LICENSE in the root directory
- * @author ad5001
+/**
+ *  ____             __     __                    ____                       
+ * /\  _`\          /\ \__ /\ \__                /\  _`\                     
+ * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___    
+ *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\  
+ *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
+ *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
+ *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
+ * Tommorow's pocketmine generator.
+ * @author Ad5001
+ * @link https://github.com/Ad5001/BetterGen
  */
 
 namespace Ad5001\BetterGen\structure;
@@ -35,6 +40,7 @@ class FallenTree extends Object {
 	];
 	protected $tree;
 	protected $direction;
+	protected $random;
 	
 	/*
 	 * Constructs the class
@@ -60,6 +66,7 @@ class FallenTree extends Object {
 		$randomHeight = round($random->nextBoundedInt(6) - 3);
 		$this->length = $this->tree->trunkHeight + $randomHeight;
 		$this->direction = $random->nextBoundedInt(4);
+		$this->random = $random;
 		switch($this->direction) {
 			case 0:
 			case 1:// Z+
@@ -70,7 +77,7 @@ class FallenTree extends Object {
 			}
 			break;
 			case 2:
-			case 3:
+			case 3: // X+
 			if(in_array(false, BuildingUtils::fillCallback(new Vector3($x, $y, $z), new Vector3($x + $this->length, $y, $z), function($v3, $level) {
 				if(!in_array($level->getBlockIdAt($v3->x, $v3->y, $v3->z), \Ad5001\BetterGen\structure\FallenTree::$overridable)) return false;
 			}, $level))) {
@@ -96,13 +103,17 @@ class FallenTree extends Object {
 			$z += 2;
 			case 1:// Z+
 			BuildingUtils::fill($level, new Vector3($x, $y, $z), new Vector3($x, $y, $z + $this->length), Block::get($this->tree->trunkBlock, $this->tree->type + 4));
+			BuildingUtils::fillRandom($level, new Vector3($x + 1, $y, $z), new Vector3($x, $y, $z + $this->length), Block::get(Block::VINE), $this->random);
+			BuildingUtils::fillRandom($level, new Vector3($x - 1, $y, $z), new Vector3($x, $y, $z + $this->length), Block::get(Block::VINE), $this->random);
 			break;
 			case 2:
 			$level->setBlockIdAt($x, $y, $z, $this->tree->trunkBlock);
 			$level->setBlockDataAt($x, $y, $z, $this->tree->type);
 			$x += 2;
-			case 3:
-			BuildingUtils::fill($level, new Vector3($x, $y, $z), new Vector3($x, $y, $z + $this->length), Block::get($this->tree->trunkBlock, $this->tree->type + 4));
+			case 3: // X+
+			BuildingUtils::fill($level, new Vector3($x, $y, $z), new Vector3($x + $this->length, $y, $z), Block::get($this->tree->trunkBlock, $this->tree->type + 8));
+			BuildingUtils::fillRandom($level, new Vector3($x, $y, $z + 1), new Vector3($x + $this->length, $y, $z), Block::get(Block::VINE), $this->random);
+			BuildingUtils::fillRandom($level, new Vector3($x, $y, $z - 1), new Vector3($x + $this->length, $y, $z), Block::get(Block::VINE), $this->random);
 			break;
 		}
 		// Second call to build the last wood block

@@ -1,17 +1,31 @@
 ---
-# Base generated with ImagicalPlugCreator by Ad5001 (C) 2017 for Ad5001
-# link: https://ad5001.eu
+#  ____             __     __                    ____                       
+# /\  _`\          /\ \__ /\ \__                /\  _`\                     
+# \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___    
+#  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\  
+#   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
+#    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
+#     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
+# Tommorow's pocketmine generator.
+# @author Ad5001
+# @link https://github.com/Ad5001/BetterGen
 name: BetterGen
 author: Ad5001
 main: Ad5001\BetterGen\Main
-version: 1.0
+version: 1.1
 api: [3.0.1, 3.0.0-ALPHA3]
 commands:
     createworld:
         description: Generates a new world.
         usage: "/createworld <name> [generator = betternormal] [seed = rand()] [options (json)]"
         permission: bettergen.cmd.createworld
+    worldtp:
+        description: Teleports you to an another world
+        usage: "/worldtp <world name>"
+        permission: bettergen.cmd.worldtp
 permissions:
     bettergen.cmd.createworld:
+        default: op
+    bettergen.cmd.worldtp:
         default: op
 ...

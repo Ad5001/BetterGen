@@ -1,11 +1,17 @@
 <?php
+/**
+ *  ____             __     __                    ____                       
+ * /\  _`\          /\ \__ /\ \__                /\  _`\                     
+ * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___    
+ *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\  
+ *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
+ *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
+ *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
+ * Tommorow's pocketmine generator.
+ * @author Ad5001
+ * @link https://github.com/Ad5001/BetterGen
+*/
 
-/*
- * BetterNormal from BetterGen
- * Copyright (C) Ad5001 2017
- * Licensed under the BoxOfDevs Public General LICENSE which can be found in the file LICENSE in the root directory
- * @author ad5001
- */
 namespace Ad5001\BetterGen\generator;
 
 use pocketmine\level\ChunkManager;
@@ -64,6 +70,10 @@ class BetterNormal extends Generator {
 	public static $levels = [ ];
 	protected static $GAUSSIAN_KERNEL = null; // From main class
 	protected static $SMOOTH_SIZE = 2;
+	protected static $options = [
+		"deleteBiomes" => [
+		]
+	];
 	protected $waterHeight = 63;
 	
 	/*
@@ -91,6 +101,13 @@ class BetterNormal extends Generator {
 		}
 		return $b;
 	}
+
+	/**
+	 * Inits the class for the var
+	 * @param		ChunkManager		$level
+	 * @param		Random				$random
+	 * @return		void
+	 */
 	public function init(ChunkManager $level, Random $random) {
 		$this->level = $level;
 		$this->random = $random;
@@ -139,10 +156,16 @@ class BetterNormal extends Generator {
 		$cover = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\GroundCover() : new \pocketmine\level\generator\populator\GroundCover();
 		$this->generationPopulators [] = $cover;
 		
+		// https://twitter.com/Ad5001P4F/status/859430935468670976
+		// $lake = new LakePopulator ();
+		// $lake->setBaseAmount(0);
+		// $lake->setRandomAmount(1);
+		// $this->generationPopulators [] = $lake;
+		
 		$cave = new CavePopulator ();
 		$cave->setBaseAmount(0);
 		$cave->setRandomAmount(2);
-		$this->populators [] = $cave;
+		$this->generationPopulators [] = $cave;
 		
 		$ravine = new RavinePopulator ();
 		$ravine->setBaseAmount(0);
@@ -153,12 +176,6 @@ class BetterNormal extends Generator {
 		$mineshaft->setBaseAmount(0);
 		$mineshaft->setRandomAmount(102);
 		$this->populators [] = $mineshaft;
-		
-		// https://twitter.com/Ad5001P4F/status/859430935468670976
-		// $lake = new LakePopulator ();
-		// $lake->setBaseAmount(0);
-		// $lake->setRandomAmount(1);
-		// $this->generationPopulators [] = $lake;
 
 		
 		$fisl = new FloatingIslandPopulator();
@@ -196,11 +213,12 @@ class BetterNormal extends Generator {
 	 * @return bool
 	 */
 	public static function registerBiome(Biome $biome): bool {
-		foreach(self::$levels as $lvl )
-			if (isset($lvl->selector ))
-				$lvl->selector->addBiome($biome); // If no selector created, it would cause errors. These will be added when selectoes
-		if (! isset(self::$biomes [( string ) $biome->getRainfall ()] ))
-			self::$biomes [( string ) $biome->getRainfall ()] = [ ];
+		if(\Ad5001\BetterGen\utils\CommonUtils::in_arrayi($biome->getName(), self::$options["deleteBiomes"])) {
+			echo "Removing " . $biome->getName() . "...\n";
+			return false;
+		}
+		foreach(self::$levels as $lvl ) if(isset($lvl->selector)) $lvl->selector->addBiome($biome); // If no selector created, it would cause errors. These will be added when selectoes
+		if (! isset(self::$biomes[(string) $biome->getRainfall ()] )) self::$biomes [( string ) $biome->getRainfall ()] = [ ];
 		self::$biomes [( string ) $biome->getRainfall ()] [( string ) $biome->getTemperature ()] = $biome;
 		ksort(self::$biomes [( string ) $biome->getRainfall ()]);
 		ksort(self::$biomes);
@@ -256,7 +274,6 @@ class BetterNormal extends Generator {
 	 * @param $chunkZ int
 	 */
 	public function generateChunk($chunkX, $chunkZ) {
-		$this->reRegisterBiomes ();
 		
 		$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed ());
 		
@@ -343,7 +360,7 @@ class BetterNormal extends Generator {
 				}
 		
 		$chunk = $this->level->getChunk($chunkX, $chunkZ);
-		$biome = Biome::getBiome($chunk->getBiomeId(7, 7 ));
+		$biome = self::getBiomeById($chunk->getBiomeId(7, 7 ));
 		$biome->populateChunk($this->level, $chunkX, $chunkZ, $this->random);
 	}
 	
@@ -352,6 +369,18 @@ class BetterNormal extends Generator {
 	 * @param $options array
 	 */
 	public function __construct(array $options = []) {
+		self::$options["preset"] = $options["preset"];
+		$options = (array) json_decode($options["preset"]);
+		if(isset($options["deleteBiomes"]) && is_string($options["deleteBiomes"])) {
+			$options["deleteBiomes"] = explode(",", $options["deleteBiomes"]);
+			if(count($options["deleteBiomes"]) !== 0) {
+				self::$options["deleteBiomes"] = $options["deleteBiomes"];
+			}
+		}
+		
+		if(isset($options["deleteBiomes"]) && count($options["deleteBiomes"]) !== 0) {
+			self::$options["deleteBiomes"] = $options["deleteBiomes"];
+		}
 		if (self::$GAUSSIAN_KERNEL === null) {
 			self::generateKernel ();
 		}
@@ -387,7 +416,7 @@ class BetterNormal extends Generator {
 	 * @return array
 	 */
 	public function getSettings(): array {
-		return [ ];
+		return self::$options;
 	}
 	public function getSpawn() {
 		return new Vector3(127.5, 128, 127.5);
@@ -416,19 +445,5 @@ class BetterNormal extends Generator {
 		}
 		
 		return $y++;
-	}
-	
-	/*
-	 * Re registers all biomes for async
-	 */
-	public function reRegisterBiomes() {
-		$reflection = new \ReflectionClass('pocketmine\\level\\generator\\biome\\Biome');
-		$register = $reflection->getMethod('register');
-		$register->setAccessible(true);
-		foreach(self::$biomes as $rainfall => $arr ) {
-			foreach($arr as $tmp => $biome ) {
-				$register->invoke(null, $biome->getId (), $biome);
-			}
-		}
 	}
 }

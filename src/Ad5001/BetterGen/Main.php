@@ -1,10 +1,15 @@
 <?php
-
-/*
- * Main from BetterGen
- * Copyright(C) Ad5001 2017
- * Licensed under the BoxOfDevs Public General LICENSE which can be found in the file LICENSE in the root directory
- * @author ad5001
+/**
+ *  ____             __     __                    ____                       
+ * /\  _`\          /\ \__ /\ \__                /\  _`\                     
+ * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___    
+ *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\  
+ *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
+ *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
+ *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
+ * Tommorow's pocketmine generator.
+ * @author Ad5001
+ * @link https://github.com/Ad5001/BetterGen
  */
 
 namespace Ad5001\BetterGen;
@@ -112,6 +117,7 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 							return true;
 						}
 						$generatorName = strtolower($args [1]);
+						if($args[2] == "rand") $args[2] = $this->generateRandomSeed();
 						if(preg_match("[^\d]", $args [2]) !== false) {
 							$parts = str_split($args [2]);
 							foreach($parts as $key => $str) {
@@ -123,11 +129,16 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 						}
 						unset($args [0], $args [1], $args [2]);
 						$options = json_decode($args [3], true);
-						if(! is_array($json)) {
+						if(! is_array($options)) {
 							$sender->sendMessage(Main::PREFIX . "§4Invalid JSON for options.");
 							return true;
 						}
 						break;
+				}
+				$options["preset"] = json_encode($options);
+				if((int) $seed == 0/*String*/){
+					$seed = $this->generateRandomSeed();
+					echo "Rechoosen seed";
 				}
 				$this->getServer()->broadcastMessage(Main::PREFIX . "§aGenerating level $name with generator $generatorName and seed $seed..");
 				$this->getServer()->generateLevel($name, $seed, $generator, $options);
@@ -161,10 +172,6 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 	 * @return void
 	 */
 	public static function registerBiome(int $id, Biome $biome) {
-		$reflection = new \ReflectionClass('pocketmine\\level\\generator\\biome\\Biome');
-		$register = $reflection->getMethod('register');
-		$register->setAccessible(true);
-		$register->invoke(null, $id, $biome);
 		BetterNormal::registerBiome($biome);
 	}
 	
@@ -173,7 +180,7 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 	 * @return int
 	 */
 	public function generateRandomSeed(): int {
-		return(int) round(time() * rand(0, time()) / memory_get_usage());
+		return (int) round(rand(0, round(time()) / memory_get_usage(true)) * (int) str_shuffle("127469453645108") / (int) str_shuffle("12746945364"));
 	}
 	
 	// Listener

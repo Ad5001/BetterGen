@@ -1,11 +1,18 @@
 <?php
 
-/*
- * BetterForest from BetterGen
- * Copyright (C) Ad5001 2017
- * Licensed under the BoxOfDevs Public General LICENSE which can be found in the file LICENSE in the root directory
- * @author ad5001
+/**
+ *  ____             __     __                    ____                       
+ * /\  _`\          /\ \__ /\ \__                /\  _`\                     
+ * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___    
+ *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\  
+ *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
+ *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
+ *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
+ * Tommorow's pocketmine generator.
+ * @author Ad5001
+ * @link https://github.com/Ad5001/BetterGen
  */
+
 namespace Ad5001\BetterGen\biome;
 
 use pocketmine\level\generator\normal\biome\ForestBiome;
@@ -49,7 +56,7 @@ class BetterForest extends ForestBiome implements Mountainable {
 		$this->rainfall = $infos [1];
 	}
 	public function getName() {
-		return self::$types [$this->type];
+		return str_ireplace(" ", "", self::$types[$this->type]);
 	}
 	
 	/*

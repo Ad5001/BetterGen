@@ -1,11 +1,16 @@
 <?php
-
-/*
- * BuildingUtils from BetterGen
- * Copyright (C) Ad5001 2017
- * Licensed under the BoxOfDevs Public General LICENSE which can be found in the file LICENSE in the root directory
- * @author ad5001
- */
+/**
+ *  ____             __     __                    ____                       
+ * /\  _`\          /\ \__ /\ \__                /\  _`\                     
+ * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___    
+ *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\  
+ *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
+ *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
+ *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
+ * Tommorow's pocketmine generator.
+ * @author Ad5001
+ * @link https://github.com/Ad5001/BetterGen
+*/
 
 namespace Ad5001\BetterGen\utils;
 
@@ -34,12 +39,29 @@ class BuildingUtils {
 	 * @return void
 	 */
 	public static function fill(ChunkManager $level, Vector3 $pos1, Vector3 $pos2, Block $block = null) {
-		if ($block == null)
-			$block = Block::get(Block::AIR);
+		if ($block == null) $block = Block::get(Block::AIR);
 		list($pos1, $pos2 ) = self::minmax($pos1, $pos2);
-		for($x = $pos1->x; $x >= $pos2->x; $x --)
-			for($y = $pos1->y; $y >= $pos2->y; $y --)
-				for($z = $pos1->z; $z >= $pos2->z; $z --) {
+		for($x = $pos1->x; $x >= $pos2->x; $x --) for($y = $pos1->y; $y >= $pos2->y; $y --) for($z = $pos1->z; $z >= $pos2->z; $z --) {
+					$level->setBlockIdAt($x, $y, $z, $block->getId ());
+					$level->setBlockDataAt($x, $y, $z, $block->getDamage ());
+				}
+	}
+	
+	
+	/*
+	 * Fills an area randomly
+	 * @param 		$level		pocketmine\level\ChunkManager
+	 * @param 		$pos1 		pocketmine\math\Vector3
+	 * @param 		$pos2 		pocketmine\math\Vector3
+	 * @param 		$block		pocketmine\block\Block
+	 * @param 		$random		pocketmine\utils
+	 * @param 		$randMax	pocketmine\utils
+	 * @return void
+	 */
+	public static function fillRandom(ChunkManager $level, Vector3 $pos1, Vector3 $pos2, Block $block = null, Random $random = null, $randMax = 3) {
+		if ($block == null) $block = Block::get(Block::AIR);
+		list($pos1, $pos2 ) = self::minmax($pos1, $pos2);
+		for($x = $pos1->x; $x >= $pos2->x; $x --) for($y = $pos1->y; $y >= $pos2->y; $y --) for($z = $pos1->z; $z >= $pos2->z; $z --) if($random !== null ? $random->nextBoundedInt($randMax) == 0 : rand(0, $randMax) == 0) {
 					$level->setBlockIdAt($x, $y, $z, $block->getId ());
 					$level->setBlockDataAt($x, $y, $z, $block->getDamage ());
 				}
@@ -56,9 +78,7 @@ class BuildingUtils {
 	public static function fillCallback(Vector3 $pos1, Vector3 $pos2, callable $call, ...$params) : array {
 		list($pos1, $pos2 ) = self::minmax($pos1, $pos2);
 		$return = [];
-		for($x = $pos1->x; $x >= $pos2->x; $x --)
-			for($y = $pos1->y; $y >= $pos2->y; $y --)
-				for($z = $pos1->z; $z >= $pos2->z; $z --) {
+		for($x = $pos1->x; $x >= $pos2->x; $x --) for($y = $pos1->y; $y >= $pos2->y; $y --) for($z = $pos1->z; $z >= $pos2->z; $z --) {
 					$return[] = call_user_func($call, new Vector3($x, $y, $z ), ...$params);
 				}
 		return $return;

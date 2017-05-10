@@ -12,8 +12,18 @@
  * @link https://github.com/Ad5001/BetterGen
  */
 
-namespace Ad5001\BetterGen\biome;
+namespace Ad5001\BetterGen\utils;
+ # Communs utils under no namespace made for a specific usage
 
-// Class to iplement when the biome can be set as a mountain
-interface Mountainable {
+class CommonUtils {
+    /**
+     * Searches case insensitivly array $haystack for $needle.
+     * src: http://php.net/manual/en/function.in-array.php#89256
+     * @param		mixed		$needle
+     * @param		array		$haystack
+     * @return		bool
+     */
+    static function in_arrayi($needle, array $haystack) :bool {
+        return in_array(strtolower($needle), array_map('strtolower', $haystack));
+    }
 }
