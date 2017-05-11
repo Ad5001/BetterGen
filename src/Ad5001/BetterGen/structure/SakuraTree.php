@@ -446,7 +446,8 @@ class SakuraTree extends Tree {
 	 */
 	public function __construct() {
 		$this->trunkBlock = Block::LOG;
-		$this->leafBlock = Block::WOOL;
+		$this->leafBlock = Block::AIR; // To remove bushes
+		$this->realLeafBlock = Block::WOOL;
 		$this->leafType = 6;
 		$this->leaf2Type = 0;
 		$this->type = Wood::OAK;
@@ -668,7 +669,7 @@ class SakuraTree extends Tree {
 				$this->leafType,
 				$this->leaf2Type 
 		] [( int ) $random->nextBoolean ()];
-		$level->setBlockIdAt($x, $y, $z, $this->leafBlock);
+		$level->setBlockIdAt($x, $y, $z, $this->realLeafBlock);
 		$level->setBlockDataAt($x, $y, $z, $data);
 	}
 }
