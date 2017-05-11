@@ -65,13 +65,16 @@ class FallenTreePopulator extends AmountPopulator {
 	 * @param $z
 	 * @return int
 	 */
-	protected function getHighestWorkableBlock($x, $z) {
-		for($y = Level::Y_MAX; $y >= 0; -- $y) {
+	private function getHighestWorkableBlock($x, $z){
+		for($y = Level::Y_MAX - 1; $y > 0; --$y){
 			$b = $this->level->getBlockIdAt($x, $y, $z);
-			if ($b !== Block::AIR and $b !== Block::LEAVES and $b !== Block::LEAVES2) {
+			if($b === Block::DIRT or $b === Block::GRASS){
 				break;
+			}elseif($b !== Block::AIR and $b !== Block::SNOW_LAYER){
+				return -1;
 			}
 		}
-		return $y === 0 ? - 1 : ++$y;
+
+		return ++$y;
 	}
 }

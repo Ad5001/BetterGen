@@ -77,7 +77,7 @@ class TreePopulator extends AmountPopulator {
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = Level::Y_MAX; $y > 0; -- $y) {
+		for($y = Level::Y_MAX - 1; $y > 0; -- $y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL) {
 				break;

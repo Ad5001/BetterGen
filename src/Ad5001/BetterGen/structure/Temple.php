@@ -14,13 +14,13 @@
 
 namespace Ad5001\BetterGen\structure;
 
-use Ad5001\BetterGen\loot\LootTable;
-use Ad5001\BetterGen\utils\BuildingUtils;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use pocketmine\level\generator\object\Object;
-use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
+use pocketmine\math\Vector3;
+use pocketmine\level\generator\object\Object;
+use Ad5001\BetterGen\loot\LootTable;
+use Ad5001\BetterGen\utils\BuildingUtils;
 
 class Temple extends Object {
 	const DIRECTION_PLUSX = 0;
@@ -109,7 +109,6 @@ class Temple extends Object {
 					1 
 			] 
 	];
-	private $direction;
 
 	/*
 	 * Checks if a temple is placeable
@@ -172,7 +171,7 @@ class Temple extends Object {
 				for($zz = $z - 1; $zz <= $z + 1; $zz ++)
 					$this->placeBlock($xx, $yy, $zz, 0);
 		
-		// Floor pattern
+		// Floor patern
 		foreach($this->directions as $dir ) {
 			// Building pillar
 			for($yy = $y + 1; $yy <= $y + 3; $yy ++)
@@ -183,6 +182,8 @@ class Temple extends Object {
 			$this->placeBlock($x + ($dir [0] * 3), $y, $z, Block::STAINED_HARDENED_CLAY, 1);
 			$this->placeBlock($x, $y, $z + ($dir [1] * 2), Block::STAINED_HARDENED_CLAY, 1);
 			$this->placeBlock($x, $y, $z + ($dir [1] * 3), Block::STAINED_HARDENED_CLAY, 1);
+			$this->placeBlock($x + ($dir [0] * 2), $yy, $z + ($dir [1]), Block::STAINED_HARDENED_CLAY, 1);
+			$this->placeBlock($x + ($dir [0]), $yy, $z + ($dir [1] * 2), Block::STAINED_HARDENED_CLAY, 1);
 			
 			// Sandstone
 			$this->placeBlock($x + $dir [0], $y, $z);
@@ -417,7 +418,7 @@ class Temple extends Object {
 	}
 	
 	/*
-	 * Places one of the towers. Out is inverted $direction1, stairs come from inverted $direction2 to $direction2, patterns are on $direction1 and $direction2
+	 * Places one of the towers. Out is inversed $direction1, stairs come from inversed $direction2 to $direction2, patterns are on $direction1 and $direction2
 	 * @param $x int
 	 * @param $y int
 	 * @param $z int
@@ -894,7 +895,7 @@ class Temple extends Object {
 	 * @param $direction int
 	 * @return int
 	 */
-	protected function getInvertedDirection(int $direction): int {
+	protected function getInversedDirection(int $direction): int {
 		switch ($direction) {
 			case self::DIRECTION_PLUSX : // x+ (0)
 				return self::DIRECTION_MINX;

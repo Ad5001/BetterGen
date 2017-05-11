@@ -569,7 +569,7 @@ class SakuraTree extends Tree {
 			$sideLen = $totalLength ** 2; // Side length
 
 			//TODO CHECK WHAT THIS IS SUPPOSED TO BE
-			$numForward = $sideLen;
+			$numForward = ($totalLength % 2 == 0) ? $totalLength - 1 : $totalLength;
 			//TODO END
 			$lX1 = $lZ1 = $lX = $lZ = 0;
 
@@ -589,7 +589,6 @@ class SakuraTree extends Tree {
 			}
 
 			// Second branch part. + second leave part
-			$numForward = ($totalLength % 2 == 0) ? $totalLength - 1 : $totalLength;
 			for ($i = 1; $i < $stickLen + 1; $i++) {
 				$lX = $lX1 + ($xd * $i);
 				$lZ = $lZ1 + ($zd * $i);
