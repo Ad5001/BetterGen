@@ -14,12 +14,11 @@
  
 namespace Ad5001\BetterGen\populator;
 
-use pocketmine\level\Level;
-use pocketmine\utils\Random;
+use Ad5001\BetterGen\structure\Igloo;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use Ad5001\BetterGen\populator\AmountPopulator;
-use Ad5001\BetterGen\structure\Igloo;
+use pocketmine\level\Level;
+use pocketmine\utils\Random;
 
 class IglooPopulator extends AmountPopulator {
 	/** @var ChunkManager */

@@ -14,13 +14,13 @@
 
 namespace Ad5001\BetterGen\structure;
 
-use pocketmine\block\Block;
-use pocketmine\level\ChunkManager;
-use pocketmine\utils\Random;
-use pocketmine\math\Vector3;
-use pocketmine\level\generator\object\Object;
 use Ad5001\BetterGen\loot\LootTable;
 use Ad5001\BetterGen\utils\BuildingUtils;
+use pocketmine\block\Block;
+use pocketmine\level\ChunkManager;
+use pocketmine\level\generator\object\Object;
+use pocketmine\math\Vector3;
+use pocketmine\utils\Random;
 
 class Temple extends Object {
 	const DIRECTION_PLUSX = 0;
@@ -109,6 +109,7 @@ class Temple extends Object {
 					1 
 			] 
 	];
+	private $direction;
 
 	/*
 	 * Checks if a temple is placeable

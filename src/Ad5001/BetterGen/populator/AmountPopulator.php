@@ -14,8 +14,8 @@
 
 namespace Ad5001\BetterGen\populator;
 
-use pocketmine\utils\Random;
 use pocketmine\level\generator\populator\Populator;
+use pocketmine\utils\Random;
 
 abstract class AmountPopulator extends Populator {
 	protected $baseAmount = 0;

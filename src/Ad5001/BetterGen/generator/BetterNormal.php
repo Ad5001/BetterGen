@@ -14,15 +14,18 @@
 
 namespace Ad5001\BetterGen\generator;
 
-use pocketmine\level\ChunkManager;
-use pocketmine\math\Vector3;
-use pocketmine\utils\Random;
-use pocketmine\level\generator\biome\Biome;
-use pocketmine\level\generator\Generator;
-use pocketmine\level\generator\noise\Simplex;
-use pocketmine\level\generator\object\OreType;
-use pocketmine\level\generator\normal\object\OreType as OreType2;
-use pocketmine\level\generator\populator\Ore;
+use Ad5001\BetterGen\biome\BetterDesert;
+use Ad5001\BetterGen\biome\BetterForest;
+use Ad5001\BetterGen\biome\BetterIcePlains;
+use Ad5001\BetterGen\biome\BetterMesa;
+use Ad5001\BetterGen\biome\BetterMesaPlains;
+use Ad5001\BetterGen\biome\BetterRiver;
+use Ad5001\BetterGen\biome\Mountainable;
+use Ad5001\BetterGen\Main;
+use Ad5001\BetterGen\populator\CavePopulator;
+use Ad5001\BetterGen\populator\FloatingIslandPopulator;
+use Ad5001\BetterGen\populator\MineshaftPopulator;
+use Ad5001\BetterGen\populator\RavinePopulator;
 use pocketmine\block\Block;
 use pocketmine\block\CoalOre;
 use pocketmine\block\DiamondOre;
@@ -32,20 +35,15 @@ use pocketmine\block\Gravel;
 use pocketmine\block\IronOre;
 use pocketmine\block\LapisOre;
 use pocketmine\block\RedstoneOre;
+use pocketmine\level\ChunkManager;
+use pocketmine\level\generator\biome\Biome;
+use pocketmine\level\generator\Generator;
+use pocketmine\level\generator\noise\Simplex;
+use pocketmine\level\generator\normal\object\OreType as OreType2;
+use pocketmine\level\generator\object\OreType;
 use pocketmine\level\Level;
-use Ad5001\BetterGen\biome\BetterForest;
-use Ad5001\BetterGen\biome\BetterDesert;
-use Ad5001\BetterGen\biome\BetterIcePlains;
-use Ad5001\BetterGen\biome\BetterMesa;
-use Ad5001\BetterGen\biome\BetterMesaPlains;
-use Ad5001\BetterGen\biome\BetterRiver;
-use Ad5001\BetterGen\biome\Mountainable;
-use Ad5001\BetterGen\populator\CavePopulator;
-use Ad5001\BetterGen\populator\RavinePopulator;
-use Ad5001\BetterGen\populator\LakePopulator;
-use Ad5001\BetterGen\populator\MineshaftPopulator;
-use Ad5001\BetterGen\populator\FloatingIslandPopulator;
-use Ad5001\BetterGen\Main;
+use pocketmine\math\Vector3;
+use pocketmine\utils\Random;
 
 class BetterNormal extends Generator {
 	const NOT_OVERWRITABLE = [
@@ -61,9 +59,11 @@ class BetterNormal extends Generator {
 			Block::WATER,
 			Block::STILL_WATER 
 	];
+	/** @var BetterBiomeSelector */
 	protected $selector;
 	/** @var Level */
 	protected $level;
+	/** @var Random */
 	protected $random;
 	protected $populators = [ ];
 	protected $generationPopulators = [ ];
@@ -78,7 +78,8 @@ class BetterNormal extends Generator {
 		]
 	];
 	protected $waterHeight = 63;
-	
+	private $noiseBase;
+
 	/*
 	 * Picks a biome by X and Z
 	 * @param	$x	int

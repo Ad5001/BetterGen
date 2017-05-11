@@ -14,13 +14,12 @@
 
 namespace Ad5001\BetterGen\populator;
 
-use pocketmine\level\Level;
-use pocketmine\utils\Random;
+use Ad5001\BetterGen\utils\BuildingUtils;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
+use pocketmine\level\Level;
 use pocketmine\math\Vector3;
-use Ad5001\BetterGen\utils\BuildingUtils;
-use Ad5001\BetterGen\populator\AmountPopulator;
+use pocketmine\utils\Random;
 
 class CavePopulator extends AmountPopulator {
 	/** @var ChunkManager */
@@ -93,7 +92,7 @@ class CavePopulator extends AmountPopulator {
 		foreach($gen = $this->generateBranch($x, $y, $z, 5, 3, 5, $random ) as $v3 ) {
 			$generatedBranches --;
 			if ($generatedBranches <= 0) {
-				$gen->send(self::STOP);
+				$gen->send(self::STOP); // send not found.. @Ad5001 what is that
 			} else {
 				$gen->send(self::CONTINUE);
 			}

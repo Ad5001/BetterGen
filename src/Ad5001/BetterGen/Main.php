@@ -14,29 +14,26 @@
 
 namespace Ad5001\BetterGen;
 
+use Ad5001\BetterGen\biome\BetterForest;
+use Ad5001\BetterGen\generator\BetterNormal;
+use Ad5001\BetterGen\loot\LootTable;
+use pocketmine\block\Block;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\level\ChunkPopulateEvent;
 use pocketmine\event\Listener;
-use pocketmine\plugin\PluginBase;
+use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\Generator;
-use pocketmine\level\generator\normal\Normal;
-use pocketmine\event\level\ChunkPopulateEvent;
-use Ad5001\BetterGen\generator\BetterNormal;
-use Ad5001\BetterGen\biome\BetterForest;
-use Ad5001\BetterGen\loot\LootTable;
-use pocketmine\utils\Config;
-use pocketmine\block\Block;
-use pocketmine\tile\Chest;
-use pocketmine\nbt\NBT;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\IntTag;
+use pocketmine\plugin\PluginBase;
+use pocketmine\tile\Chest;
 use pocketmine\tile\Tile;
-use pocketmine\item\Item;
-use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\utils\Config;
 
 class Main extends PluginBase implements Listener {
 	const PREFIX = "§l§o§b[§r§l§2Better§aGen§o§b]§r§f ";
@@ -214,7 +211,6 @@ class Main extends PluginBase implements Listener {
 		$cfg = new Config(LootTable::getPluginFolder() . "processingLoots.json", Config::JSON);
 		if($event->getBlock()->getId() !== Block::CHEST) return;
 		if(!$cfg->exists($event->getBlock()->getX() . ";" . $event->getBlock()->getY() . ";" . $event->getBlock()->getZ())) return;
-		$chest = new \pocketmine\block\Chest(0);
 		$nbt = new CompoundTag("", [
 				new ListTag("Items", []),
 				new StringTag("id", Tile::CHEST),
@@ -222,12 +218,10 @@ class Main extends PluginBase implements Listener {
 				new IntTag("y", $event->getBlock()->y),
 				new IntTag("z", $event->getBlock()->z)
 		]);
-		$chest->setLevel($event->getBlock()->getLevel());
-		$cItem = Item::get(Item::CHEST, 0);
-		$cItem->setCustomName("§k(Fake)§r Minecart chest");
-		$chest->place($cItem, $event->getBlock()->getLevel()->getBlock($event->getBlock()), $chest, 0, 0, 0, 0);
-		$inv = $event->getBlock()->getLevel()->getTile($event->getBlock());
-		LootTable::fillChest($inv->getInventory(), $event->getBlock());
+		/** @var Chest $chest */
+		$chest = Tile::createTile(Tile::CHEST, $event->getBlock()->getLevel(), $nbt);
+		$chest->setName("§k(Fake)§r Minecart chest");
+		LootTable::fillChest($chest->getInventory(), $event->getBlock());
 	}
 	
 	
@@ -238,21 +232,18 @@ class Main extends PluginBase implements Listener {
 		$cfg = new Config(LootTable::getPluginFolder() . "processingLoots.json", Config::JSON);
 		if($event->getBlock()->getId() !== Block::CHEST) return;
 		if(!$cfg->exists($event->getBlock()->getX() . ";" . $event->getBlock()->getY() . ";" . $event->getBlock()->getZ())) return;
-		$chest = new \pocketmine\block\Chest(0);
 		$nbt = new CompoundTag("", [
-				new ListTag("Items", []),
-				new StringTag("id", Tile::CHEST),
-				new IntTag("x", $event->getBlock()->x),
-				new IntTag("y", $event->getBlock()->y),
-				new IntTag("z", $event->getBlock()->z)
+			new ListTag("Items", []),
+			new StringTag("id", Tile::CHEST),
+			new IntTag("x", $event->getBlock()->x),
+			new IntTag("y", $event->getBlock()->y),
+			new IntTag("z", $event->getBlock()->z)
 		]);
-		$chest->setLevel($event->getBlock()->getLevel());
-		$cItem = Item::get(Item::CHEST, 0);
-		$cItem->setCustomName("§k(Fake)§r Minecart chest");
-		$chest->place($cItem, $event->getBlock()->getLevel()->getBlock($event->getBlock()), $chest, 0, 0, 0, 0);
-		$inv = $event->getBlock()->getLevel()->getTile($event->getBlock());
-		LootTable::fillChest($inv->getInventory(), $event->getBlock());
-		$event->setCancelled();
+		/** @var Chest $chest */
+		$chest = Tile::createTile(Tile::CHEST, $event->getBlock()->getLevel(), $nbt);
+		$chest->setName("§k(Fake)§r Minecart chest");
+		LootTable::fillChest($chest->getInventory(), $event->getBlock());
+		// $event->setCancelled(); //i think nope. You want to break it with items
 	}
 
 	/*

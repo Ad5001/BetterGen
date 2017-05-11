@@ -16,9 +16,9 @@
 namespace Ad5001\BetterGen\structure;
 
 use pocketmine\block\Block;
-use pocketmine\utils\Random;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\object\Object;
+use pocketmine\utils\Random;
 
 class SugarCane extends Object {
 	
@@ -30,6 +30,8 @@ class SugarCane extends Object {
 	 * @param $z int
 	 * @param $random pocketmine\utils\Random
 	 */
+	private $totalHeight;
+
 	public function canPlaceObject(ChunkManager $level, int $x, int $y, int $z, Random $random): bool {
 		$this->totalHeight = 1 + $random->nextBoundedInt(3);
 		$below = $level->getBlockIdAt($x, $y - 1, $z);

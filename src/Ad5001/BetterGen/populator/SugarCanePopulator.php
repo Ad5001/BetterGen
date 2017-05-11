@@ -14,12 +14,11 @@
 
 namespace Ad5001\BetterGen\populator;
 
+use Ad5001\BetterGen\structure\SugarCane;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\Level;
 use pocketmine\utils\Random;
-use Ad5001\BetterGen\structure\SugarCane;
-use Ad5001\BetterGen\populator\AmountPopulator;
 
 class SugarCanePopulator extends AmountPopulator {
 	/** @var ChunkManager */

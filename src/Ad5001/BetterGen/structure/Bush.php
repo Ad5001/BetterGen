@@ -14,12 +14,11 @@
 
 namespace Ad5001\BetterGen\structure;
 
-use pocketmine\block\Leaves;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use pocketmine\utils\Random;
-use pocketmine\math\Vector3;
 use pocketmine\level\generator\object\Object;
+use pocketmine\math\Vector3;
+use pocketmine\utils\Random;
 
 class Bush extends Object {
 	public $overridable = [

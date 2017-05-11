@@ -14,12 +14,11 @@
 
 namespace Ad5001\BetterGen\populator;
 
-use pocketmine\level\Level;
-use pocketmine\utils\Random;
+use Ad5001\BetterGen\utils\BuildingUtils;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use Ad5001\BetterGen\populator\AmountPopulator;
-use Ad5001\BetterGen\utils\BuildingUtils;
+use pocketmine\level\Level;
+use pocketmine\utils\Random;
 
 class RavinePopulator extends AmountPopulator {
 	/** @var ChunkManager */

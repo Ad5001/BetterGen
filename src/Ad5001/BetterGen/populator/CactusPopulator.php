@@ -15,12 +15,11 @@
 
 namespace Ad5001\BetterGen\populator;
 
+use Ad5001\BetterGen\structure\Cactus;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\Level;
 use pocketmine\utils\Random;
-use Ad5001\BetterGen\structure\Cactus;
-use Ad5001\BetterGen\populator\AmountPopulator;
 
 class CactusPopulator extends AmountPopulator {
 	/** @var ChunkManager */

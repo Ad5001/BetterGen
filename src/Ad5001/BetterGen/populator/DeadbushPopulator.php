@@ -18,7 +18,6 @@ use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\Level;
 use pocketmine\utils\Random;
-use Ad5001\BetterGen\populator\AmountPopulator;
 
 class DeadbushPopulator extends AmountPopulator {
 	/** @var ChunkManager */

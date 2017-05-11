@@ -14,22 +14,21 @@
  
 namespace Ad5001\BetterGen\populator;
 
-use pocketmine\level\ChunkManager;
-use pocketmine\level\format\Chunk;
-use pocketmine\level\Level;
-use pocketmine\utils\Random;
 use Ad5001\BetterGen\generator\BetterNormal;
-use pocketmine\block\Block;
-use pocketmine\level\generator\object\OreType;
-use pocketmine\level\generator\normal\object\OreType as OreType2;
-use pocketmine\math\Vector3;
-use pocketmine\block\CoalOre;
-use pocketmine\block\IronOre;
-use pocketmine\block\RedstoneOre;
-use pocketmine\block\LapisOre;
-use pocketmine\block\GoldOre;
-use pocketmine\block\DiamondOre;
 use Ad5001\BetterGen\Main;
+use pocketmine\block\Block;
+use pocketmine\block\CoalOre;
+use pocketmine\block\DiamondOre;
+use pocketmine\block\GoldOre;
+use pocketmine\block\IronOre;
+use pocketmine\block\LapisOre;
+use pocketmine\block\RedstoneOre;
+use pocketmine\level\ChunkManager;
+use pocketmine\level\generator\normal\object\OreType as OreType2;
+use pocketmine\level\generator\object\OreType;
+use pocketmine\level\Level;
+use pocketmine\math\Vector3;
+use pocketmine\utils\Random;
 
 
 class FloatingIslandPopulator extends AmountPopulator {
@@ -162,6 +161,6 @@ class FloatingIslandPopulator extends AmountPopulator {
 				new OreType(new GoldOre (), 2, 8, $pos->y - $height, $pos->y - round($height / 2)),
 				new OreType(new DiamondOre (), 1, 7, $pos->y - $height, $pos->y - round($height / 4))
 		]);
-		$ores->populate($level, $x >> 4, $z >> 4, $random);//x z undefined
+		$ores->populate($level, $pos->x >> 4, $pos->z >> 4, $random);//x z undefined
 	}
 }

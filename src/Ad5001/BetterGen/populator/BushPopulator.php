@@ -14,13 +14,11 @@
 
 namespace Ad5001\BetterGen\populator;
 
-use pocketmine\level\Level;
-use pocketmine\utils\Random;
+use Ad5001\BetterGen\structure\Bush;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use Ad5001\BetterGen\populator\TreePopulator;
-use Ad5001\BetterGen\populator\AmountPopulator;
-use Ad5001\BetterGen\structure\Bush;
+use pocketmine\level\Level;
+use pocketmine\utils\Random;
 
 class BushPopulator extends AmountPopulator {
 	/** @var ChunkManager */

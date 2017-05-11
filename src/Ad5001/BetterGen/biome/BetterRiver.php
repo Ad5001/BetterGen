@@ -14,8 +14,8 @@
 
 namespace Ad5001\BetterGen\biome;
 
-use pocketmine\level\generator\biome\Biome;
 use pocketmine\block\Block;
+use pocketmine\level\generator\biome\Biome;
 
 class BetterRiver extends Biome {
 	public function __construct() {

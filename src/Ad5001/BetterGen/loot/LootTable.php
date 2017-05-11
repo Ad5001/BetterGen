@@ -14,12 +14,12 @@
 
 namespace Ad5001\BetterGen\loot;
 
+use pocketmine\inventory\BaseInventory;
+use pocketmine\item\Item;
+use pocketmine\math\Vector3;
+use pocketmine\nbt\NBT;
 use pocketmine\utils\Config;
 use pocketmine\utils\Random;
-use pocketmine\math\Vector3;
-use pocketmine\item\Item;
-use pocketmine\inventory\BaseInventory;
-use pocketmine\nbt\NBT;
 
 /*
  * This class is used for loot setting.

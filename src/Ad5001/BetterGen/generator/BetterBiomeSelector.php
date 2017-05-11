@@ -13,10 +13,10 @@
 */
 namespace Ad5001\BetterGen\generator;
 
-use pocketmine\level\generator\biome\BiomeSelector;
 use pocketmine\level\generator\biome\Biome;
-use pocketmine\utils\Random;
+use pocketmine\level\generator\biome\BiomeSelector;
 use pocketmine\level\generator\noise\Simplex;
+use pocketmine\utils\Random;
 
 class BetterBiomeSelector extends BiomeSelector {
 	
@@ -30,7 +30,6 @@ class BetterBiomeSelector extends BiomeSelector {
 	
 	/** @var Biome[] */
 	private $biomes = [ ];
-	private $map = [ ];
 	private $lookup;
 	public function __construct(Random $random, callable $lookup, Biome $fallback) {
 		parent::__construct($random, $lookup, $fallback);

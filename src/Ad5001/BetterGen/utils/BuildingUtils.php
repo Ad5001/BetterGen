@@ -14,9 +14,9 @@
 
 namespace Ad5001\BetterGen\utils;
 
-use pocketmine\math\Vector3;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
+use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
 class BuildingUtils {

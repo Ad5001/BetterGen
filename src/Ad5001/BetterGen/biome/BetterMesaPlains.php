@@ -14,15 +14,13 @@
 
 namespace Ad5001\BetterGen\biome;
 
-use pocketmine\level\generator\normal\biome\SandyBiome;
-use pocketmine\level\generator\object\OreType;
-use pocketmine\level\generator\biome\Biome;
-use pocketmine\block\Block;
-use pocketmine\block\GoldOre;
+use Ad5001\BetterGen\Main;
 use Ad5001\BetterGen\populator\CactusPopulator;
 use Ad5001\BetterGen\populator\DeadbushPopulator;
 use Ad5001\BetterGen\populator\SugarCanePopulator;
-use Ad5001\BetterGen\Main;
+use pocketmine\block\Block;
+use pocketmine\block\GoldOre;
+use pocketmine\level\generator\normal\biome\SandyBiome;
 
 class BetterMesaPlains extends SandyBiome {
 	public function __construct() {

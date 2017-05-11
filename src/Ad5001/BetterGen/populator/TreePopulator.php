@@ -14,14 +14,12 @@
 
 namespace Ad5001\BetterGen\populator;
 
+use Ad5001\BetterGen\Main;
+use pocketmine\block\Block;
+use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\object\Tree;
 use pocketmine\level\Level;
 use pocketmine\utils\Random;
-use pocketmine\block\Block;
-use pocketmine\level\ChunkManager;
-use Ad5001\BetterGen\structure\SakuraTree;
-use Ad5001\BetterGen\populator\AmountPopulator;
-use Ad5001\BetterGen\Main;
 
 
 class TreePopulator extends AmountPopulator {

@@ -15,12 +15,12 @@
 
 namespace Ad5001\BetterGen\biome;
 
-use pocketmine\level\generator\normal\biome\ForestBiome;
-use pocketmine\level\generator\biome\Biome;
 use Ad5001\BetterGen\Main;
-use Ad5001\BetterGen\populator\TreePopulator;
 use Ad5001\BetterGen\populator\BushPopulator;
 use Ad5001\BetterGen\populator\FallenTreePopulator;
+use Ad5001\BetterGen\populator\TreePopulator;
+use pocketmine\level\generator\biome\Biome;
+use pocketmine\level\generator\normal\biome\ForestBiome;
 
 
 class BetterForest extends ForestBiome implements Mountainable {

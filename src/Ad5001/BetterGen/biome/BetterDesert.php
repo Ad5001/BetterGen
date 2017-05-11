@@ -13,14 +13,14 @@
  */
 namespace Ad5001\BetterGen\biome;
 
-use pocketmine\level\generator\normal\biome\SandyBiome;
-use pocketmine\level\generator\biome\Biome;
-use pocketmine\block\Block;
-use Ad5001\BetterGen\populator\TemplePopulator;
-use Ad5001\BetterGen\populator\WellPopulator;
 use Ad5001\BetterGen\populator\CactusPopulator;
 use Ad5001\BetterGen\populator\DeadbushPopulator;
 use Ad5001\BetterGen\populator\SugarCanePopulator;
+use Ad5001\BetterGen\populator\TemplePopulator;
+use Ad5001\BetterGen\populator\WellPopulator;
+use pocketmine\block\Block;
+use pocketmine\level\generator\biome\Biome;
+use pocketmine\level\generator\normal\biome\SandyBiome;
 
 class BetterDesert extends SandyBiome implements Mountainable {
 	public function __construct() {
