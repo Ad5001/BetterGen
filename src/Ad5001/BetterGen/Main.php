@@ -7,13 +7,16 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
 
 namespace Ad5001\BetterGen;
 
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\Generator;
@@ -35,7 +38,7 @@ use pocketmine\item\Item;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\block\BlockBreakEvent;
 
-class Main extends PluginBase implements \pocketmine\event\Listener {
+class Main extends PluginBase implements Listener {
 	const PREFIX = "§l§o§b[§r§l§2Better§aGen§o§b]§r§f ";
 	const SAKURA_FOREST = 100; // Letting some place for future biomes.
 	
@@ -45,7 +48,7 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 	public function onEnable() {
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		Generator::addGenerator(BetterNormal::class, "betternormal");
-		if($this->isOtherNS()) $this->getLogger()->warning("Tesseract detected. Note that some parts of the generator could not work properly");
+		if($this->isOtherNS()) $this->getLogger()->warning("Tesseract detected. Note that Tesseract is not up to date with the generation structure and some generation features may be limited or not working");
 		@mkdir($this->getDataFolder());
 		if(! file_exists(LootTable::getPluginFolder(). "processingLoots.json"))
 			file_put_contents(LootTable::getPluginFolder(). "processingLoots.json", "{}");
@@ -65,7 +68,7 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 	 * @param $args array
 	 * return bool
 	 */
-	public function onCommand(\pocketmine\command\CommandSender $sender, \pocketmine\command\Command $cmd, $label, array $args): bool {
+	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args): bool {
 		switch($cmd->getName()) {
 			case "createworld" : // /createworld <name> [generator = betternormal] [seed = rand()] [options(json)]
 				switch(count($args)) {
@@ -145,6 +148,7 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 				return true;
 				break;
 		}
+		return false;
 	}
 	
 	/*

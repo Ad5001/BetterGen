@@ -7,7 +7,7 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
@@ -54,7 +54,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 			$height = $this->buildIslandBottomShape($level, new Vector3($x, $y, $z), $radius, $random);
 			$this->populateOres($level, new Vector3($x, $y - 1, $z), $radius * 2, $height, $random);
 			$chunk = $level->getChunk($chunkX, $chunkZ);
-			$biome = BetterNormal::getBiomeById($chunk->getBiomeId($x % 16, $z % 16));//static call
+			$biome = BetterNormal::$biomeById[$chunk->getBiomeId($x % 16, $z % 16)];
 			$populators = $biome->getPopulators();
 			foreach($populators as $populator) {
 				$populator->populate($level, $chunkX, $chunkZ, $random);
@@ -94,10 +94,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 	 */
 	public function buildIslandBottomShape(ChunkManager $level, Vector3 $pos, int $radius, Random $random) {
 		$pos = $pos->round();
-		$xx = $pos->x;
-		$zz = $z; //undefined
 		$currentLen = 1;
-		$isEdge = false;
 		$hBound = 0;
 		$current = 0;
 		for($y = $pos->y - 1; $radius > 0; $y--) {
@@ -110,7 +107,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 					}
 					if(abs(abs($x - $pos->x) ** 2) + abs(abs($z - $pos->z) ** 2) <= ($radius ** 2) * 0.67 && $y < 128) { 
 						if($chunk = $level->getChunk($x >> 4, $z >> 4)) {
-							$biome = BetterNormal::getBiomeById($chunk->getBiomeId($x % 16, $z % 16));//static call
+							$biome = BetterNormal::$biomeById[$chunk->getBiomeId($x % 16, $z % 16)];
 							$block = $biome->getGroundCover()[$pos->y - $y - 1] ?? Block::get(Block::STONE);
 							$block = $block->getId();
 						} elseif($random->nextBoundedInt(5) == 0 && $isEdge) {
@@ -132,7 +129,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 				$radius--;
 			}
 		}
-		return $pos->y - 1 - $y;
+		//return $pos->y - 1 - $y;//void
 	}
 	
 	

@@ -7,7 +7,7 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
 */
@@ -33,6 +33,7 @@ class BetterBiomeSelector extends BiomeSelector {
 	private $map = [ ];
 	private $lookup;
 	public function __construct(Random $random, callable $lookup, Biome $fallback) {
+		parent::__construct($random, $lookup, $fallback);
 		$this->fallback = $fallback;
 		$this->lookup = $lookup;
 		$this->temperature = new Simplex($random, 2, 1 / 16, 1 / 512);

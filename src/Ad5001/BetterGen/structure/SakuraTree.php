@@ -7,7 +7,7 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
@@ -26,7 +26,7 @@ if(Main::isOtherNS()) {
 }
 
 class SakuraTree extends Tree {
-	const TRUNK_POS = [  // Checks for trees trunks. Not automaticly generated but there is no point of making more or less
+	const TRUNK_POS = [  // Checks for trees trunks. Not automatically generated but there is no point of making more or less
 			7 => [ 
 					0,
 					1 
@@ -495,7 +495,7 @@ class SakuraTree extends Tree {
 				$z 
 		];
 		
-		// Filling horisontally
+		// Filling horizontally
 		if ($hParts > 0) {
 			for($i = 0; $i < $hParts; $i ++) {
 				$lastX += $xDiff * 2;
@@ -512,7 +512,7 @@ class SakuraTree extends Tree {
 		$lastZ += $zDiff;
 		$this->setLog($level, $lastX, $lastY, $lastZ);
 		
-		// Filling verticaly
+		// Filling vertically
 		if ($vParts > 0) {
 			for($i = 0; $i < $vParts; $i ++) {
 				$lastX += $xDiff;
@@ -530,7 +530,7 @@ class SakuraTree extends Tree {
 			$this->setLog($level, $lastX, $lastY + $i, $lastZ);
 		}
 		$lastY ++;
-		// FIlling the branches.
+		// Filling the branches.
 		$branchLen2 = function ($base) {
 			return ceil($base / 2);
 		};
@@ -629,7 +629,7 @@ class SakuraTree extends Tree {
 					break;
 			}
 			
-			// Leaves falling from the tree diagonaly
+			// Leaves falling from the tree diagonally
 			foreach(self::DIAG_LEAVES [$trunkHeight] as $pos ) {
 				$numDown = $random->nextBoundedInt(3 ) + 1;
 				for($y = $lastY + 1; $y > $lastY - $numDown; $y --)

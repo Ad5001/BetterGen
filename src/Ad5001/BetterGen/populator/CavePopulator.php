@@ -7,7 +7,7 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
@@ -123,7 +123,7 @@ class CavePopulator extends AmountPopulator {
 					$y --;
 				}
 				$z += round(($random->nextBoundedInt(round(30 * ($depth / 10) ) + 1 ) / 10 - 1));
-				return [ ];
+				return;
 			}
 		}
 		$repeat = $random->nextBoundedInt(25 ) + 15;

@@ -7,7 +7,7 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
@@ -77,6 +77,8 @@ class Temple extends Object {
 					- 2 
 			] 
 	];
+	/** @var ChunkManager */
+	private $level;
 	public $overridable = [ 
 			Block::AIR => true,
 			6 => true,
@@ -107,7 +109,7 @@ class Temple extends Object {
 					1 
 			] 
 	];
-	
+
 	/*
 	 * Checks if a temple is placeable
 	 * @param $level pocketmine\level\ChunkManager
@@ -118,6 +120,7 @@ class Temple extends Object {
 	 * @return bool
 	 */
 	public function canPlaceObject(ChunkManager $level, $x, $y, $z, Random $random) {
+		$this->level = $level;
 		$this->direction = $random->nextBoundedInt(4);
 		for($xx = $x - 10; $xx <= $x + 10; $xx ++)
 			for($yy = $y + 1; $yy <= $y + 11; $yy ++)
@@ -168,7 +171,7 @@ class Temple extends Object {
 				for($zz = $z - 1; $zz <= $z + 1; $zz ++)
 					$this->placeBlock($xx, $yy, $zz, 0);
 		
-		// Floor patern
+		// Floor pattern
 		foreach($this->directions as $dir ) {
 			// Building pillar
 			for($yy = $y + 1; $yy <= $y + 3; $yy ++)
@@ -413,7 +416,7 @@ class Temple extends Object {
 	}
 	
 	/*
-	 * Places one of the towers. Out is inversed $direction1, stairs come from inversed $direction2 to $direction2, patterns are on $direction1 and $direction2
+	 * Places one of the towers. Out is inverted $direction1, stairs come from inverted $direction2 to $direction2, patterns are on $direction1 and $direction2
 	 * @param $x int
 	 * @param $y int
 	 * @param $z int
@@ -497,12 +500,12 @@ class Temple extends Object {
 						$this->placeBlock($x, $y + 7, $z - 2, Block::SANDSTONE, 2);
 						$this->placeBlock($x + 1, $y + 7, $z - 2, Block::SANDSTONE, 2);
 						break;
-						
-						// Building entrance to second floor.
-						BuildingUtils::fill($this->level, new Vector3($x - 9, $y + 5, $z + 4 ), new Vector3($x - 7, $y + 7, $z + 5 ), Block::get(Block::SANDSTONE, 2 ));
-						BuildingUtils::fill($this->level, new Vector3($x - 8, $y + 5, $z + 4 ), new Vector3($x - 8, $y + 6, $z + 5 ), Block::get(Block::AIR ));
 				}
-				
+
+				// Building entrance to second floor.
+				BuildingUtils::fill($this->level, new Vector3($x - 9, $y + 5, $z + 4 ), new Vector3($x - 7, $y + 7, $z + 5 ), Block::get(Block::SANDSTONE, 2 ));
+				BuildingUtils::fill($this->level, new Vector3($x - 8, $y + 5, $z + 4 ), new Vector3($x - 8, $y + 6, $z + 5 ), Block::get(Block::AIR ));
+
 				// Finishing stairs system
 				$this->placeBlock($x - 2, $y + 3, $z, Block::SANDSTONE_STAIRS, 1);
 				$this->placeBlock($x - 3, $y + 4, $z, Block::SANDSTONE_STAIRS, 1);
@@ -890,7 +893,7 @@ class Temple extends Object {
 	 * @param $direction int
 	 * @return int
 	 */
-	protected function getInversedDirection(int $direction): int {
+	protected function getInvertedDirection(int $direction): int {
 		switch ($direction) {
 			case self::DIRECTION_PLUSX : // x+ (0)
 				return self::DIRECTION_MINX;

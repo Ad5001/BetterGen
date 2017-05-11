@@ -7,7 +7,7 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
 */
@@ -48,7 +48,7 @@ use Ad5001\BetterGen\populator\FloatingIslandPopulator;
 use Ad5001\BetterGen\Main;
 
 class BetterNormal extends Generator {
-	const NOT_OVERWRITABLE = [ 
+	const NOT_OVERWRITABLE = [
 			Block::STONE,
 			Block::GRAVEL,
 			Block::BEDROCK,
@@ -68,6 +68,7 @@ class BetterNormal extends Generator {
 	protected $populators = [ ];
 	protected $generationPopulators = [ ];
 	public static $biomes = [ ];
+	/** @var Biome[] */
 	public static $biomeById = [ ];
 	public static $levels = [ ];
 	protected static $GAUSSIAN_KERNEL = null; // From main class
@@ -233,6 +234,7 @@ class BetterNormal extends Generator {
 	 * @param $rainfall float
 	 */
 	public static function getBiome($temperature, $rainfall) {
+		$ret = null;
 		if (! isset(self::$biomes [( string ) round($rainfall, 1 )] )) {
 			while(! isset(self::$biomes [( string ) round($rainfall, 1 )] ) ) {
 				if (abs($rainfall - round($rainfall, 1 ) ) >= 0.05)
@@ -254,9 +256,8 @@ class BetterNormal extends Generator {
 		}
 		if (is_string($ret )) {
 			$ret = new $ret ();
-		} else {
-			return $ret;
 		}
+			return $ret;
 	}
 	
 	/*
@@ -265,7 +266,7 @@ class BetterNormal extends Generator {
 	 * @return	Biome
 	 */
 	public function getBiomeById(int $id): Biome {
-		return self::$biomeById[$id] ?? self::$biomeById(Biome::OCEAN);
+		return self::$biomeById[$id] ?? self::$biomeById[Biome::OCEAN];
 	}
 	
 	/*
@@ -388,7 +389,7 @@ class BetterNormal extends Generator {
 	}
 	
 	/*
-	 * Generates the genration kernel based on smooth size (here 2)
+	 * Generates the generation kernel based on smooth size (here 2)
 	 */
 	private static function generateKernel() {
 		self::$GAUSSIAN_KERNEL = [ ];

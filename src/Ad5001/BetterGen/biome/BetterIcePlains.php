@@ -7,7 +7,7 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
@@ -46,8 +46,9 @@ class BetterIcePlains extends SnowyBiome implements Mountainable {
 		return "BetterIcePlains";
 	}
 	
-	/*
-	 * Returns biome's id.
+	/**
+	 * Returns the biomes' id.
+	 * @return int biome id
 	 */
 	public function getId() {
 		return Biome::ICE_PLAINS;

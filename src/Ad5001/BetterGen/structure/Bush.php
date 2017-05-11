@@ -7,7 +7,7 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
@@ -22,7 +22,7 @@ use pocketmine\math\Vector3;
 use pocketmine\level\generator\object\Object;
 
 class Bush extends Object {
-	public $overridable = [ 
+	public $overridable = [
 			Block::AIR => true,
 			17 => true,
 			Block::SNOW_LAYER => true,
