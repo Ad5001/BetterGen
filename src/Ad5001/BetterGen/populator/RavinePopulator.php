@@ -62,7 +62,7 @@ class RavinePopulator extends AmountPopulator {
 				$x += $random->nextRange(0 + $diffX, 2 + $diffX ) - 1;
 				$y += $random->nextRange(0, 2 ) - 1;
 				$z += $random->nextRange(0 + $diffZ, 2 + $diffZ ) - 1;
-				$heigth += $random->nextRange(0, 2 ) - 1;
+				$height += $random->nextRange(0, 2 ) - 1;
 				$length += $random->nextRange(0, 2 ) - 1;
 			}
 		}
@@ -96,6 +96,8 @@ class RavinePopulator extends AmountPopulator {
 	 * @param $random pocketmine\utils\Random
 	 */
 	protected function buildRavinePart($x, $y, $z, $height, $length, Random $random) {
+		$xBounded = 0;
+		$zBounded = 0;
 		for($xx = $x - $length; $xx <= $x + $length; $xx ++) {
 			for($yy = $y; $yy <= $y + $height; $yy ++) {
 				for($zz = $z - $length; $zz <= $z + $length; $zz ++) {

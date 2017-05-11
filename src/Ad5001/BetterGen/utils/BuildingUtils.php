@@ -175,7 +175,7 @@ class BuildingUtils {
 	 * @param $block pocketmine\block\Block
 	 * @return void
 	 */
-	public function buildRandom(ChunkManager $level, Vector3 $pos, Vector3 $infos, Random $random, Block $block) {
+	public static function buildRandom(ChunkManager $level, Vector3 $pos, Vector3 $infos, Random $random, Block $block) {
 		$xBounded = $random->nextBoundedInt(3 ) - 1;
 		$yBounded = $random->nextBoundedInt(3 ) - 1;
 		$zBounded = $random->nextBoundedInt(3 ) - 1;
