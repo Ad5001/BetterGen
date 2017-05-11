@@ -37,8 +37,8 @@ class DeadbushPopulator extends AmountPopulator {
 			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
 			$y = $this->getHighestWorkableBlock($x, $z);
 			if ($y !== -1 && $level->getBlockIdAt($x, $y - 1, $z ) == Block::SAND) {
-				$level->setBlockIdAt($x, $y, $z, Block::DEAD_BUSH);
-				$level->setBlockDataAt($x, $y, $z, 1);
+				$level->setBlockIdAt($x, $y + 1, $z, Block::DEAD_BUSH);
+				$level->setBlockDataAt($x, $y + 1, $z, 1);
 			}
 		}
 	}

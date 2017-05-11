@@ -170,7 +170,7 @@ class BetterNormal extends Generator {
 		$ravine = new RavinePopulator ();
 		$ravine->setBaseAmount(0);
 		$ravine->setRandomAmount(51);
-		$this->populators [] = $ravine;
+		$this->generationPopulators [] = $ravine;
 		
 		$mineshaft = new MineshaftPopulator ();
 		$mineshaft->setBaseAmount(0);
