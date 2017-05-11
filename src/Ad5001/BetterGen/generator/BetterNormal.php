@@ -214,7 +214,6 @@ class BetterNormal extends Generator {
 	 */
 	public static function registerBiome(Biome $biome): bool {
 		if(\Ad5001\BetterGen\utils\CommonUtils::in_arrayi($biome->getName(), self::$options["deleteBiomes"])) {
-			echo "Removing " . $biome->getName() . "...\n";
 			return false;
 		}
 		foreach(self::$levels as $lvl ) if(isset($lvl->selector)) $lvl->selector->addBiome($biome); // If no selector created, it would cause errors. These will be added when selectoes

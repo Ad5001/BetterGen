@@ -20,6 +20,7 @@ use pocketmine\utils\Random;
 use Ad5001\BetterGen\structure\FallenTree;
 use Ad5001\BetterGen\populator\AmountPopulator;
 
+
 class FallenTreePopulator extends AmountPopulator {
 	protected $level;
 	protected $type;
@@ -28,7 +29,7 @@ class FallenTreePopulator extends AmountPopulator {
 	 * @param $type int
 	 */
 	public function __construct(int $type = 0) {
-		
+		$this->type = $type;
 		$this->setBaseAmount(1);
 		$this->setRandomAmount(2);
 	}
@@ -49,8 +50,8 @@ class FallenTreePopulator extends AmountPopulator {
 			$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
 			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
 			$y = $this->getHighestWorkableBlock($x, $z);
-			if ($y !== -1 and $fallenTree->canPlaceObject($level, $x, $y, $z, $random )) {
-				$fallenTree->placeObject($level, $x, $y, $z, $random);
+			if ($y !== -1 and $fallenTree->canPlaceObject($level, $x, $y + 1, $z, $random )) {
+				$fallenTree->placeObject($level, $x, $y + 1, $z, $random);
 			}
 		}
 	}

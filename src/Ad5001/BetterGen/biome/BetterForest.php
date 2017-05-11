@@ -20,6 +20,8 @@ use pocketmine\level\generator\biome\Biome;
 use Ad5001\BetterGen\Main;
 use Ad5001\BetterGen\populator\TreePopulator;
 use Ad5001\BetterGen\populator\BushPopulator;
+use Ad5001\BetterGen\populator\FallenTreePopulator;
+
 
 class BetterForest extends ForestBiome implements Mountainable {
 	static $types = [ 
@@ -41,6 +43,12 @@ class BetterForest extends ForestBiome implements Mountainable {
 		$bush = new BushPopulator($type);
 		$bush->setBaseAmount(10);
 		$this->addPopulator($bush);
+		
+		$ft = new FallenTreePopulator($type);
+		$ft->setBaseAmount(0);
+		$ft->setRandomAmount(4);
+		$this->addPopulator($ft);
+
 		$trees = new TreePopulator($type);
 		$trees->setBaseAmount((null !== @constant(TreePopulator::$types [$type] . "::maxPerChunk" )) ? constant(TreePopulator::$types [$type] . "::maxPerChunk" ) : 5);
 		$this->addPopulator($trees);
@@ -50,7 +58,7 @@ class BetterForest extends ForestBiome implements Mountainable {
 		
 		$this->addPopulator($tallGrass);
 		
-		$this->setElevation(63, 81);
+		$this->setElevation(63, 69);
 		
 		$this->temperature = $infos [0];
 		$this->rainfall = $infos [1];

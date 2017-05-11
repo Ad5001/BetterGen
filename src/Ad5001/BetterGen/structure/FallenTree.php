@@ -19,8 +19,6 @@ use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
 use pocketmine\utils\Random;
 use pocketmine\math\Vector3;
-use pocketmine\level\generator\object\Tree;
-use pocketmine\level\generator\normal\object\Tree as Tree2;
 use pocketmine\level\generator\object\Object;
 use Ad5001\BetterGen\utils\BuildingUtils;
 
@@ -44,13 +42,10 @@ class FallenTree extends Object {
 	
 	/*
 	 * Constructs the class
-	 * @param 	$tree Tree
+	 * @param 	$tree 	Tree
 	 * @throws 	Exeption
 	 */
-	public function __construct($tree) {
-		if(!is_subclass_of($tree, Tree::class) && !is_subclass_of($tree, Tree2::class)) {
-			throw new Exception("Argument 1 passed to \\Ad5001\\BetterGen\\structure\\FallenTree must be an instance of pocketmine\\level\\generator\\normal\\object\\Tree or pocketmine\\level\\generator\\object\\Tree. Instance of " . get_class($tree) . " given.");
-		}
+	public function __construct(Tree $tree) {
 		$this->tree = $tree;
 	}
 	
@@ -71,7 +66,7 @@ class FallenTree extends Object {
 			case 0:
 			case 1:// Z+
 			if(in_array(false, BuildingUtils::fillCallback(new Vector3($x, $y, $z), new Vector3($x, $y, $z + $this->length), function($v3, $level) {
-				if(!in_array($level->getBlockIdAt($v3->x, $v3->y, $v3->z), \Ad5001\BetterGen\structure\FallenTree::$overridable)) return false;
+				if(!in_array($level->getBlockIdAt($v3->x, $v3->y, $v3->z), $this->overridable)) return false;
 			}, $level))) {
 				return false;
 			}
@@ -79,7 +74,7 @@ class FallenTree extends Object {
 			case 2:
 			case 3: // X+
 			if(in_array(false, BuildingUtils::fillCallback(new Vector3($x, $y, $z), new Vector3($x + $this->length, $y, $z), function($v3, $level) {
-				if(!in_array($level->getBlockIdAt($v3->x, $v3->y, $v3->z), \Ad5001\BetterGen\structure\FallenTree::$overridable)) return false;
+				if(!in_array($level->getBlockIdAt($v3->x, $v3->y, $v3->z), $this->overridable)) return false;
 			}, $level))) {
 				return false;
 			}
@@ -96,6 +91,7 @@ class FallenTree extends Object {
 	 * @param $z int
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z) {
+		echo "Placing at $x $y $z FallenTree\n";
 		switch($this->direction) {
 			case 0:
 			$level->setBlockIdAt($x, $y, $z, $this->tree->trunkBlock);

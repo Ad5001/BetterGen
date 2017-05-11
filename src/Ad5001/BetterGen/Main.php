@@ -138,7 +138,6 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 				$options["preset"] = json_encode($options);
 				if((int) $seed == 0/*String*/){
 					$seed = $this->generateRandomSeed();
-					echo "Rechoosen seed";
 				}
 				$this->getServer()->broadcastMessage(Main::PREFIX . "§aGenerating level $name with generator $generatorName and seed $seed..");
 				$this->getServer()->generateLevel($name, $seed, $generator, $options);
@@ -211,7 +210,6 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 		$cfg = new Config(LootTable::getPluginFolder() . "processingLoots.json", Config::JSON);
 		if($event->getBlock()->getId() !== Block::CHEST) return;
 		if(!$cfg->exists($event->getBlock()->getX() . ";" . $event->getBlock()->getY() . ";" . $event->getBlock()->getZ())) return;
-		echo "Doing {$event->getBlock()}";
 		$chest = new \pocketmine\block\Chest(0);
 		$nbt = new CompoundTag("", [
 				new ListTag("Items", []),
@@ -236,7 +234,6 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 		$cfg = new Config(LootTable::getPluginFolder() . "processingLoots.json", Config::JSON);
 		if($event->getBlock()->getId() !== Block::CHEST) return;
 		if(!$cfg->exists($event->getBlock()->getX() . ";" . $event->getBlock()->getY() . ";" . $event->getBlock()->getZ())) return;
-		echo "Doing {$event->getBlock()}";
 		$chest = new \pocketmine\block\Chest(0);
 		$nbt = new CompoundTag("", [
 				new ListTag("Items", []),

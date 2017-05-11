@@ -45,7 +45,7 @@ class CavePopulator extends AmountPopulator {
 		}
 		// echo "Finished Populating chunk $chunkX, $chunkZ !" . PHP_EOL;
 		// Filling water & lava sources randomly
-		for($i = 0; $i < $random->nextBoundedInt(10 ) + 15; $i ++) {
+		for($i = 0; $i < $random->nextBoundedInt(5) + 3; $i ++) {
 			$x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
 			$z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
 			$y = $random->nextRange(10, $this->getHighestWorkableBlock($x, $z ));
