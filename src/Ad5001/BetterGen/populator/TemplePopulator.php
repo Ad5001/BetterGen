@@ -56,6 +56,6 @@ class TemplePopulator extends AmountPopulator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 }

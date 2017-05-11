@@ -86,6 +86,6 @@ class TreePopulator extends AmountPopulator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 }

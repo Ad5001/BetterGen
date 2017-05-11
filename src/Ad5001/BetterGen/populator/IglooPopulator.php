@@ -58,6 +58,6 @@ class IglooPopulator extends AmountPopulator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 }

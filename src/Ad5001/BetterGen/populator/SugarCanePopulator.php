@@ -64,6 +64,6 @@ class SugarCanePopulator extends AmountPopulator {
 				break;
 			}
 		}
-		return $y === 0 ? - 1 : $y++;
+		return $y === 0 ? - 1 : ++$y;
 	}
 }

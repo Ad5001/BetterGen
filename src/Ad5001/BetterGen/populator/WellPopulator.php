@@ -56,6 +56,6 @@ class WellPopulator extends AmountPopulator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 }

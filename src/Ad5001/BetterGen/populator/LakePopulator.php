@@ -67,6 +67,6 @@ class LakePopulator extends AmountPopulator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 }

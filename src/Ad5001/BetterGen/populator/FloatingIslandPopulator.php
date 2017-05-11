@@ -78,7 +78,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 	
 	
@@ -89,7 +89,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 	 * @param 	$pos 		pocketmine\math\Vector3
 	 * @param	$radius		int
 	 * @param 	$random 	pocketmine\utils\Random
-	 * @return 	void
+	 * @return 	int			lowest ore point
 	 */
 	public function buildIslandBottomShape(ChunkManager $level, Vector3 $pos, int $radius, Random $random) {
 		$pos = $pos->round();
@@ -122,13 +122,13 @@ class FloatingIslandPopulator extends AmountPopulator {
 			$oldHB = $hBound;
 			$hBound = $random->nextFloat();
 			if($current >= $currentLen + $hBound) {
-				if($radius == 0) return;
+				if($radius == 0) return $pos->y;
 				$current = 0;
 				$currentLen += 0.3 * ($random->nextFloat() + 0.5);
 				$radius--;
 			}
 		}
-		//return $pos->y - 1 - $y;//void
+		return $pos->y - 1 - $y;
 	}
 	
 	

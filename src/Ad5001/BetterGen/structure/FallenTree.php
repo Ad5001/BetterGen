@@ -18,7 +18,7 @@ use Ad5001\BetterGen\utils\BuildingUtils;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\object\Object;
-use pocketmine\level\generator\object\Tree;
+use pocketmine\level\generator\object\Tree as ObjectTree;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
@@ -36,18 +36,17 @@ class FallenTree extends Object {
 		Block::LEAVES2 => true,
 		Block::CACTUS => true
 	];
-	/** @var Tree */
 	protected $tree;
 	protected $direction;
 	protected $random;
-	private $length;
+	private $length = 0;
 
 	/*
 	 * Constructs the class
-	 * @param 	$tree 	Tree
-	 * @throws 	Exception
+	 * @param 	$tree 	ObjectTree
+	 * @throws 	Exeption
 	 */
-	public function __construct(Tree $tree) {
+	public function __construct(ObjectTree $tree) {
 		$this->tree = $tree;
 	}
 
@@ -61,14 +60,15 @@ class FallenTree extends Object {
 	 */
 	public function canPlaceObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		$randomHeight = round($random->nextBoundedInt(6) - 3);
-		$this->length = $this->tree->trunkHeight + $randomHeight;
+		$this->length = ($this->tree->trunkHeight??5) + $randomHeight;
 		$this->direction = $random->nextBoundedInt(4);
 		$this->random = $random;
 		switch ($this->direction) {
 			case 0:
 			case 1:// Z+
 				if (in_array(false, BuildingUtils::fillCallback(new Vector3($x, $y, $z), new Vector3($x, $y, $z + $this->length), function ($v3, ChunkManager $level) {
-					if (!in_array($level->getBlockIdAt($v3->x, $v3->y, $v3->z), $this->overridable)) return false; else return true;
+					if (!in_array($level->getBlockIdAt($v3->x, $v3->y, $v3->z), $this->overridable)) return false;
+					else return true;
 				}, $level))) {
 					return false;
 				}
@@ -76,7 +76,8 @@ class FallenTree extends Object {
 			case 2:
 			case 3: // X+
 				if (in_array(false, BuildingUtils::fillCallback(new Vector3($x, $y, $z), new Vector3($x + $this->length, $y, $z), function ($v3, ChunkManager $level) {
-					if (!in_array($level->getBlockIdAt($v3->x, $v3->y, $v3->z), $this->overridable)) return false; else return true;
+					if (!in_array($level->getBlockIdAt($v3->x, $v3->y, $v3->z), $this->overridable)) return false;
+					else return true;
 				}, $level))) {
 					return false;
 				}
@@ -136,7 +137,7 @@ class FallenTree extends Object {
 	 */
 	public function placeBlock($x, $y, $z, ChunkManager $level) {
 		if (isset($this->overridable [$level->getBlockIdAt($x, $y, $z)]) && !isset($this->overridable [$level->getBlockIdAt($x, $y - 1, $z)])) {
-			$level->setBlockIdAt($x, $y, $z, $this->tree->trunkBlock);
+			$level->setBlockIdAt($x, $y, $z, $this->tree->leafBlock);
 			$level->setBlockDataAt($x, $y, $z, $this->tree->type);
 		}
 	}

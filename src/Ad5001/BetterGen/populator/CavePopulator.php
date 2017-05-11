@@ -75,7 +75,7 @@ class CavePopulator extends AmountPopulator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 	
 	/*

@@ -84,7 +84,7 @@ class RavinePopulator extends AmountPopulator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 	
 	/*

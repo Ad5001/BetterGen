@@ -447,6 +447,6 @@ class BetterNormal extends Generator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 }

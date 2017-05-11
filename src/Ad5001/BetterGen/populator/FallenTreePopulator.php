@@ -1,10 +1,10 @@
 <?php
 /**
- *  ____             __     __                    ____                       
- * /\  _`\          /\ \__ /\ \__                /\  _`\                     
- * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___    
- *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\  
- *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
+ *  ____             __     __                    ____
+ * /\  _`\          /\ \__ /\ \__                /\  _`\
+ * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___
+ *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\
+ *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
  * Tomorrow's pocketmine generator.
@@ -34,7 +34,7 @@ class FallenTreePopulator extends AmountPopulator {
 		$this->setBaseAmount(1);
 		$this->setRandomAmount(2);
 	}
-	
+
 	/*
 	 * Populate the chunk
 	 * @param $level pocketmine\level\ChunkManager
@@ -46,7 +46,9 @@ class FallenTreePopulator extends AmountPopulator {
 		$this->level = $level;
 		$amount = $this->getAmount($random);
 		$tree =  TreePopulator::$types[$this->type];
-		$fallenTree = new FallenTree(new $tree());
+		$fallenTree = new \Ad5001\BetterGen\structure\FallenTree(
+			new $tree()
+		);
 		for($i = 0; $i < $amount; $i++) {
 			$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
 			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
@@ -56,11 +58,12 @@ class FallenTreePopulator extends AmountPopulator {
 			}
 		}
 	}
-	
-	/*
+
+	/**
 	 * Gets the top block (y) on an x and z axes
-	 * @param $x int
-	 * @param $z int
+	 * @param $x
+	 * @param $z
+	 * @return int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
 		for($y = Level::Y_MAX; $y >= 0; -- $y) {
@@ -69,6 +72,6 @@ class FallenTreePopulator extends AmountPopulator {
 				break;
 			}
 		}
-		return $y === 0 ? - 1 : $y++;
+		return $y === 0 ? - 1 : ++$y;
 	}
 }
