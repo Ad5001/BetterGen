@@ -14,6 +14,8 @@
 
 namespace Ad5001\BetterGen\populator;
 
+use pocketmine\level\generator\object\Tree;
+use pocketmine\level\Level;
 use pocketmine\utils\Random;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
@@ -23,11 +25,13 @@ use Ad5001\BetterGen\Main;
 
 
 class TreePopulator extends AmountPopulator {
+	/** @var Tree[] */
 	static $types = [ 
 			"pocketmine\\level\\generator\\object\\OakTree",
 			"pocketmine\\level\\generator\\object\\BirchTree",
 			"Ad5001\\BetterGen\\structure\\SakuraTree" 
 	];
+	/** @var ChunkManager */
 	protected $level;
 	protected $type;
 	
@@ -63,7 +67,8 @@ class TreePopulator extends AmountPopulator {
 				continue;
 			}
 			$treeC = self::$types [$this->type];
-			$tree = new  $treeC();
+			/** @var Tree $tree */
+			$tree = new $treeC();
 			$tree->placeObject($level, $x, $y, $z, $random);
 		}
 	}
@@ -74,7 +79,7 @@ class TreePopulator extends AmountPopulator {
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = 127; $y > 0; -- $y) {
+		for($y = Level::Y_MAX; $y > 0; -- $y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL) {
 				break;

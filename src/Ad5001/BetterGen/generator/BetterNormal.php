@@ -15,6 +15,7 @@
 namespace Ad5001\BetterGen\generator;
 
 use pocketmine\level\ChunkManager;
+use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\Generator;
@@ -61,6 +62,7 @@ class BetterNormal extends Generator {
 			Block::STILL_WATER 
 	];
 	protected $selector;
+	/** @var Level */
 	protected $level;
 	protected $random;
 	protected $populators = [ ];
@@ -434,7 +436,7 @@ class BetterNormal extends Generator {
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = 127; $y > 0; -- $y) {
+		for($y = Level::Y_MAX; $y > 0; -- $y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL) {
 				break;

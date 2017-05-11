@@ -14,6 +14,7 @@
  
 namespace Ad5001\BetterGen\populator;
 
+use pocketmine\level\Level;
 use pocketmine\utils\Random;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
@@ -22,6 +23,7 @@ use Ad5001\BetterGen\utils\BuildingUtils;
 use Ad5001\BetterGen\populator\AmountPopulator;
 
 class LakePopulator extends AmountPopulator {
+	/** @var ChunkManager */
 	protected $level;
 	
 	/*
@@ -57,7 +59,7 @@ class LakePopulator extends AmountPopulator {
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = 127; $y > 0; -- $y) {
+		for($y = Level::Y_MAX; $y > 0; -- $y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL) {
 				break;

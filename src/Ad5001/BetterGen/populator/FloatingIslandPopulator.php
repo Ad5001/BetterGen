@@ -15,6 +15,8 @@
 namespace Ad5001\BetterGen\populator;
 
 use pocketmine\level\ChunkManager;
+use pocketmine\level\format\Chunk;
+use pocketmine\level\Level;
 use pocketmine\utils\Random;
 use Ad5001\BetterGen\generator\BetterNormal;
 use pocketmine\block\Block;
@@ -39,6 +41,9 @@ class FloatingIslandPopulator extends AmountPopulator {
 	 * @param $chunkZ 	int
 	 * @param $random 	pocketmine\utils\Random
 	 */
+	/** @var ChunkManager */
+	private $level;
+
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
 		if($this->getAmount($random) > 130) {
@@ -49,7 +54,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 			$height = $this->buildIslandBottomShape($level, new Vector3($x, $y, $z), $radius, $random);
 			$this->populateOres($level, new Vector3($x, $y - 1, $z), $radius * 2, $height, $random);
 			$chunk = $level->getChunk($chunkX, $chunkZ);
-			$biome = BetterNormal::getBiomeById($chunk->getBiomeId($x % 16, $z % 16));
+			$biome = BetterNormal::getBiomeById($chunk->getBiomeId($x % 16, $z % 16));//static call
 			$populators = $biome->getPopulators();
 			foreach($populators as $populator) {
 				$populator->populate($level, $chunkX, $chunkZ, $random);
@@ -65,7 +70,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = 127; $y > 0; -- $y) {
+		for($y = Level::Y_MAX; $y > 0; -- $y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL or $b === Block::SAND) {
 				break;
@@ -90,7 +95,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 	public function buildIslandBottomShape(ChunkManager $level, Vector3 $pos, int $radius, Random $random) {
 		$pos = $pos->round();
 		$xx = $pos->x;
-		$zz = $z;
+		$zz = $z; //undefined
 		$currentLen = 1;
 		$isEdge = false;
 		$hBound = 0;
@@ -105,7 +110,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 					}
 					if(abs(abs($x - $pos->x) ** 2) + abs(abs($z - $pos->z) ** 2) <= ($radius ** 2) * 0.67 && $y < 128) { 
 						if($chunk = $level->getChunk($x >> 4, $z >> 4)) {
-							$biome = BetterNormal::getBiomeById($chunk->getBiomeId($x % 16, $z % 16));
+							$biome = BetterNormal::getBiomeById($chunk->getBiomeId($x % 16, $z % 16));//static call
 							$block = $biome->getGroundCover()[$pos->y - $y - 1] ?? Block::get(Block::STONE);
 							$block = $block->getId();
 						} elseif($random->nextBoundedInt(5) == 0 && $isEdge) {
@@ -160,6 +165,6 @@ class FloatingIslandPopulator extends AmountPopulator {
 				new OreType(new GoldOre (), 2, 8, $pos->y - $height, $pos->y - round($height / 2)),
 				new OreType(new DiamondOre (), 1, 7, $pos->y - $height, $pos->y - round($height / 4))
 		]);
-		$ores->populate($level, $x >> 4, $z >> 4, $random);
+		$ores->populate($level, $x >> 4, $z >> 4, $random);//x z undefined
 	}
 }

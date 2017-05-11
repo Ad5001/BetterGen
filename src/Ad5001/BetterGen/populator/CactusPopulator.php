@@ -17,11 +17,13 @@ namespace Ad5001\BetterGen\populator;
 
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
+use pocketmine\level\Level;
 use pocketmine\utils\Random;
 use Ad5001\BetterGen\structure\Cactus;
 use Ad5001\BetterGen\populator\AmountPopulator;
 
 class CactusPopulator extends AmountPopulator {
+	/** @var ChunkManager */
 	protected $level;
 	/*
 	 * Constructs the class
@@ -58,7 +60,7 @@ class CactusPopulator extends AmountPopulator {
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = 127; $y >= 0; -- $y) {
+		for($y = Level::Y_MAX; $y >= 0; -- $y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b !== Block::AIR and $b !== Block::LEAVES and $b !== Block::LEAVES2) {
 				break;

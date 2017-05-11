@@ -16,12 +16,14 @@ namespace Ad5001\BetterGen\populator;
 
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
+use pocketmine\level\Level;
 use pocketmine\utils\Random;
 use Ad5001\BetterGen\structure\FallenTree;
 use Ad5001\BetterGen\populator\AmountPopulator;
 
 
 class FallenTreePopulator extends AmountPopulator {
+	/** @var ChunkManager */
 	protected $level;
 	protected $type;
 	/*
@@ -51,7 +53,7 @@ class FallenTreePopulator extends AmountPopulator {
 			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
 			$y = $this->getHighestWorkableBlock($x, $z);
 			if ($y !== -1 and $fallenTree->canPlaceObject($level, $x, $y + 1, $z, $random )) {
-				$fallenTree->placeObject($level, $x, $y + 1, $z, $random);
+				$fallenTree->placeObject($level, $x, $y + 1, $z);
 			}
 		}
 	}
@@ -62,7 +64,7 @@ class FallenTreePopulator extends AmountPopulator {
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = 127; $y >= 0; -- $y) {
+		for($y = Level::Y_MAX; $y >= 0; -- $y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b !== Block::AIR and $b !== Block::LEAVES and $b !== Block::LEAVES2) {
 				break;
