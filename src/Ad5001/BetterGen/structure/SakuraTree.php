@@ -442,8 +442,8 @@ class SakuraTree extends Tree {
 
 
 	public $trunkHeight = 11;
-	private $leafType;
-	private $leaf2Type;
+	public $leafType;
+	public $leaf2Type;
 
 	/*
 	 * Constructs the class

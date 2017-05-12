@@ -23,9 +23,15 @@ commands:
         description: Teleports you to an another world
         usage: "/worldtp <world name>"
         permission: bettergen.cmd.worldtp
+    temple:
+        description: Spawns a temple for debugging
+        usage: "/temple"
+        permission: bettergen.cmd.debug
 permissions:
     bettergen.cmd.createworld:
         default: op
     bettergen.cmd.worldtp:
+        default: op
+    bettergen.cmd.debug:
         default: op
 ...
