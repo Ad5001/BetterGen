@@ -149,53 +149,49 @@ class Temple extends Object {
 		$firstPos = new Vector3($x + 10, $y, $z + 10);
 		$sndPos = new Vector3($x - 10, $y, $z - 10);
 		for ($i = 0; $i <= 9; $i++) {
-			// Building sides
-			BuildingUtils::walls($level, $firstPos, $sndPos, Block::get(Block::SANDSTONE));
-
-			// Next floor
-			$firstPos->x--;
-			$firstPos->z--;
-			$firstPos->y = $y + $i;
-			$sndPos->x++;
-			$sndPos->z++;
-			$sndPos->y = $y + $i;
+			// Building diagonal sides
+			BuildingUtils::walls($level, $firstPos->add(-$i, $i, -$i), $sndPos->add($i, $i, $i), Block::get(Block::SANDSTONE));
 		}
-		// Floors
-		for ($xx = $x + 9; $xx >= $x - 9; $xx--)
-			for ($zz = $z + 9; $zz >= $z - 9; $zz--)
-				$this->placeBlock($xx, $y, $zz);
-		for ($xx = $x + 5; $xx >= $x - 5; $xx--)
-			for ($zz = $z + 5; $zz >= $z - 5; $zz--)
-				$this->placeBlock($xx, $y + 4, $zz);
+
+		// Floor top
+		BuildingUtils::fill($level, new Vector3($x - 5, $y + 4, $z - 5), new Vector3($x + 5, $y + 4, $z + 5), Block::get(Block::SANDSTONE));
+		#for ($xx = $x + 5; $xx >= $x - 5; $xx--)
+		#	for ($zz = $z + 5; $zz >= $z - 5; $zz--)
+		#		$this->placeBlock($xx, $y + 4, $zz);
 
 		// Creating hole
-		for ($xx = $x - 1; $xx <= $x + 1; $xx++)
-			for ($yy = $y - 11; $yy <= $y + 4; $yy++)
-				for ($zz = $z - 1; $zz <= $z + 1; $zz++)
-					$this->placeBlock($xx, $yy, $zz, 0);
+		BuildingUtils::fill($level, new Vector3($x - 1, $y - 11, $z - 1), new Vector3($x + 1, $y + 4, $z + 1), Block::get(Block::AIR));
+		#for ($xx = $x - 1; $xx <= $x + 1; $xx++)
+		#	for ($yy = $y - 11; $yy <= $y + 4; $yy++)
+		#		for ($zz = $z - 1; $zz <= $z + 1; $zz++)
+		#			$this->placeBlock($xx, $yy, $zz, Block::AIR);
 
-		// Floor patern
-		foreach ($this->directions as $dir) {
+		// Hole walls
+		BuildingUtils::walls($level, new Vector3($x - 2, $y - 1, $z - 2), new Vector3($x + 2, $y - 8, $z + 2), Block::get(Block::SANDSTONE));
+
+		//Floor bottom
+		BuildingUtils::fill($level, new Vector3($x - 9, $y, $z - 9), new Vector3($x + 9, $y, $z + 9), Block::get(Block::SANDSTONE));
+		#for ($xx = $x + 9; $xx >= $x - 9; $xx--)
+		#	for ($zz = $z + 9; $zz >= $z - 9; $zz--)
+		#		$this->placeBlock($xx, $y, $zz);
+
+		// Floor pattern
+		for($i=-2;$i<=1;$i++){//straight
+			$xextra = ($i + 1) % 2;
+			$zextra = ($i) % 2;
+			// Orange hardened clay
+			$this->placeBlock($x + ($xextra * 3), $y, $z + ($zextra * 3), Block::STAINED_HARDENED_CLAY, 1);//OUTER out
+			$this->placeBlock($x + ($xextra * 2), $y, $z + ($zextra * 2), Block::STAINED_HARDENED_CLAY, 1);//OUTER in
+		}
+		foreach($this->directions as $direction) {//Diagonals
 			// Building pillar
 			for ($yy = $y + 1; $yy <= $y + 3; $yy++)
-				$this->placeBlock($x + ($dir [0] * 2), $yy, $z + ($dir [1] * 2), Block::SANDSTONE, 2);
-			// Orange hardened clay
-			$this->placeBlock($x + $dir [0], $y, $z + $dir [1], Block::STAINED_HARDENED_CLAY, 1);
-			$this->placeBlock($x + ($dir [0] * 2), $y, $z, Block::STAINED_HARDENED_CLAY, 1);
-			$this->placeBlock($x + ($dir [0] * 3), $y, $z, Block::STAINED_HARDENED_CLAY, 1);
-			$this->placeBlock($x, $y, $z + ($dir [1] * 2), Block::STAINED_HARDENED_CLAY, 1);
-			$this->placeBlock($x, $y, $z + ($dir [1] * 3), Block::STAINED_HARDENED_CLAY, 1);
-			$this->placeBlock($x + ($dir [0] * 2), $yy, $z + ($dir [1]), Block::STAINED_HARDENED_CLAY, 1);
-			$this->placeBlock($x + ($dir [0]), $yy, $z + ($dir [1] * 2), Block::STAINED_HARDENED_CLAY, 1);
-
-			// Sandstone
-			$this->placeBlock($x + $dir [0], $y, $z);
-			$this->placeBlock($x, $y, $z + $dir [1]);
+				$this->placeBlock($x + ($direction[0] * 2), $yy, $z + ($direction[1] * 2), Block::SANDSTONE, 2);
+			$this->placeBlock($x + $direction[0], $y, $z + $direction[1], Block::STAINED_HARDENED_CLAY, 1);//Diagonal
 		}
 		// Blue hardened clay (center)
 		$this->placeBlock($x, $y, $z, Block::STAINED_HARDENED_CLAY, 11);
-		// Hole walls
-		BuildingUtils::walls($level, new Vector3($x - 2, $y, $z - 2), new Vector3($x + 2, $y - 8, $z + 2), Block::get(Block::SANDSTONE));
+		// Floor pattern end
 
 		// Last step like this
 		for ($xx = $x - 2; $xx <= $x + 2; $xx++) {
@@ -222,7 +218,7 @@ class Temple extends Object {
 		$this->placeBlock($x, $y - 11, $z, Block::STONE_PRESSURE_PLATE);
 
 		// Chests
-		LootTable::buildLootTable(new Vector3($x, $y - 11, $z + 2), LootTable::LOOT_DESERT_TEMPLE, $random);
+		LootTable::buildLootTable(new Vector3($x, $y - 11, $z + 2), LootTable::LOOT_DESERT_TEMPLE, $random);//TODO: Improve using addon
 		LootTable::buildLootTable(new Vector3($x, $y - 11, $z - 2), LootTable::LOOT_DESERT_TEMPLE, $random);
 		LootTable::buildLootTable(new Vector3($x + 2, $y - 11, $z), LootTable::LOOT_DESERT_TEMPLE, $random);
 		LootTable::buildLootTable(new Vector3($x - 2, $y - 11, $z), LootTable::LOOT_DESERT_TEMPLE, $random);
@@ -236,7 +232,7 @@ class Temple extends Object {
 				// Creating rectangular parallelepiped of sandstone.
 				BuildingUtils::fill($level, new Vector3($x + 6, $y + 1, $z - 6), new Vector3($x + 9, $y + 4, $z + 6), Block::get(Block::SANDSTONE));
 				// Creating a path to the entrance
-				BuildingUtils::fill($level, new Vector3($x + 6, $y + 1, $z - 1), new Vector3($x + 9, $y + 4, $z + 1), Block::get(Block::AIR));
+				BuildingUtils::fill($level, new Vector3($x + 6, $y + 1, $z - 1), new Vector3($x + 9, $y + 4, $z + 1), Block::get(Block::AIR));//this clears the entrance
 				// Creating path to towers.
 				for ($yy = $y + 1; $yy <= $y + 2; $yy++)
 					for ($zz = $z - 6; $zz <= $z + 6; $zz++)
@@ -314,6 +310,7 @@ class Temple extends Object {
 				break;
 
 			case self::DIRECTION_PLUSZ : // z+ (2)
+				//TODO: Build pillars inside
 				// Building towers.
 				$this->placeTower($x + 8, $y, $z + 8, self::DIRECTION_PLUSZ, self::DIRECTION_PLUSX);
 				$this->placeTower($x - 8, $y, $z + 8, self::DIRECTION_PLUSZ, self::DIRECTION_MINX);
@@ -394,31 +391,33 @@ class Temple extends Object {
 		}
 	}
 
-	/*
-	 * Places a slab
+	/**
+	 * Places a block
 	 * @param $x int
 	 * @param $y int
 	 * @param $z int
-	 * @return void
+	 * @param int $id
+	 * @param int $meta
 	 */
-
 	protected function placeBlock($x, $y, $z, $id = Block::SANDSTONE, $meta = 0) {
 		$this->level->setBlockIdAt($x, $y, $z, $id);
 		$this->level->setBlockDataAt($x, $y, $z, $meta);
 	}
 
-	/*
-	 * Places a slab
+
+	/**
+	 * Places one of the towers. Out is inversed $direction1, stairs come from inversed $direction2 to $direction2, patterns are on $direction1 and $direction2
 	 * @param $x int
 	 * @param $y int
 	 * @param $z int
-	 * @param $id int
-	 * @param $meta int
+	 * @param $direction1 int
+	 * @param $direction2 int
 	 * @return void
 	 */
-
 	public function placeTower($x, $y, $z, $direction1 = self::DIRECTION_PLUSX, $direction2 = self::DIRECTION_PLUSZ) {
 		BuildingUtils::walls($this->level, new Vector3($x + 2, $y, $z + 2), new Vector3($x - 2, $y + 8, $z - 2), Block::get(Block::SANDSTONE));
+		//Clear insides
+		BuildingUtils::fill($this->level, new Vector3($x + 1, $y + 1, $z + 1), new Vector3($x - 1, $y + 7, $z - 1), Block::get(Block::AIR));
 		switch ($direction1) {
 			case self::DIRECTION_PLUSX : // x+ (0)
 				// Stairs
@@ -456,7 +455,7 @@ class Temple extends Object {
 						$this->placeBlock($x, $y + 7, $z + 2, Block::SANDSTONE, 2);
 						$this->placeBlock($x + 1, $y + 7, $z + 2, Block::SANDSTONE, 2);
 
-						// Building entrance to second floor.
+						// Building entrance to second floor. //TODO
 						BuildingUtils::fill($this->level, new Vector3($x - 9, $y + 5, $z - 4), new Vector3($x - 7, $y + 7, $z - 5), Block::get(Block::SANDSTONE, 2));
 						BuildingUtils::fill($this->level, new Vector3($x - 8, $y + 5, $z - 4), new Vector3($x - 8, $y + 6, $z - 5), Block::get(Block::AIR));
 						break;
@@ -495,7 +494,7 @@ class Temple extends Object {
 						break;
 				}
 
-				// Building entrance to second floor.
+				// Building entrance to second floor. //TODO
 				BuildingUtils::fill($this->level, new Vector3($x - 9, $y + 5, $z + 4), new Vector3($x - 7, $y + 7, $z + 5), Block::get(Block::SANDSTONE, 2));
 				BuildingUtils::fill($this->level, new Vector3($x - 8, $y + 5, $z + 4), new Vector3($x - 8, $y + 6, $z + 5), Block::get(Block::AIR));
 
@@ -506,7 +505,7 @@ class Temple extends Object {
 				$this->placeBlock($x - 2, $y + 5, $z, Block::AIR);
 				$this->placeBlock($x - 2, $y + 6, $z, Block::AIR);
 				// Making path from stairs to first floor.
-				BuildingUtils::fill($this->level, new Vector3($x - 4, $y, $z + 2), new Vector3($x - 9, $y + 4, $z - 2), Block::get(Block::SANDSTONE));
+				BuildingUtils::fill($this->level, new Vector3($x - 3, $y, $z + 1 + ($direction2 === self::DIRECTION_PLUSZ ? 2 : 0)), new Vector3($x - 8, $y + 4, $z - 1 + ($direction2 === self::DIRECTION_MINZ ? -2 : 0)), Block::get(Block::SANDSTONE));
 
 				// Other side pattern
 				foreach ([
@@ -570,7 +569,7 @@ class Temple extends Object {
 						$this->placeBlock($x, $y + 7, $z + 2, Block::SANDSTONE, 2);
 						$this->placeBlock($x + 1, $y + 7, $z + 2, Block::SANDSTONE, 2);
 
-						// Building entrance to second floor.
+						// Building entrance to second floor. //TODO
 						BuildingUtils::fill($this->level, new Vector3($x + 9, $y + 5, $z - 4), new Vector3($x + 7, $y + 7, $z - 5), Block::get(Block::SANDSTONE, 2));
 						BuildingUtils::fill($this->level, new Vector3($x + 8, $y + 5, $z - 4), new Vector3($x + 8, $y + 6, $z - 5), Block::get(Block::AIR));
 						break;
@@ -607,7 +606,7 @@ class Temple extends Object {
 						$this->placeBlock($x, $y + 6, $z - 2, Block::SANDSTONE, 2);
 						$this->placeBlock($x + 1, $y + 6, $z - 2, Block::SANDSTONE, 2);
 
-						// Building entrance to second floor.
+						// Building entrance to second floor. //TODO
 						BuildingUtils::fill($this->level, new Vector3($x + 9, $y + 5, $z + 4), new Vector3($x + 7, $y + 7, $z + 5), Block::get(Block::SANDSTONE, 2));
 						BuildingUtils::fill($this->level, new Vector3($x + 8, $y + 5, $z + 4), new Vector3($x + 8, $y + 6, $z + 5), Block::get(Block::AIR));
 						break;
@@ -620,7 +619,7 @@ class Temple extends Object {
 				$this->placeBlock($x + 2, $y + 5, $z, Block::AIR);
 				$this->placeBlock($x + 2, $y + 6, $z, Block::AIR);
 				// Making path from stairs to first floor.
-				BuildingUtils::fill($this->level, new Vector3($x + 4, $y, $z + 2), new Vector3($x + 9, $y + 4, $z - 2), Block::get(Block::SANDSTONE));
+				BuildingUtils::fill($this->level, new Vector3($x + 3, $y, $z + 1 + ($direction2 === self::DIRECTION_PLUSZ ? 2 : 0)), new Vector3($x + 8, $y + 4, $z - 1 + ($direction2 === self::DIRECTION_MINZ ? -2 : 0)), Block::get(Block::SANDSTONE));
 
 				// Other side pattern
 				foreach ([
@@ -683,7 +682,7 @@ class Temple extends Object {
 						$this->placeBlock($x + 2, $y + 7, $z - 1, Block::SANDSTONE, 2);
 						$this->placeBlock($x + 2, $y + 7, $z, Block::SANDSTONE, 2);
 						$this->placeBlock($x + 2, $y + 7, $z + 1, Block::SANDSTONE, 2);
-						// Building entrance to second floor.
+						// Building entrance to second floor. //TODO
 						BuildingUtils::fill($this->level, new Vector3($x - 4, $y + 5, $z - 9), new Vector3($x - 5, $y + 7, $z - 7), Block::get(Block::SANDSTONE, 2));
 						BuildingUtils::fill($this->level, new Vector3($x - 4, $y + 5, $z - 8), new Vector3($x - 5, $y + 6, $z - 8), Block::get(Block::AIR));
 						break;
@@ -719,7 +718,7 @@ class Temple extends Object {
 						$this->placeBlock($x - 2, $y + 7, $z - 1, Block::SANDSTONE, 2);
 						$this->placeBlock($x - 2, $y + 7, $z, Block::SANDSTONE, 2);
 						$this->placeBlock($x - 2, $y + 7, $z + 1, Block::SANDSTONE, 2);
-						// Building entrance to second floor.
+						// Building entrance to second floor. //TODO
 						BuildingUtils::fill($this->level, new Vector3($x + 4, $y + 5, $z - 9), new Vector3($x + 5, $y + 7, $z - 7), Block::get(Block::SANDSTONE, 2));
 						BuildingUtils::fill($this->level, new Vector3($x + 4, $y + 5, $z - 8), new Vector3($x + 5, $y + 6, $z - 8), Block::get(Block::AIR));
 						break;
@@ -732,7 +731,7 @@ class Temple extends Object {
 				$this->placeBlock($x, $y + 5, $z - 2, Block::AIR);
 				$this->placeBlock($x, $y + 6, $z - 2, Block::AIR);
 				// Making path from stairs to first floor.
-				BuildingUtils::fill($this->level, new Vector3($x + 2, $y, $z - 4), new Vector3($x - 2, $y + 4, $z - 9), Block::get(Block::SANDSTONE));
+				BuildingUtils::fill($this->level, new Vector3($x + 1 + ($direction2 === self::DIRECTION_PLUSX ? 2 : 0), $y, $z - 3), new Vector3($x - 1 + ($direction2 === self::DIRECTION_MINX ? -2 : 0), $y + 4, $z - 8), Block::get(Block::SANDSTONE));
 
 				// Other side pattern
 				foreach ([
@@ -795,7 +794,7 @@ class Temple extends Object {
 						$this->placeBlock($x + 2, $y + 7, $z - 1, Block::SANDSTONE, 2);
 						$this->placeBlock($x + 2, $y + 7, $z, Block::SANDSTONE, 2);
 						$this->placeBlock($x + 2, $y + 7, $z + 1, Block::SANDSTONE, 2);
-						// Building entrance to second floor.
+						// Building entrance to second floor. //TODO
 						BuildingUtils::fill($this->level, new Vector3($x - 4, $y + 5, $z + 9), new Vector3($x - 5, $y + 7, $z + 7), Block::get(Block::SANDSTONE, 2));
 						BuildingUtils::fill($this->level, new Vector3($x - 4, $y + 5, $z + 8), new Vector3($x - 5, $y + 6, $z + 8), Block::get(Block::AIR));
 						break;
@@ -831,7 +830,7 @@ class Temple extends Object {
 						$this->placeBlock($x - 2, $y + 7, $z - 1, Block::SANDSTONE, 2);
 						$this->placeBlock($x - 2, $y + 7, $z, Block::SANDSTONE, 2);
 						$this->placeBlock($x - 2, $y + 7, $z + 1, Block::SANDSTONE, 2);
-						// Building entrance to second floor.
+						// Building entrance to second floor. //TODO
 						BuildingUtils::fill($this->level, new Vector3($x + 4, $y + 5, $z + 9), new Vector3($x + 5, $y + 7, $z + 7), Block::get(Block::SANDSTONE, 2));
 						BuildingUtils::fill($this->level, new Vector3($x + 4, $y + 5, $z + 8), new Vector3($x + 5, $y + 6, $z + 8), Block::get(Block::AIR));
 						break;
@@ -844,7 +843,7 @@ class Temple extends Object {
 				$this->placeBlock($x, $y + 5, $z + 2, Block::AIR);
 				$this->placeBlock($x, $y + 6, $z + 2, Block::AIR);
 				// Making path from stairs to first floor.
-				BuildingUtils::fill($this->level, new Vector3($x + 2, $y, $z + 4), new Vector3($x - 2, $y + 4, $z + 9), Block::get(Block::SANDSTONE));
+				BuildingUtils::fill($this->level, new Vector3($x + 1 + ($direction2 === self::DIRECTION_PLUSX ? 2 : 0) , $y, $z + 3), new Vector3($x - 1 + ($direction2 === self::DIRECTION_MINX ? -2 : 0), $y + 4, $z + 8), Block::get(Block::SANDSTONE));
 
 				// Other side pattern
 				foreach ([
@@ -881,28 +880,27 @@ class Temple extends Object {
 		$this->placeBlock($x, $y + 9, $z + 2, Block::SANDSTONE_STAIRS, 3);
 	}
 
-	/*
-	 * Places one of the towers. Out is inversed $direction1, stairs come from inversed $direction2 to $direction2, patterns are on $direction1 and $direction2
+
+	/**
+	 * Places a slab
 	 * @param $x int
 	 * @param $y int
 	 * @param $z int
-	 * @param $direction1 int
-	 * @param $direction2 int
+	 * @param $id int
+	 * @param $meta int
 	 * @return void
 	 */
-
-	protected function placeSlab($x, $y, $z) {
-		$this->level->setBlockIdAt($x, $y, $z, 44);
-		$this->level->setBlockDataAt($x, $y, $z, 1);
+	protected function placeSlab($x, $y, $z, $id = 44, $meta = 1, $top = false) {
+		if($top) $meta &= 0x08;
+		$this->placeBlock($x, $y, $z, $id, $meta);
 	}
 
-	/*
-	 * Inverses a direction
+	/**
+	 * Inverts a direction
 	 * @param $direction int
 	 * @return int
 	 */
-
-	protected function getInversedDirection(int $direction): int {
+	protected function getInvertedDirection(int $direction): int {
 		switch ($direction) {
 			case self::DIRECTION_PLUSX : // x+ (0)
 				return self::DIRECTION_MINX;

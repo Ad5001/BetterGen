@@ -182,7 +182,7 @@ class Main extends PluginBase implements Listener {
 				if($sender instanceof ConsoleCommandSender) return false;
 				/** @var Player $sender */
 				$temple = new Temple();
-				$temple->placeObject($sender->getLevel(), $sender->x, $sender->y, $sender->z, new Random());
+				$temple->placeObject($sender->getLevel(), $sender->x, $sender->y, $sender->z, new Random(microtime()));
 				return true;
 			}
 		}
