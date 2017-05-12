@@ -14,7 +14,6 @@
 
 namespace Ad5001\BetterGen\structure;
 
-use Ad5001\BetterGen\loot\LootTable;
 use Ad5001\BetterGen\utils\BuildingUtils;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
@@ -176,14 +175,14 @@ class Temple extends Object {
 		#		$this->placeBlock($xx, $y, $zz);
 
 		// Floor pattern
-		for($i=-2;$i<=1;$i++){//straight
+		for ($i = -2; $i <= 1; $i++) {//straight
 			$xextra = ($i + 1) % 2;
 			$zextra = ($i) % 2;
 			// Orange hardened clay
 			$this->placeBlock($x + ($xextra * 3), $y, $z + ($zextra * 3), Block::STAINED_HARDENED_CLAY, 1);//OUTER out
 			$this->placeBlock($x + ($xextra * 2), $y, $z + ($zextra * 2), Block::STAINED_HARDENED_CLAY, 1);//OUTER in
 		}
-		foreach($this->directions as $direction) {//Diagonals
+		foreach ($this->directions as $direction) {//Diagonals
 			// Building pillar
 			for ($yy = $y + 1; $yy <= $y + 3; $yy++)
 				$this->placeBlock($x + ($direction[0] * 2), $yy, $z + ($direction[1] * 2), Block::SANDSTONE, 2);
@@ -217,11 +216,20 @@ class Temple extends Object {
 				$this->placeBlock($xx, $y - 13, $zz, Block::TNT);
 		$this->placeBlock($x, $y - 11, $z, Block::STONE_PRESSURE_PLATE);
 
+		//TODO TILES
+		$this->placeBlock($x, $y - 11, $z + 2, Block::CHEST, 4);
+		$this->placeBlock($x, $y - 11, $z - 2, Block::CHEST, 2);
+		$this->placeBlock($x + 2, $y - 11, $z, Block::CHEST, 5);
+		$this->placeBlock($x - 2, $y - 11, $z, Block::CHEST, 3);
+		$this->placeBlock($x, $y - 10, $z + 2, Block::AIR);
+		$this->placeBlock($x, $y - 10, $z - 2, Block::AIR);
+		$this->placeBlock($x + 2, $y - 10, $z, Block::AIR);
+		$this->placeBlock($x - 2, $y - 10, $z, Block::AIR);
 		// Chests
-		LootTable::buildLootTable(new Vector3($x, $y - 11, $z + 2), LootTable::LOOT_DESERT_TEMPLE, $random);//TODO: Improve using addon
+		/*LootTable::buildLootTable(new Vector3($x, $y - 11, $z + 2), LootTable::LOOT_DESERT_TEMPLE, $random);//TODO: Improve using addon
 		LootTable::buildLootTable(new Vector3($x, $y - 11, $z - 2), LootTable::LOOT_DESERT_TEMPLE, $random);
 		LootTable::buildLootTable(new Vector3($x + 2, $y - 11, $z), LootTable::LOOT_DESERT_TEMPLE, $random);
-		LootTable::buildLootTable(new Vector3($x - 2, $y - 11, $z), LootTable::LOOT_DESERT_TEMPLE, $random);
+		LootTable::buildLootTable(new Vector3($x - 2, $y - 11, $z), LootTable::LOOT_DESERT_TEMPLE, $random);*/
 
 		// Entrance is a rectangular parallelepiped
 		switch ($this->direction) {
@@ -843,7 +851,7 @@ class Temple extends Object {
 				$this->placeBlock($x, $y + 5, $z + 2, Block::AIR);
 				$this->placeBlock($x, $y + 6, $z + 2, Block::AIR);
 				// Making path from stairs to first floor.
-				BuildingUtils::fill($this->level, new Vector3($x + 1 + ($direction2 === self::DIRECTION_PLUSX ? 2 : 0) , $y, $z + 3), new Vector3($x - 1 + ($direction2 === self::DIRECTION_MINX ? -2 : 0), $y + 4, $z + 8), Block::get(Block::SANDSTONE));
+				BuildingUtils::fill($this->level, new Vector3($x + 1 + ($direction2 === self::DIRECTION_PLUSX ? 2 : 0), $y, $z + 3), new Vector3($x - 1 + ($direction2 === self::DIRECTION_MINX ? -2 : 0), $y + 4, $z + 8), Block::get(Block::SANDSTONE));
 
 				// Other side pattern
 				foreach ([
@@ -891,7 +899,7 @@ class Temple extends Object {
 	 * @return void
 	 */
 	protected function placeSlab($x, $y, $z, $id = 44, $meta = 1, $top = false) {
-		if($top) $meta &= 0x08;
+		if ($top) $meta &= 0x08;
 		$this->placeBlock($x, $y, $z, $id, $meta);
 	}
 
