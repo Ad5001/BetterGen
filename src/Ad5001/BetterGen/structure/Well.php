@@ -69,7 +69,7 @@ class Well extends Object {
 		for($xx = $x - 2; $xx <= $x + 2; $xx ++)
 			for($yy = $y; $yy <= $y + 3; $yy ++)
 				for($zz = $z - 2; $zz <= $z + 2; $zz ++)
-					if (! isset($this->overridable [$level->getBlockIdAt($xx, $yy, $zz)]))
+					if (! isset($this->overridable[$level->getBlockIdAt($xx, $yy, $zz)]))
 						return false;
 		return true;
 	}

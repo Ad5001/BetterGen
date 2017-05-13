@@ -50,7 +50,7 @@ class BetterForest extends ForestBiome implements Mountainable {
 		$this->addPopulator($ft);
 
 		$trees = new TreePopulator($type);
-		$trees->setBaseAmount((null !== @constant(TreePopulator::$types [$type] . "::maxPerChunk")) ? constant(TreePopulator::$types [$type] . "::maxPerChunk") : 5);
+		$trees->setBaseAmount((null !== @constant(TreePopulator::$types[$type] . "::maxPerChunk")) ? constant(TreePopulator::$types[$type] . "::maxPerChunk") : 5);
 		$this->addPopulator($trees);
 		
 		$tallGrass = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\TallGrass () : new \pocketmine\level\generator\populator\TallGrass();
@@ -60,8 +60,8 @@ class BetterForest extends ForestBiome implements Mountainable {
 		
 		$this->setElevation(63, 69);
 		
-		$this->temperature = $infos [0];
-		$this->rainfall = $infos [1];
+		$this->temperature = $infos[0];
+		$this->rainfall = $infos[1];
 	}
 	public function getName() {
 		return str_ireplace(" ", "", self::$types[$this->type]);
@@ -72,7 +72,7 @@ class BetterForest extends ForestBiome implements Mountainable {
 	 * @return int
 	 */
 	public function getId() {
-		return self::$ids [$this->type];
+		return self::$ids[$this->type];
 	}
 	/**
 	 * @param string $name
@@ -81,9 +81,9 @@ class BetterForest extends ForestBiome implements Mountainable {
 	 * @return bool
 	 */
 	public static function registerForest(string $name, string $treeClass, array $infos): bool {
-		self::$types [] = str_ireplace("tree", "", explode("\\", $treeClass) [count(explode("\\", $treeClass))]) . " Forest";
-		TreePopulator::$types [] = $treeClass;
-		self::$ids [] = Main::SAKURA_FOREST + (count(self::$types) - 2);
+		self::$types[] = str_ireplace("tree", "", explode("\\", $treeClass)[count(explode("\\", $treeClass))]) . " Forest";
+		TreePopulator::$types[] = $treeClass;
+		self::$ids[] = Main::SAKURA_FOREST + (count(self::$types) - 2);
 		Main::register(Main::SAKURA_FOREST + (count(self::$types) - 2), new BetterForest(count(self::$types) - 1, $infos));
 		return true;
 	}

@@ -64,7 +64,7 @@ class TreePopulator extends AmountPopulator {
 			if ($y === -1) {
 				continue;
 			}
-			$treeC = self::$types [$this->type];
+			$treeC = self::$types[$this->type];
 			/** @var Tree $tree */
 			$tree = new $treeC();
 			$tree->placeObject($level, $x, $y, $z, $random);

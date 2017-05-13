@@ -49,28 +49,28 @@ class Igloo extends Object {
 				for($xx = $x - 3; $xx <= $x + 4; $xx ++)
 					for($yy = $y + 1; $yy <= $y + 4; $yy ++)
 						for($zz = $z - 3; $zz <= $z + 3; $zz ++)
-							if (! isset($this->overridable [$level->getBlockIdAt($xx, $yy, $zz)]))
+							if (! isset($this->overridable[$level->getBlockIdAt($xx, $yy, $zz)]))
 								return false;
 				break;
 			case 1 : // Entrance is x-
 				for($xx = $x - 4; $xx <= $x + 3; $xx ++)
 					for($yy = $y + 1; $yy <= $y + 4; $yy ++)
 						for($zz = $z - 3; $zz <= $z + 3; $zz ++)
-							if (! isset($this->overridable [$level->getBlockIdAt($xx, $yy, $zz)]))
+							if (! isset($this->overridable[$level->getBlockIdAt($xx, $yy, $zz)]))
 								return false;
 				break;
 			case 2 : // Entrance is z+
 				for($xx = $x - 3; $xx <= $x + 3; $xx ++)
 					for($yy = $y + 1; $yy <= $y + 4; $yy ++)
 						for($zz = $z - 3; $zz <= $z + 4; $zz ++)
-							if (! isset($this->overridable [$level->getBlockIdAt($xx, $yy, $zz)]))
+							if (! isset($this->overridable[$level->getBlockIdAt($xx, $yy, $zz)]))
 								return false;
 				break;
 			case 3 : // Entrance is z-
 				for($xx = $x - 3; $xx <= $x + 3; $xx ++)
 					for($yy = $y + 1; $yy <= $y + 4; $yy ++)
 						for($zz = $z - 4; $zz <= $z + 3; $zz ++)
-							if (! isset($this->overridable [$level->getBlockIdAt($xx, $yy, $zz)]))
+							if (! isset($this->overridable[$level->getBlockIdAt($xx, $yy, $zz)]))
 								return false;
 				break;
 		}
@@ -94,7 +94,7 @@ class Igloo extends Object {
 			        // Ground
 				for($xx = $x - 3; $xx <= $x + 4; $xx ++)
 					for($zz = $z - 3; $zz <= $z + 3; $zz ++)
-						if (! isset($this->overridable [$level->getBlockIdAt($xx, $y, $zz)]))
+						if (! isset($this->overridable[$level->getBlockIdAt($xx, $y, $zz)]))
 							$level->setBlockIdAt($xx, $y, $zz, Block::SNOW_BLOCK);
 				// Entrance
 				for($i = 0; $i < 2; $i ++) {
@@ -169,7 +169,7 @@ class Igloo extends Object {
 			        // Ground
 				for($xx = $x - 4; $xx <= $x + 3; $xx ++)
 					for($zz = $z - 3; $zz <= $z + 3; $zz ++)
-						if (! isset($this->overridable [$level->getBlockIdAt($xx, $y, $zz)]))
+						if (! isset($this->overridable[$level->getBlockIdAt($xx, $y, $zz)]))
 							$level->setBlockIdAt($xx, $y, $zz, Block::SNOW_BLOCK);
 				// Entrance
 				for($i = 0; $i < 2; $i ++) {
@@ -243,7 +243,7 @@ class Igloo extends Object {
 			        // Ground
 				for($xx = $x - 3; $xx <= $x + 3; $xx ++)
 					for($zz = $z - 3; $zz <= $z + 4; $zz ++)
-						if (! isset($this->overridable [$level->getBlockIdAt($xx, $y, $zz)]))
+						if (! isset($this->overridable[$level->getBlockIdAt($xx, $y, $zz)]))
 							$level->setBlockIdAt($xx, $y, $zz, Block::SNOW_BLOCK);
 				// Entrance
 				for($i = 0; $i < 2; $i ++) {
@@ -317,7 +317,7 @@ class Igloo extends Object {
 			        // Ground
 				for($xx = $x - 3; $xx <= $x + 3; $xx ++)
 					for($zz = $z - 4; $zz <= $z + 3; $zz ++)
-						if (! isset($this->overridable [$level->getBlockIdAt($xx, $y, $zz)]))
+						if (! isset($this->overridable[$level->getBlockIdAt($xx, $y, $zz)]))
 							$level->setBlockIdAt($xx, $y, $zz, Block::SNOW_BLOCK);
 				// Entrance
 				for($i = 0; $i < 2; $i ++) {

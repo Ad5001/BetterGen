@@ -107,62 +107,62 @@ class Main extends PluginBase implements Listener {
 						return false;
 						break;
 					case 1 : // /createworld <name>
-						$name = $args [0];
+						$name = $args[0];
 						$generator = Generator::getGenerator("betternormal");
 						$generatorName = "betternormal";
 						$seed = $this->generateRandomSeed();
 						$options = [];
 						break;
 					case 2 : // /createworld <name> [generator = betternormal]
-						$name = $args [0];
-						$generator = Generator::getGenerator($args [1]);
-						if (Generator::getGeneratorName($generator) !== strtolower($args [1])) {
+						$name = $args[0];
+						$generator = Generator::getGenerator($args[1]);
+						if (Generator::getGeneratorName($generator) !== strtolower($args[1])) {
 							$sender->sendMessage(self::PREFIX . "§4Could not find generator {$args[1]}. Are you sure it is registered?");
 							return true;
 						}
-						$generatorName = strtolower($args [1]);
+						$generatorName = strtolower($args[1]);
 						$seed = $this->generateRandomSeed();
 						$options = [];
 						break;
 					case 3 : // /createworld <name> [generator = betternormal] [seed = rand()]
-						$name = $args [0];
-						$generator = Generator::getGenerator($args [1]);
-						if (Generator::getGeneratorName($generator) !== strtolower($args [1])) {
+						$name = $args[0];
+						$generator = Generator::getGenerator($args[1]);
+						if (Generator::getGeneratorName($generator) !== strtolower($args[1])) {
 							$sender->sendMessage(self::PREFIX . "§4Could not find generator {$args[1]}. Are you sure it is registered?");
 							return true;
 						}
-						$generatorName = strtolower($args [1]);
-						if (preg_match("[^\d]", $args [2]) !== false) {
-							$parts = str_split($args [2]);
+						$generatorName = strtolower($args[1]);
+						if (preg_match("[^\d]", $args[2]) !== false) {
+							$parts = str_split($args[2]);
 							foreach ($parts as $key => $str) {
-								$parts [$key] = ord($str);
+								$parts[$key] = ord($str);
 							}
 							$seed = implode("", $parts);
 						} else {
-							$seed = $args [2];
+							$seed = $args[2];
 						}
 						$options = [];
 						break;
 					default : // /createworld <name> [generator = betternormal] [seed = rand()] [options(json)]
-						$name = $args [0];
-						$generator = Generator::getGenerator($args [1]);
-						if (Generator::getGeneratorName($generator) !== strtolower($args [1])) {
+						$name = $args[0];
+						$generator = Generator::getGenerator($args[1]);
+						if (Generator::getGeneratorName($generator) !== strtolower($args[1])) {
 							$sender->sendMessage(self::PREFIX . "§4Could not find generator {$args[1]}. Are you sure it is registered?");
 							return true;
 						}
-						$generatorName = strtolower($args [1]);
+						$generatorName = strtolower($args[1]);
 						if ($args[2] == "rand") $args[2] = $this->generateRandomSeed();
-						if (preg_match("[^\d]", $args [2]) !== false) {
-							$parts = str_split($args [2]);
+						if (preg_match("[^\d]", $args[2]) !== false) {
+							$parts = str_split($args[2]);
 							foreach ($parts as $key => $str) {
-								$parts [$key] = ord($str);
+								$parts[$key] = ord($str);
 							}
 							$seed = implode("", $parts);
 						} else {
-							$seed = $args [2];
+							$seed = $args[2];
 						}
-						unset($args [0], $args [1], $args [2]);
-						$options = json_decode($args [3], true);
+						unset($args[0], $args[1], $args[2]);
+						$options = json_decode($args[3], true);
 						if (!is_array($options)) {
 							$sender->sendMessage(Main::PREFIX . "§4Invalid JSON for options.");
 							return true;
@@ -227,7 +227,7 @@ class Main extends PluginBase implements Listener {
 			return false;
 		if (!@is_subclass_of($treeClass, "pocketmine\\level\\generator\\normal\\object\\Tree"))
 			return false;
-		if (count($infos) < 2 or !is_float($infos [0]) or !is_float($infos [1]))
+		if (count($infos) < 2 or !is_float($infos[0]) or !is_float($infos[1]))
 			return false;
 		return BetterForest::registerForest($name, $treeClass, $infos);
 	}

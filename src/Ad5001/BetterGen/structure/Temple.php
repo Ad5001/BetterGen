@@ -127,7 +127,7 @@ class Temple extends Object {
 		for ($xx = $x - 10; $xx <= $x + 10; $xx++)
 			for ($yy = $y + 1; $yy <= $y + 11; $yy++)
 				for ($zz = $z - 10; $zz <= $z + 10; $zz++)
-					if (!isset($this->overridable [$level->getBlockIdAt($xx, $yy, $zz)]))
+					if (!isset($this->overridable[$level->getBlockIdAt($xx, $yy, $zz)]))
 						return false;
 		return true;
 	}
@@ -203,8 +203,8 @@ class Temple extends Object {
 		}
 
 		foreach (self::THREE_DIAGS as $diagPos) {
-			$this->placeBlock($x + $diagPos [0], $y - 10, $z + $diagPos [1], Block::SANDSTONE, 1);
-			$this->placeBlock($x + $diagPos [0], $y - 11, $z + $diagPos [1], Block::SANDSTONE, 2);
+			$this->placeBlock($x + $diagPos[0], $y - 10, $z + $diagPos[1], Block::SANDSTONE, 1);
+			$this->placeBlock($x + $diagPos[0], $y - 11, $z + $diagPos[1], Block::SANDSTONE, 2);
 		}
 
 		// Floor + TNT

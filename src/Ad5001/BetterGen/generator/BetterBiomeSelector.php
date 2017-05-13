@@ -41,7 +41,7 @@ class BetterBiomeSelector extends BiomeSelector {
 	public function recalculate() {
 	} // Using our own system, No need for that
 	public function addBiome(Biome $biome) {
-		$this->biomes [$biome->getId ()] = $biome;
+		$this->biomes[$biome->getId ()] = $biome;
 	}
 	public function getTemperature($x, $z) {
 		return ($this->temperature->noise2D($x, $z, true) + 1) / 2;
@@ -64,7 +64,7 @@ class BetterBiomeSelector extends BiomeSelector {
 		$rainfall = ($this->getRainfall($x, $z));
 		
 		$biomeId = BetterNormal::getBiome($temperature, $rainfall);
-		$b = (($biomeId instanceof Biome) ? $biomeId : ($this->biomes [$biomeId] ?? $this->fallback));
+		$b = (($biomeId instanceof Biome) ? $biomeId : ($this->biomes[$biomeId] ?? $this->fallback));
 		return $b;
 	}
 }

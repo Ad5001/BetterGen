@@ -72,9 +72,9 @@ class Bush extends Object {
 	 * @param $level pocketmine\level\ChunkManager
 	 */
 	public function placeLeaf($x, $y, $z, ChunkManager $level) {
-		if (isset($this->overridable [$level->getBlockIdAt($x, $y, $z)]) && ! isset($this->overridable [$level->getBlockIdAt($x, $y - 1, $z)])) {
-			$level->setBlockIdAt($x, $y, $z, $this->leaf [0]);
-			$level->setBlockDataAt($x, $y, $z, $this->leaf [1]);
+		if (isset($this->overridable[$level->getBlockIdAt($x, $y, $z)]) && ! isset($this->overridable[$level->getBlockIdAt($x, $y - 1, $z)])) {
+			$level->setBlockIdAt($x, $y, $z, $this->leaf[0]);
+			$level->setBlockDataAt($x, $y, $z, $this->leaf[1]);
 		}
 	}
 }

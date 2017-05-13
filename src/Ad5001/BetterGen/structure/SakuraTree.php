@@ -493,7 +493,7 @@ class SakuraTree extends Tree {
 				$zDiff = 0;
 				break;
 		}
-		list($vParts, $hParts) = self::TRUNK_POS [$trunkHeight];
+		list($vParts, $hParts) = self::TRUNK_POS[$trunkHeight];
 
 		$this->setLog($level, $x, $y, $z);
 		list($lastX, $lastY, $lastZ) = [
@@ -643,15 +643,15 @@ class SakuraTree extends Tree {
 			}
 
 			// Leaves falling from the tree diagonally
-			foreach (self::DIAG_LEAVES [$trunkHeight] as $pos) {
+			foreach (self::DIAG_LEAVES[$trunkHeight] as $pos) {
 				$numDown = $random->nextBoundedInt(3) + 1;
 				for ($y = $lastY + 1; $y > $lastY - $numDown; $y--)
-					$this->setLeave($level, $lastX + $pos [0], $y, $lastZ + $pos [1], $random);
+					$this->setLeave($level, $lastX + $pos[0], $y, $lastZ + $pos[1], $random);
 			}
 
 			// Additional leaves
-			foreach (self::ADDITIONAL_BLOCKS [$trunkHeight] as $pos) {
-				$this->setLeave($level, $lastX + $pos [0], $lastY + 2, $lastZ + $pos [1], $random);
+			foreach (self::ADDITIONAL_BLOCKS[$trunkHeight] as $pos) {
+				$this->setLeave($level, $lastX + $pos[0], $lastY + 2, $lastZ + $pos[1], $random);
 			}
 		}
 	}

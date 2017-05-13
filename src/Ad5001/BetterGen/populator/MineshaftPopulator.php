@@ -271,19 +271,19 @@ class MineshaftPopulator extends AmountPopulator {
 				switch ($dir) {
 					case self::DIR_XPLUS :
 						$x ++;
-						unset($possiblePathes [0]);
+						unset($possiblePathes[0]);
 						break;
 					case self::DIR_XMIN :
 						$x --;
-						unset($possiblePathes [1]);
+						unset($possiblePathes[1]);
 						break;
 					case self::DIR_ZPLUS :
 						$z ++;
-						unset($possiblePathes [2]);
+						unset($possiblePathes[2]);
 						break;
 					case self::DIR_ZMIN :
 						$z --;
-						unset($possiblePathes [3]);
+						unset($possiblePathes[3]);
 						break;
 				}
 				
@@ -303,7 +303,7 @@ class MineshaftPopulator extends AmountPopulator {
 				$numberFloor = $random->nextBoundedInt(4 + ($newFloor ? 5 : 0));
 				$possiblePathes = [ 
 						$possiblePathes,
-						($newFloor ? [ 
+						($newFloor ?[ 
 								self::DIR_XPLUS,
 								self::DIR_XMIN,
 								self::DIR_ZPLUS,
@@ -313,10 +313,10 @@ class MineshaftPopulator extends AmountPopulator {
 				for($i = 7; $i > $newFloor; $i --) {
 					$chooseNew =(int) $newFloor && $random->nextBoolean ();
 					$choose = $random->nextBoundedInt(4);
-					unset($possiblePathes [$chooseNew] [$choose]);
+					unset($possiblePathes[$chooseNew] [$choose]);
 				}
 				// Building pathes
-				foreach($possiblePathes [0] as $path) {
+				foreach($possiblePathes[0] as $path) {
 					switch ($path) {
 						case self::DIR_XPLUS :
 							$this->generateMineshaftPart($x + 2, $y, $z, self::DIR_XPLUS, $random);
@@ -332,7 +332,7 @@ class MineshaftPopulator extends AmountPopulator {
 							break;
 					}
 				}
-				foreach($possiblePathes [1] as $path) {
+				foreach($possiblePathes[1] as $path) {
 					switch ($path) {
 						case self::DIR_XPLUS :
 							$this->generateMineshaftPart($x + 2, $y + 4, $z, self::DIR_XPLUS, $random);

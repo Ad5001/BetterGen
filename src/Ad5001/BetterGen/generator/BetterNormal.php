@@ -74,7 +74,10 @@ class BetterNormal extends Generator {
 	protected static $GAUSSIAN_KERNEL = null; // From main class
 	protected static $SMOOTH_SIZE = 2;
 	protected static $options = [
-		"deleteBiomes" => [
+		"delBio" => [
+		],
+		"delStruct" => [
+			"Lakes"
 		]
 	];
 	protected $waterHeight = 63;
@@ -116,7 +119,7 @@ class BetterNormal extends Generator {
 		$this->level = $level;
 		$this->random = $random;
 		
-		self::$levels [] = $level;
+		self::$levels[] = $level;
 		
 		$this->random->setSeed($this->level->getSeed ());
 		$this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 32);
@@ -158,57 +161,57 @@ class BetterNormal extends Generator {
 		$this->selector->recalculate ();
 		
 		$cover = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\GroundCover() : new \pocketmine\level\generator\populator\GroundCover();
-		$this->generationPopulators [] = $cover;
+		$this->generationPopulators[] = $cover;
 		
-		// https://twitter.com/Ad5001P4F/status/859430935468670976
-		// $lake = new LakePopulator ();
-		// $lake->setBaseAmount(0);
-		// $lake->setRandomAmount(1);
-		// $this->generationPopulators [] = $lake;
-		
-		$cave = new CavePopulator ();
-		$cave->setBaseAmount(0);
-		$cave->setRandomAmount(2);
-		$this->generationPopulators [] = $cave;
-		
-		$ravine = new RavinePopulator ();
-		$ravine->setBaseAmount(0);
-		$ravine->setRandomAmount(51);
-		$this->generationPopulators [] = $ravine;
-		
-		$mineshaft = new MineshaftPopulator ();
-		$mineshaft->setBaseAmount(0);
-		$mineshaft->setRandomAmount(102);
-		$this->populators [] = $mineshaft;
+		if() {
+			$lake = new LakePopulator();
+			$lake->setBaseAmount(0);
+			$lake->setRandomAmount(1);
+			$this->generationPopulators[] = $lake;
 
-		
-		$fisl = new FloatingIslandPopulator();
-		$fisl->setBaseAmount(0);
-		$fisl->setRandomAmount(132);
-		$this->populators [] = $fisl;
-		
-		$ores = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\Ore() : new \pocketmine\level\generator\populator\Ore();
-		if(Main::isOtherNS()) $ores->setOreTypes([ 
-				new OreType2(new CoalOre (), 20, 16, 0, 128),
-				new OreType2(new IronOre (), 20, 8, 0, 64),
-				new OreType2(new RedstoneOre (), 8, 7, 0, 16),
-				new OreType2(new LapisOre (), 1, 6, 0, 32),
-				new OreType2(new GoldOre (), 2, 8, 0, 32),
-				new OreType2(new DiamondOre (), 1, 7, 0, 16),
-				new OreType2(new Dirt (), 20, 32, 0, 128),
-				new OreType2(new Gravel (), 10, 16, 0, 128) 
-		]);
-		if(!Main::isOtherNS()) $ores->setOreTypes([ 
-				new OreType(new CoalOre (), 20, 16, 0, 128),
-				new OreType(new IronOre (), 20, 8, 0, 64),
-				new OreType(new RedstoneOre (), 8, 7, 0, 16),
-				new OreType(new LapisOre (), 1, 6, 0, 32),
-				new OreType(new GoldOre (), 2, 8, 0, 32),
-				new OreType(new DiamondOre (), 1, 7, 0, 16),
-				new OreType(new Dirt (), 20, 32, 0, 128),
-				new OreType(new Gravel (), 10, 16, 0, 128) 
-		]);
-		$this->populators [] = $ores;
+			$cave = new CavePopulator ();
+			$cave->setBaseAmount(0);
+			$cave->setRandomAmount(2);
+			$this->generationPopulators[] = $cave;
+
+			$ravine = new RavinePopulator ();
+			$ravine->setBaseAmount(0);
+			$ravine->setRandomAmount(51);
+			$this->generationPopulators[] = $ravine;
+
+			$mineshaft = new MineshaftPopulator ();
+			$mineshaft->setBaseAmount(0);
+			$mineshaft->setRandomAmount(102);
+			$this->populators[] = $mineshaft;
+
+
+			$fisl = new FloatingIslandPopulator();
+			$fisl->setBaseAmount(0);
+			$fisl->setRandomAmount(132);
+			$this->populators[] = $fisl;
+
+			$ores = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\Ore() : new \pocketmine\level\generator\populator\Ore();
+			if(Main::isOtherNS()) $ores->setOreTypes([ 
+					new OreType2(new CoalOre (), 20, 16, 0, 128),
+					new OreType2(new IronOre (), 20, 8, 0, 64),
+					new OreType2(new RedstoneOre (), 8, 7, 0, 16),
+					new OreType2(new LapisOre (), 1, 6, 0, 32),
+					new OreType2(new GoldOre (), 2, 8, 0, 32),
+					new OreType2(new DiamondOre (), 1, 7, 0, 16),
+					new OreType2(new Dirt (), 20, 32, 0, 128),
+					new OreType2(new Gravel (), 10, 16, 0, 128) 
+			]);
+			if(!Main::isOtherNS()) $ores->setOreTypes([ 
+					new OreType(new CoalOre (), 20, 16, 0, 128),
+					new OreType(new IronOre (), 20, 8, 0, 64),
+					new OreType(new RedstoneOre (), 8, 7, 0, 16),
+					new OreType(new LapisOre (), 1, 6, 0, 32),
+					new OreType(new GoldOre (), 2, 8, 0, 32),
+					new OreType(new DiamondOre (), 1, 7, 0, 16),
+					new OreType(new Dirt (), 20, 32, 0, 128),
+					new OreType(new Gravel (), 10, 16, 0, 128) 
+			]);
+			$this->populators[] = $ores;
 	}
 	
 	/*
@@ -217,13 +220,13 @@ class BetterNormal extends Generator {
 	 * @return bool
 	 */
 	public static function registerBiome(Biome $biome): bool {
-		if(\Ad5001\BetterGen\utils\CommonUtils::in_arrayi($biome->getName(), self::$options["deleteBiomes"])) {
+		if(\Ad5001\BetterGen\utils\CommonUtils::in_arrayi($biome->getName(), self::$options["delBio"])) {
 			return false;
 		}
 		foreach(self::$levels as $lvl) if(isset($lvl->selector)) $lvl->selector->addBiome($biome); // If no selector created, it would cause errors. These will be added when selectoes
-		if (! isset(self::$biomes[(string) $biome->getRainfall ()])) self::$biomes [( string) $biome->getRainfall ()] = [ ];
-		self::$biomes [( string) $biome->getRainfall ()] [( string) $biome->getTemperature ()] = $biome;
-		ksort(self::$biomes [( string) $biome->getRainfall ()]);
+		if (! isset(self::$biomes[(string) $biome->getRainfall ()])) self::$biomes[( string) $biome->getRainfall ()] = [ ];
+		self::$biomes[( string) $biome->getRainfall ()] [( string) $biome->getTemperature ()] = $biome;
+		ksort(self::$biomes[( string) $biome->getRainfall ()]);
 		ksort(self::$biomes);
 		self::$biomeById[$biome->getId()] = $biome;
 		return true;
@@ -236,8 +239,8 @@ class BetterNormal extends Generator {
 	 */
 	public static function getBiome($temperature, $rainfall) {
 		$ret = null;
-		if (! isset(self::$biomes [( string) round($rainfall, 1)])) {
-			while(! isset(self::$biomes [( string) round($rainfall, 1)])) {
+		if (! isset(self::$biomes[( string) round($rainfall, 1)])) {
+			while(! isset(self::$biomes[( string) round($rainfall, 1)])) {
 				if (abs($rainfall - round($rainfall, 1)) >= 0.05)
 					$rainfall += 0.1;
 				if (abs($rainfall - round($rainfall, 1)) < 0.05)
@@ -248,7 +251,7 @@ class BetterNormal extends Generator {
 					$rainfall = 0.9;
 			}
 		}
-		$b = self::$biomes [( string) round($rainfall, 1)];
+		$b = self::$biomes[( string) round($rainfall, 1)];
 		foreach($b as $t => $biome) {
 			if ($temperature <=(float) $t) {
 				$ret = $biome;
@@ -298,16 +301,16 @@ class BetterNormal extends Generator {
 				for($sx = - self::$SMOOTH_SIZE; $sx <= self::$SMOOTH_SIZE; $sx++) {
 					for($sz = - self::$SMOOTH_SIZE; $sz <= self::$SMOOTH_SIZE; $sz++) {
 						
-						$weight = self::$GAUSSIAN_KERNEL [$sx + self::$SMOOTH_SIZE] [$sz + self::$SMOOTH_SIZE];
+						$weight = self::$GAUSSIAN_KERNEL[$sx + self::$SMOOTH_SIZE] [$sz + self::$SMOOTH_SIZE];
 						
 						if ($sx === 0 and $sz === 0) {
 							$adjacent = $biome;
 						} else {
 							$index = Level::chunkHash($chunkX * 16 + $x + $sx, $chunkZ * 16 + $z + $sz);
-							if (isset($biomeCache [$index])) {
-								$adjacent = $biomeCache [$index];
+							if (isset($biomeCache[$index])) {
+								$adjacent = $biomeCache[$index];
 							} else {
-								$biomeCache [$index] = $adjacent = $this->pickBiome($chunkX * 16 + $x + $sx, $chunkZ * 16 + $z + $sz);
+								$biomeCache[$index] = $adjacent = $this->pickBiome($chunkX * 16 + $x + $sx, $chunkZ * 16 + $z + $sz);
 							}
 						}
 						$minSum += ($adjacent->getMinElevation () - 1) * $weight;
@@ -327,7 +330,7 @@ class BetterNormal extends Generator {
 						$chunk->setBlockId($x, $y, $z, Block::BEDROCK);
 						continue;
 					}
-					$noiseValue = $noise [$x] [$z] [$y] - 1 / $smoothHeight * ($y - $smoothHeight - $minSum);
+					$noiseValue = $noise[$x] [$z] [$y] - 1 / $smoothHeight * ($y - $smoothHeight - $minSum);
 					
 					if ($noiseValue > 0) {
 						$chunk->setBlockId($x, $y, $z, Block::STONE);
@@ -374,15 +377,17 @@ class BetterNormal extends Generator {
 	public function __construct(array $options = []) {
 		self::$options["preset"] = $options["preset"];
 		$options = (array) json_decode($options["preset"]);
-		if(isset($options["deleteBiomes"]) && is_string($options["deleteBiomes"])) {
-			$options["deleteBiomes"] = explode(",", $options["deleteBiomes"]);
-			if(count($options["deleteBiomes"]) !== 0) {
-				self::$options["deleteBiomes"] = $options["deleteBiomes"];
+		if(isset($options["delBio"])) {
+			if(is_string($options["de"])) $options["delBio"] = explode(",", $options["delBio"]);
+			if(count($options["delBio"]) !== 0) {
+				self::$options["delBio"] = $options["delBio"];
 			}
 		}
-		
-		if(isset($options["deleteBiomes"]) && count($options["deleteBiomes"]) !== 0) {
-			self::$options["deleteBiomes"] = $options["deleteBiomes"];
+		if(isset($options["delStruct"])) {
+			if(is_string($options["delStruct"])) $options["delStruct"] = explode(",", $options["delStruct"]);
+			if(count($options["delStruct"]) !== 0) {
+				self::$options["delStruct"] = $options["delStruct"];
+			}
 		}
 		if (self::$GAUSSIAN_KERNEL === null) {
 			self::generateKernel ();
@@ -399,12 +404,12 @@ class BetterNormal extends Generator {
 		$bellHeight = 2 * self::$SMOOTH_SIZE;
 		
 		for($sx = - self::$SMOOTH_SIZE; $sx <= self::$SMOOTH_SIZE; $sx++) {
-			self::$GAUSSIAN_KERNEL [$sx + self::$SMOOTH_SIZE] = [ ];
+			self::$GAUSSIAN_KERNEL[$sx + self::$SMOOTH_SIZE] = [ ];
 			
 			for($sz = - self::$SMOOTH_SIZE; $sz <= self::$SMOOTH_SIZE; $sz++) {
 				$bx = $bellSize * $sx;
 				$bz = $bellSize * $sz;
-				self::$GAUSSIAN_KERNEL [$sx + self::$SMOOTH_SIZE] [$sz + self::$SMOOTH_SIZE] = $bellHeight * exp(- ($bx * $bx + $bz * $bz) / 2);
+				self::$GAUSSIAN_KERNEL[$sx + self::$SMOOTH_SIZE] [$sz + self::$SMOOTH_SIZE] = $bellHeight * exp(- ($bx * $bx + $bz * $bz) / 2);
 			}
 		}
 	}
