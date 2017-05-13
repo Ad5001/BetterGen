@@ -53,6 +53,7 @@ class FallenTreePopulator extends AmountPopulator {
 			$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
 			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
 			$y = $this->getHighestWorkableBlock($x, $z);
+			if(isset(FallenTree::$overridable[$level->getBlockIdAt($x, $y, $z)])) $y--; // Changing $y if 1 block to high.
 			if ($y !== -1 and $fallenTree->canPlaceObject($level, $x, $y + 1, $z, $random )) {
 				$fallenTree->placeObject($level, $x, $y + 1, $z);
 			}
