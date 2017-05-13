@@ -23,7 +23,7 @@ use pocketmine\utils\Random;
 
 class Well extends Object {
 	/** @var ChunkManager */
-	private $level;
+	protected $level;
 	public $overridable = [ 
 			Block::AIR => true,
 			6 => true,
@@ -95,8 +95,8 @@ class Well extends Object {
 			$this->placeBlock($x + ($direction [0] * 2), $y, $z + ($direction [1] * 2), Block::SANDSTONE);
 			
 			// Building slabs on the sides. Places two times due to all directions.
-			$this->placeBlock($x + ($direction [0] * 2), $y, $z, Block::SANDSTONE, 1);
-			$this->placeBlock($x, $y, $z + ($direction [1] * 2), Block::SANDSTONE, 1);
+			$this->placeBlock($x + ($direction [0] * 2), $y, $z, 44, 1);
+			$this->placeBlock($x, $y, $z + ($direction [1] * 2), 44, 1);
 			
 			// Placing water.Places two times due to all directions.
 			$this->placeBlock($x + $direction [0], $y, $z, Block::WATER);

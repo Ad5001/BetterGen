@@ -92,7 +92,7 @@ class CavePopulator extends AmountPopulator {
 		foreach($gen = $this->generateBranch($x, $y, $z, 5, 3, 5, $random ) as $v3 ) {
 			$generatedBranches --;
 			if ($generatedBranches <= 0) {
-				$gen->send(self::STOP); // send not found.. @Ad5001 what is that
+				$gen->send(self::STOP);
 			} else {
 				$gen->send(self::CONTINUE);
 			}
@@ -127,7 +127,6 @@ class CavePopulator extends AmountPopulator {
 		}
 		$repeat = $random->nextBoundedInt(25 ) + 15;
 		while($repeat -- > 0 ) {
-			// echo "Y => $y; H => $height; L => $length; D => $depth; R => $repeat" . PHP_EOL;
 			BuildingUtils::buildRandom($this->level, new Vector3($x, $y, $z ), new Vector3($length, $height, $depth ), $random, Block::get(Block::AIR ));
 			$x += round(($random->nextBoundedInt(round(30 * ($length / 10) ) + 1 ) / 10 - 2));
 			$yP = $random->nextRange(- 14, 14);

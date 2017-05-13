@@ -258,7 +258,7 @@ class BetterNormal extends Generator {
 		if (is_string($ret )) {
 			$ret = new $ret ();
 		}
-			return $ret;
+		return $ret;
 	}
 	
 	/*
