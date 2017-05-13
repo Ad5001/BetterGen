@@ -7,7 +7,7 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
@@ -16,8 +16,8 @@ namespace Ad5001\BetterGen\structure;
 
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use pocketmine\utils\Random;
 use pocketmine\level\generator\object\Object;
+use pocketmine\utils\Random;
 
 class Igloo extends Object {
 	public $overridable = [ 
@@ -59,7 +59,7 @@ class Igloo extends Object {
 							if (! isset($this->overridable [$level->getBlockIdAt($xx, $yy, $zz )] ))
 								return false;
 				break;
-			case 2 : // Entrence is z+
+			case 2 : // Entrance is z+
 				for($xx = $x - 3; $xx <= $x + 3; $xx ++)
 					for($yy = $y + 1; $yy <= $y + 4; $yy ++)
 						for($zz = $z - 3; $zz <= $z + 4; $zz ++)
@@ -84,6 +84,7 @@ class Igloo extends Object {
 	 * @param $y int
 	 * @param $z int
 	 * @param $random pocketmine\utils\Random
+	 * @return bool placed
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		if (! isset($this->direction ) && ! $this->canPlaceObject($level, $x, $y, $z, $random ))
@@ -150,7 +151,7 @@ class Igloo extends Object {
 						$level->setBlockIdAt($xx, $y + 1, $zz, Block::CARPET);
 					}
 				
-				// Other furnitures
+				// Other furniture
 				// Bed
 				$level->setBlockIdAt($x - 1, $y + 1, $z + 2, Block::BED_BLOCK);
 				$level->setBlockIdAt($x, $y + 1, $z + 2, Block::BED_BLOCK);
@@ -225,7 +226,7 @@ class Igloo extends Object {
 						$level->setBlockIdAt($xx, $y + 1, $zz, Block::CARPET);
 					}
 				
-				// Other furnitures
+				// Other furniture
 				// Bed
 				$level->setBlockIdAt($x + 1, $y + 1, $z + 2, Block::BED_BLOCK);
 				$level->setBlockIdAt($x, $y + 1, $z + 2, Block::BED_BLOCK);
@@ -238,7 +239,7 @@ class Igloo extends Object {
 				break;
 			
 			// Third direction
-			case 2 : // Entrence is z+
+			case 2 : // Entrance is z+
 			        // Ground
 				for($xx = $x - 3; $xx <= $x + 3; $xx ++)
 					for($zz = $z - 3; $zz <= $z + 4; $zz ++)
@@ -299,7 +300,7 @@ class Igloo extends Object {
 						$level->setBlockIdAt($xx, $y + 1, $zz, Block::CARPET);
 					}
 				
-				// Other furnitures
+				// Other furniture
 				// Bed
 				$level->setBlockIdAt($x + 2, $y + 1, $z - 1, Block::BED_BLOCK);
 				$level->setBlockIdAt($x + 2, $y + 1, $z, Block::BED_BLOCK);
@@ -373,7 +374,7 @@ class Igloo extends Object {
 						$level->setBlockIdAt($xx, $y + 1, $zz, Block::CARPET);
 					}
 				
-				// Other furnitures
+				// Other furniture
 				// Bed
 				$level->setBlockIdAt($x + 2, $y + 1, $z + 1, Block::BED_BLOCK);
 				$level->setBlockIdAt($x + 2, $y + 1, $z, Block::BED_BLOCK);
@@ -385,5 +386,6 @@ class Igloo extends Object {
 				$level->setBlockIdAt($x - 2, $y + 1, $z + 1, Block::FURNACE);
 				break;
 		}
+		return true;
 	}
 }

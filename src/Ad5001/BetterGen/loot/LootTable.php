@@ -7,23 +7,23 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
 
 namespace Ad5001\BetterGen\loot;
 
+use pocketmine\inventory\BaseInventory;
+use pocketmine\item\Item;
+use pocketmine\math\Vector3;
+use pocketmine\nbt\NBT;
 use pocketmine\utils\Config;
 use pocketmine\utils\Random;
-use pocketmine\math\Vector3;
-use pocketmine\item\Item;
-use pocketmine\inventory\BaseInventory;
-use pocketmine\nbt\NBT;
 
 /*
  * This class is used for loot setting.
- * Please note that they AREN'T as powerfull as PC ones due to some implementations limitations.
+ * Please note that they AREN'T as powerful as PC ones due to some implementations limitations.
  * Loot table format:
  * {
  * "max": Max number of loots (storable amount)
@@ -33,9 +33,9 @@ use pocketmine\nbt\NBT;
  * "maxCount": Maximal count
  * "id": Id of the item
  * "data": Item damage
- * "tags": {"display": {"Name": "Example NBT data"}}. This parameter is optionnal
- * "minStacks": If choosen, the minimum amount of stacks that can be found
- * "maxStacks": If choosen the maximum number of stacks that can be choosen
+ * "tags": {"display": {"Name": "Example NBT data"}}. This parameter is optional
+ * "minStacks": If chosen, the minimum amount of stacks that can be found
+ * "maxStacks": If chosen the maximum number of stacks that can be chosen
  * }
  * }
  */
@@ -55,7 +55,7 @@ class LootTable {
 	const LOOT_MINESHAFT = 2;
 	
 	/*
-	 * Asyncronous loot table choosing
+	 * Asynchronous loot table choosing
 	 * @param $place pocketmine\math\Vector3
 	 * @param $type int
 	 * @param $random pocketmine\utils\Random
@@ -80,7 +80,7 @@ class LootTable {
 	}
 	
 	/*
-	 * Syncronous inventory filling with loot table.
+	 * Synchronous inventory filling with loot table.
 	 * @param $inv pocketmine\inventory\BaseInventory
 	 * @param $pos pocketmine\math\Vector3
 	 * @return void
@@ -96,7 +96,7 @@ class LootTable {
 				for($i = 0; $i <= $randCount; $i++) {
 					$rand = rand(0, count($loots));
 					$items[$rand] = Item::get($loot["id"], $loot["data"], rand($loot["minCount"], $loot["maxCount"]));
-					if(isset($loot["tags"])) $items[$rand]->setCompoundTag(NBT::fromJSON($loot["tags"]));
+					if(isset($loot["tags"])) $items[$rand]->setCompoundTag(NBT::parseJSON($loot["tags"]));
 				}
 			}
 			$inv->setContents($items);

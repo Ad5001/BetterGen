@@ -7,21 +7,25 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
 */
 
 namespace Ad5001\BetterGen\generator;
 
-use pocketmine\level\ChunkManager;
-use pocketmine\utils\Random;
-use pocketmine\level\generator\biome\Biome;
-use pocketmine\level\generator\Generator;
-use pocketmine\level\generator\noise\Simplex;
-use pocketmine\level\generator\object\OreType;
-use pocketmine\level\generator\normal\object\OreType as OreType2;
-use pocketmine\level\generator\populator\Ore;
+use Ad5001\BetterGen\biome\BetterDesert;
+use Ad5001\BetterGen\biome\BetterForest;
+use Ad5001\BetterGen\biome\BetterIcePlains;
+use Ad5001\BetterGen\biome\BetterMesa;
+use Ad5001\BetterGen\biome\BetterMesaPlains;
+use Ad5001\BetterGen\biome\BetterRiver;
+use Ad5001\BetterGen\biome\Mountainable;
+use Ad5001\BetterGen\Main;
+use Ad5001\BetterGen\populator\CavePopulator;
+use Ad5001\BetterGen\populator\FloatingIslandPopulator;
+use Ad5001\BetterGen\populator\MineshaftPopulator;
+use Ad5001\BetterGen\populator\RavinePopulator;
 use pocketmine\block\Block;
 use pocketmine\block\CoalOre;
 use pocketmine\block\DiamondOre;
@@ -31,23 +35,18 @@ use pocketmine\block\Gravel;
 use pocketmine\block\IronOre;
 use pocketmine\block\LapisOre;
 use pocketmine\block\RedstoneOre;
+use pocketmine\level\ChunkManager;
+use pocketmine\level\generator\biome\Biome;
+use pocketmine\level\generator\Generator;
+use pocketmine\level\generator\noise\Simplex;
+use pocketmine\level\generator\normal\object\OreType as OreType2;
+use pocketmine\level\generator\object\OreType;
 use pocketmine\level\Level;
-use Ad5001\BetterGen\biome\BetterForest;
-use Ad5001\BetterGen\biome\BetterDesert;
-use Ad5001\BetterGen\biome\BetterIcePlains;
-use Ad5001\BetterGen\biome\BetterMesa;
-use Ad5001\BetterGen\biome\BetterMesaPlains;
-use Ad5001\BetterGen\biome\BetterRiver;
-use Ad5001\BetterGen\biome\Mountainable;
-use Ad5001\BetterGen\populator\CavePopulator;
-use Ad5001\BetterGen\populator\RavinePopulator;
-use Ad5001\BetterGen\populator\LakePopulator;
-use Ad5001\BetterGen\populator\MineshaftPopulator;
-use Ad5001\BetterGen\populator\FloatingIslandPopulator;
-use Ad5001\BetterGen\Main;
+use pocketmine\math\Vector3;
+use pocketmine\utils\Random;
 
 class BetterNormal extends Generator {
-	const NOT_OVERWRITABLE = [ 
+	const NOT_OVERWRITABLE = [
 			Block::STONE,
 			Block::GRAVEL,
 			Block::BEDROCK,
@@ -60,12 +59,16 @@ class BetterNormal extends Generator {
 			Block::WATER,
 			Block::STILL_WATER 
 	];
+	/** @var BetterBiomeSelector */
 	protected $selector;
+	/** @var Level */
 	protected $level;
+	/** @var Random */
 	protected $random;
 	protected $populators = [ ];
 	protected $generationPopulators = [ ];
 	public static $biomes = [ ];
+	/** @var Biome[] */
 	public static $biomeById = [ ];
 	public static $levels = [ ];
 	protected static $GAUSSIAN_KERNEL = null; // From main class
@@ -75,7 +78,8 @@ class BetterNormal extends Generator {
 		]
 	];
 	protected $waterHeight = 63;
-	
+	private $noiseBase;
+
 	/*
 	 * Picks a biome by X and Z
 	 * @param	$x	int
@@ -231,6 +235,7 @@ class BetterNormal extends Generator {
 	 * @param $rainfall float
 	 */
 	public static function getBiome($temperature, $rainfall) {
+		$ret = null;
 		if (! isset(self::$biomes [( string ) round($rainfall, 1 )] )) {
 			while(! isset(self::$biomes [( string ) round($rainfall, 1 )] ) ) {
 				if (abs($rainfall - round($rainfall, 1 ) ) >= 0.05)
@@ -252,9 +257,8 @@ class BetterNormal extends Generator {
 		}
 		if (is_string($ret )) {
 			$ret = new $ret ();
-		} else {
-			return $ret;
 		}
+			return $ret;
 	}
 	
 	/*
@@ -263,7 +267,7 @@ class BetterNormal extends Generator {
 	 * @return	Biome
 	 */
 	public function getBiomeById(int $id): Biome {
-		return self::$biomeById[$id] ?? self::$biomeById(Biome::OCEAN);
+		return self::$biomeById[$id] ?? self::$biomeById[Biome::OCEAN];
 	}
 	
 	/*
@@ -386,7 +390,7 @@ class BetterNormal extends Generator {
 	}
 	
 	/*
-	 * Generates the genration kernel based on smooth size (here 2)
+	 * Generates the generation kernel based on smooth size (here 2)
 	 */
 	private static function generateKernel() {
 		self::$GAUSSIAN_KERNEL = [ ];
@@ -434,7 +438,7 @@ class BetterNormal extends Generator {
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = 127; $y > 0; -- $y) {
+		for($y = Level::Y_MAX - 1; $y > 0; -- $y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL) {
 				break;
@@ -443,6 +447,6 @@ class BetterNormal extends Generator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 }

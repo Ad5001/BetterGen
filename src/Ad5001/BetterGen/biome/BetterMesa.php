@@ -7,27 +7,25 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
 
 namespace Ad5001\BetterGen\biome;
 
-use pocketmine\level\generator\normal\biome\SandyBiome;
-use pocketmine\level\generator\populator\Ore;
-use pocketmine\level\generator\object\OreType;
-use pocketmine\level\generator\biome\Biome;
-use pocketmine\block\Block;
-use pocketmine\block\GoldOre;
 use Ad5001\BetterGen\Main;
-use Ad5001\BetterGen\populator\TreePopulator;
 use Ad5001\BetterGen\populator\CactusPopulator;
 use Ad5001\BetterGen\populator\DeadbushPopulator;
 use Ad5001\BetterGen\populator\SugarCanePopulator;
+use Ad5001\BetterGen\populator\TreePopulator;
+use pocketmine\block\Block;
+use pocketmine\block\GoldOre;
+use pocketmine\level\generator\normal\biome\SandyBiome;
 
 class BetterMesa extends SandyBiome {
 	public function __construct() {
+		parent::__construct();
 		$deadBush = new DeadbushPopulator ();
 		$deadBush->setBaseAmount(1);
 		$deadBush->setRandomAmount(2);

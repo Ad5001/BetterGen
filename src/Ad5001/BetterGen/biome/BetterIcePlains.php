@@ -7,18 +7,18 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
 
 namespace Ad5001\BetterGen\biome;
 
-use pocketmine\level\generator\normal\biome\SnowyBiome;
-use pocketmine\level\generator\biome\Biome;
-use pocketmine\block\Block;
-use Ad5001\BetterGen\populator\IglooPopulator;
 use Ad5001\BetterGen\Main;
+use Ad5001\BetterGen\populator\IglooPopulator;
+use pocketmine\block\Block;
+use pocketmine\level\generator\biome\Biome;
+use pocketmine\level\generator\normal\biome\SnowyBiome;
 
 class BetterIcePlains extends SnowyBiome implements Mountainable {
 	public function __construct() {
@@ -46,8 +46,9 @@ class BetterIcePlains extends SnowyBiome implements Mountainable {
 		return "BetterIcePlains";
 	}
 	
-	/*
-	 * Returns biome's id.
+	/**
+	 * Returns the biomes' id.
+	 * @return int biome id
 	 */
 	public function getId() {
 		return Biome::ICE_PLAINS;

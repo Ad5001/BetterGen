@@ -7,20 +7,21 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
  
 namespace Ad5001\BetterGen\populator;
 
-use pocketmine\utils\Random;
+use Ad5001\BetterGen\structure\Igloo;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use Ad5001\BetterGen\populator\AmountPopulator;
-use Ad5001\BetterGen\structure\Igloo;
+use pocketmine\level\Level;
+use pocketmine\utils\Random;
 
 class IglooPopulator extends AmountPopulator {
+	/** @var ChunkManager */
 	protected $level;
 	
 	/*
@@ -48,7 +49,7 @@ class IglooPopulator extends AmountPopulator {
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = 127; $y > 0; -- $y) {
+		for($y = Level::Y_MAX - 1; $y > 0; -- $y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL) {
 				break;
@@ -57,6 +58,6 @@ class IglooPopulator extends AmountPopulator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 }

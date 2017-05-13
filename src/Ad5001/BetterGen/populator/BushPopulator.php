@@ -7,21 +7,21 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
 
 namespace Ad5001\BetterGen\populator;
 
-use pocketmine\utils\Random;
+use Ad5001\BetterGen\structure\Bush;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use Ad5001\BetterGen\populator\TreePopulator;
-use Ad5001\BetterGen\populator\AmountPopulator;
-use Ad5001\BetterGen\structure\Bush;
+use pocketmine\level\Level;
+use pocketmine\utils\Random;
 
 class BushPopulator extends AmountPopulator {
+	/** @var ChunkManager */
 	protected $level;
 	protected $type;
 	
@@ -62,7 +62,7 @@ class BushPopulator extends AmountPopulator {
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = 127; $y > 0; -- $y) {
+		for($y = Level::Y_MAX - 1; $y > 0; -- $y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL) {
 				break;
@@ -71,6 +71,6 @@ class BushPopulator extends AmountPopulator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 }
