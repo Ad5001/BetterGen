@@ -8,19 +8,19 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
 
 namespace Ad5001\BetterGen\biome;
 
-use pocketmine\level\generator\normal\biome\ForestBiome;
-use pocketmine\level\generator\biome\Biome;
 use Ad5001\BetterGen\Main;
-use Ad5001\BetterGen\populator\TreePopulator;
 use Ad5001\BetterGen\populator\BushPopulator;
 use Ad5001\BetterGen\populator\FallenTreePopulator;
+use Ad5001\BetterGen\populator\TreePopulator;
+use pocketmine\level\generator\biome\Biome;
+use pocketmine\level\generator\normal\biome\ForestBiome;
 
 
 class BetterForest extends ForestBiome implements Mountainable {
@@ -66,19 +66,18 @@ class BetterForest extends ForestBiome implements Mountainable {
 	public function getName() {
 		return str_ireplace(" ", "", self::$types[$this->type]);
 	}
-	
-	/*
-	 * Returns the ID relativly.
+
+	/**
+	 * Returns the ID relatively.
+	 * @return int
 	 */
 	public function getId() {
 		return self::$ids [$this->type];
 	}
-	
-	/*
-	 * Registers a forest type. Don't use this method directly use the one from the main class.
-	 * @param $name string
-	 * @param $treeClass string
-	 * @param
+	/**
+	 * @param string $name
+	 * @param string $treeClass
+	 * @param array $infos
 	 * @return bool
 	 */
 	public static function registerForest(string $name, string $treeClass, array $infos): bool {
@@ -86,5 +85,6 @@ class BetterForest extends ForestBiome implements Mountainable {
 		TreePopulator::$types [] = $treeClass;
 		self::$ids [] = Main::SAKURA_FOREST + (count(self::$types ) - 2);
 		Main::register(Main::SAKURA_FOREST + (count(self::$types ) - 2), new BetterForest(count(self::$types ) - 1, $infos ));
+		return true;
 	}
 }

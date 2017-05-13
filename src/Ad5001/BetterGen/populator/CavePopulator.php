@@ -7,21 +7,22 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
 
 namespace Ad5001\BetterGen\populator;
 
-use pocketmine\utils\Random;
+use Ad5001\BetterGen\utils\BuildingUtils;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
+use pocketmine\level\Level;
 use pocketmine\math\Vector3;
-use Ad5001\BetterGen\utils\BuildingUtils;
-use Ad5001\BetterGen\populator\AmountPopulator;
+use pocketmine\utils\Random;
 
 class CavePopulator extends AmountPopulator {
+	/** @var ChunkManager */
 	protected $level;
 	const STOP = false;
 	const CONTINUE = true;
@@ -65,7 +66,7 @@ class CavePopulator extends AmountPopulator {
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = 127; $y > 0; -- $y) {
+		for($y = Level::Y_MAX - 1; $y > 0; -- $y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL or $b === Block::SAND or $b === Block::SNOW_BLOCK or $b === Block::SANDSTONE) {
 				break;
@@ -74,7 +75,7 @@ class CavePopulator extends AmountPopulator {
 			}
 		}
 		
-		return $y++;
+		return ++$y;
 	}
 	
 	/*
@@ -91,7 +92,7 @@ class CavePopulator extends AmountPopulator {
 		foreach($gen = $this->generateBranch($x, $y, $z, 5, 3, 5, $random ) as $v3 ) {
 			$generatedBranches --;
 			if ($generatedBranches <= 0) {
-				$gen->send(self::STOP);
+				$gen->send(self::STOP); // send not found.. @Ad5001 what is that
 			} else {
 				$gen->send(self::CONTINUE);
 			}
@@ -121,7 +122,7 @@ class CavePopulator extends AmountPopulator {
 					$y --;
 				}
 				$z += round(($random->nextBoundedInt(round(30 * ($depth / 10) ) + 1 ) / 10 - 1));
-				return [ ];
+				return;
 			}
 		}
 		$repeat = $random->nextBoundedInt(25 ) + 15;

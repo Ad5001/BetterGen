@@ -1,9 +1,10 @@
 <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/banner.png"></img>     
 <center><h1>PocketMine's Tomorrow's World Generator.</h1></center>
 Welcome user to the home of a new PocketMine World Generator which features 9 new/modified biomes:
+
 ------
-# Commun:
-### Commun structures to all biomes features:
+# Common:
+### Common structures to all biomes features:
 1. <h3>Mineshafts:</h3>      
     <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/Mineshaft.jpg" style="width: 500px"></img>
 2. <h3>Ravines:</h3>
@@ -12,8 +13,6 @@ Welcome user to the home of a new PocketMine World Generator which features 9 ne
     <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/cave.jpg" style="width: 500px"></img>
 4. <h3>Floating islands:</h3>
     <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/Island.jpg" style="width: 500px"></img>
-
-
 -----
 
 # [NEW BIOME] Sakura forests:
@@ -23,7 +22,7 @@ Welcome user to the home of a new PocketMine World Generator which features 9 ne
 -----
 
 # [NEW BIOMES] Mesa Mountains & Plains
-### These biomes are inspired (but not completly taken) from Minecraft PC.
+### These biomes are inspired (but not completely taken) from Minecraft PC.
 <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/mesa.png" style="width: 500px"></img>
 
 
@@ -31,13 +30,13 @@ Welcome user to the home of a new PocketMine World Generator which features 9 ne
 
 # Better Desert:
 ### The desert has been reworked and now includes the Minecraft PC's temples and wells ! 
-### Additionaly, deadbush, sugar cane and cactus are here too !
+### Additionally, deadbush, sugar cane and cactus are here too !
 <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/temple.png" style="width: 500px"></img>
 
 -----
 
 # Better Ice Plains
-### Ice plains got redisigned ! There is now snow instead of grass at it's bottom ! On the plus side, Igloos were imported from Minecraft PC !
+### Ice plains got redesigned ! There is now snow instead of grass at it's bottom ! On the plus side, Igloos were imported from Minecraft PC !
 <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/igloo.jpg" style="width: 500px"></img>
 
 

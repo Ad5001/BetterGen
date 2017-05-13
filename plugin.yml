@@ -6,7 +6,7 @@
 #   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
 #    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
 #     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
-# Tommorow's pocketmine generator.
+# Tomorrow's pocketmine generator.
 # @author Ad5001
 # @link https://github.com/Ad5001/BetterGen
 name: BetterGen
@@ -24,9 +24,15 @@ commands:
         description: Teleports you to an another world
         usage: "/worldtp <world name>"
         permission: bettergen.cmd.worldtp
+    temple:
+        description: Spawns a temple for debugging
+        usage: "/temple"
+        permission: bettergen.cmd.debug
 permissions:
     bettergen.cmd.createworld:
         default: op
     bettergen.cmd.worldtp:
+        default: op
+    bettergen.cmd.debug:
         default: op
 ...

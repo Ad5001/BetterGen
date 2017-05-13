@@ -7,16 +7,16 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
 */
 
 namespace Ad5001\BetterGen\utils;
 
-use pocketmine\math\Vector3;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
+use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
 class BuildingUtils {

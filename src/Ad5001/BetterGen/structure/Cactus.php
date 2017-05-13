@@ -7,7 +7,7 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
@@ -15,9 +15,9 @@
 namespace Ad5001\BetterGen\structure;
 
 use pocketmine\block\Block;
-use pocketmine\utils\Random;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\object\Object;
+use pocketmine\utils\Random;
 
 class Cactus extends Object {
 	
@@ -29,10 +29,12 @@ class Cactus extends Object {
 	 * @param $z int
 	 * @param $random pocketmine\utils\Random
 	 */
+	private $totalHeight;
+
 	public function canPlaceObject(ChunkManager $level, int $x, int $y, int $z, Random $random): bool {
 		$this->totalHeight = 1 + $random->nextBoundedInt(3);
 		$below = $level->getBlockIdAt($x, $y - 1, $z);
-		for($yy = $y; $yy <= $y + $totalHeight; $yy ++) {
+		for($yy = $y; $yy <= $y + $this->totalHeight; $yy ++) {
 			if ($level->getBlockIdAt($x, $yy, $z ) !== Block::AIR || ($below !== Block::SAND && $below !== Block::CACTUS) || ($level->getBlockIdAt($x - 1, $yy, $z ) !== Block::AIR || $level->getBlockIdAt($x + 1, $yy, $z ) !== Block::AIR || $level->getBlockIdAt($x, $yy, $z - 1 ) !== Block::AIR || $level->getBlockIdAt($x, $yy, $z + 1 ) !== Block::AIR)) {
 				return false;
 			}

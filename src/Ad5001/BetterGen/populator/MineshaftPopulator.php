@@ -7,22 +7,23 @@
  *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
- * Tommorow's pocketmine generator.
+ * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
 
 namespace Ad5001\BetterGen\populator;
 
-use pocketmine\level\ChunkManager;
-use pocketmine\utils\Random;
-use Ad5001\BetterGen\utils\BuildingUtils;
-use pocketmine\math\Vector3;
-use pocketmine\block\Block;
 use Ad5001\BetterGen\loot\LootTable;
+use Ad5001\BetterGen\utils\BuildingUtils;
+use pocketmine\block\Block;
+use pocketmine\level\ChunkManager;
+use pocketmine\math\Vector3;
+use pocketmine\utils\Random;
 
 class MineshaftPopulator extends AmountPopulator {
 	protected $maxPath;
+	/** @var ChunkManager */
 	protected $level;
 	const DIR_XPLUS = 0;
 	const DIR_XMIN = 1;
@@ -69,15 +70,14 @@ class MineshaftPopulator extends AmountPopulator {
 			}
 		}
 	}
-	
-	/*
+
+	/**
 	 * Builds a mineshaft part and return applicable directions
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $dir int
-	 * @param $random pocketmine\utils\Random
-	 * @param $deepneth int
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param int $dir
+	 * @param Random $random
 	 */
 	public function generateMineshaftPart(int $x, int $y, int $z, int $dir, Random $random) {
 		if ($this->maxPath -- < 1)
@@ -91,18 +91,18 @@ class MineshaftPopulator extends AmountPopulator {
 						// First, filling everything blank.
 						BuildingUtils::fill($this->level, new Vector3($x, $y, $z - 1 ), new Vector3($x + 4, $y + 2, $z + 1 ), Block::get(Block::AIR ));
 						// Then, making sure the floor is solid.
-						BuildingUtils::fillCallback(new Vector3($x, $y - 1, $z - 1 ), new Vector3($x + 4, $y - 1, $z + 1 ), function ($v3, $level) {
+						BuildingUtils::fillCallback(new Vector3($x, $y - 1, $z - 1 ), new Vector3($x + 4, $y - 1, $z + 1 ), function ($v3, ChunkManager $level) {
 							if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 						}, $this->level);
 						// Putting rails
-						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x + 4, $y, $z ), function ($v3, $level, $random) {
+						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x + 4, $y, $z ), function ($v3, ChunkManager $level, Random $random) {
 							if ($random->nextBoundedInt(3 ) !== 0) {
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::RAIL);
 								$level->setBlockDataAt($v3->x, $v3->y, $v3->z, 1);
 							}
 						}, $this->level, $random);
-						// After this, building the floor maintener (the wood structure)
+						// After this, building the floor maintainer (the wood structure)
 						$level->setBlockIdAt($x, $y, $z - 1, Block::FENCE);
 						$level->setBlockIdAt($x, $y, $z + 1, Block::FENCE);
 						$level->setBlockIdAt($x, $y + 1, $z - 1, Block::FENCE);
@@ -131,19 +131,19 @@ class MineshaftPopulator extends AmountPopulator {
 						// First, filling everything blank.
 						BuildingUtils::fill($this->level, new Vector3($x, $y, $z - 1 ), new Vector3($x - 4, $y + 2, $z + 1 ));
 						// Then, making sure the floor is solid.
-						BuildingUtils::fillCallback(new Vector3($x, $y - 1, $z - 1 ), new Vector3($x - 4, $y - 1, $z + 1 ), function ($v3, $level) {
+						BuildingUtils::fillCallback(new Vector3($x, $y - 1, $z - 1 ), new Vector3($x - 4, $y - 1, $z + 1 ), function ($v3, ChunkManager $level) {
 							
 							if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 						}, $this->level);
 						// Putting rails
-						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x - 4, $y, $z ), function ($v3, $level, $random) {
+						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x - 4, $y, $z ), function ($v3, ChunkManager $level, Random $random) {
 							if ($random->nextBoundedInt(3 ) !== 0) {
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::RAIL);
 								$level->setBlockDataAt($v3->x, $v3->y, $v3->z, 1);
 							}
 						}, $this->level, $random);
-						// After this, building the floor maintener (the wood structure)
+						// After this, building the floor maintainer (the wood structure)
 						$level->setBlockIdAt($x, $y, $z - 1, Block::FENCE);
 						$level->setBlockIdAt($x, $y, $z + 1, Block::FENCE);
 						$level->setBlockIdAt($x, $y + 1, $z - 1, Block::FENCE);
@@ -162,7 +162,7 @@ class MineshaftPopulator extends AmountPopulator {
 							if ($direction2 == 0)
 								$direction2 = 2;
 							if ($direction2 == 1)
-								$direction2 = 
+								$direction2 = 4;
 							LootTable::buildLootTable(new Vector3($x - $direction2, $y, $z + $direction ), LootTable::LOOT_MINESHAFT, $random);
 						}
 						if ($random->nextBoundedInt(30 ) !== 0)
@@ -172,19 +172,19 @@ class MineshaftPopulator extends AmountPopulator {
 						// First, filling everything blank.
 						BuildingUtils::fill($this->level, new Vector3($x - 1, $y, $z ), new Vector3($x + 1, $y + 2, $z + 4 ));
 						// Then, making sure the floor is solid.
-						BuildingUtils::fillCallback(new Vector3($x - 1, $y - 1, $z ), new Vector3($x + 1, $y - 1, $z + 4 ), function ($v3, $level) {
+						BuildingUtils::fillCallback(new Vector3($x - 1, $y - 1, $z ), new Vector3($x + 1, $y - 1, $z + 4 ), function ($v3, ChunkManager $level) {
 							
 							if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 						}, $this->level);
 						// Putting rails
-						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x, $y, $z + 4 ), function ($v3, $level, $random) {
+						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x, $y, $z + 4 ), function ($v3, ChunkManager $level, Random $random) {
 							if ($random->nextBoundedInt(3 ) !== 0) {
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::RAIL);
 								$level->setBlockDataAt($v3->x, $v3->y, $v3->z, 0);
 							}
 						}, $this->level, $random);
-						// After this, building the floor maintener (the wood structure)
+						// After this, building the floor maintainer (the wood structure)
 						$level->setBlockIdAt($x - 1, $y, $z, Block::FENCE);
 						$level->setBlockIdAt($x + 1, $y, $z, Block::FENCE);
 						$level->setBlockIdAt($x - 1, $y + 1, $z, Block::FENCE);
@@ -213,19 +213,19 @@ class MineshaftPopulator extends AmountPopulator {
 						// First, filling everything blank.
 						BuildingUtils::fill($this->level, new Vector3($x - 1, $y, $z ), new Vector3($x + 1, $y + 2, $z - 4 ));
 						// Then, making sure the floor is solid.
-						BuildingUtils::fillCallback(new Vector3($x - 1, $y - 1, $z ), new Vector3($x + 1, $y - 1, $z - 4 ), function ($v3, $level) {
+						BuildingUtils::fillCallback(new Vector3($x - 1, $y - 1, $z ), new Vector3($x + 1, $y - 1, $z - 4 ), function ($v3, ChunkManager $level) {
 							
 							if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 						}, $this->level);
 						// Putting rails
-						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x, $y, $z - 4 ), function ($v3, $level, $random) {
+						BuildingUtils::fillCallback(new Vector3($x, $y, $z ), new Vector3($x, $y, $z - 4 ), function ($v3, ChunkManager $level, Random $random) {
 							if ($random->nextBoundedInt(3 ) !== 0) {
 								$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::RAIL);
 								$level->setBlockDataAt($v3->x, $v3->y, $v3->z, 0);
 							}
 						}, $this->level, $random);
-						// After this, building the floor maintener (the wood structure)
+						// After this, building the floor maintainer (the wood structure)
 						$level->setBlockIdAt($x - 1, $y, $z, Block::FENCE);
 						$level->setBlockIdAt($x + 1, $y, $z, Block::FENCE);
 						$level->setBlockIdAt($x - 1, $y + 1, $z, Block::FENCE);
@@ -288,7 +288,7 @@ class MineshaftPopulator extends AmountPopulator {
 				}
 				
 				// Then, making sure the floor is solid.
-				BuildingUtils::fillCallback(new Vector3($x + 1, $y - 1, $z - 1 ), new Vector3($x - 1, $y - 1, $z + 1 ), function ($v3, $level) {
+				BuildingUtils::fillCallback(new Vector3($x + 1, $y - 1, $z - 1 ), new Vector3($x - 1, $y - 1, $z + 1 ), function ($v3, ChunkManager $level) {
 					
 					if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 						$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
@@ -310,12 +310,12 @@ class MineshaftPopulator extends AmountPopulator {
 								self::DIR_ZMIN 
 						] : [ ]) 
 				];
-				for($i = 7; $i > $newfloor; $i --) {
+				for($i = 7; $i > $newFloor; $i --) {
 					$chooseNew =(int ) $newFloor && $random->nextBoolean ();
 					$choose = $random->nextBoundedInt(4);
 					unset($possiblePathes [$chooseNew] [$choose]);
 				}
-				// Buidling pathes
+				// Building pathes
 				foreach($possiblePathes [0] as $path ) {
 					switch ($path) {
 						case self::DIR_XPLUS :
@@ -366,17 +366,17 @@ class MineshaftPopulator extends AmountPopulator {
 				}
 				// Building stairs
 				for($i = 0; $i < 4; $i ++) {
-					switch ($path) {
+					switch ($i) {
 						case self::DIR_XPLUS :
 							BuildingUtils::fill($this->level, new Vector3($x + $i, $y - $i - 1, $z - 2 ), new Vector3($x + $i, $y - $i + 3, $z + 2 ), Block::get(Block::AIR ));
-							BuildingUtils::fillCallback(new Vector3($x + $i, $y - $i - 2, $z - 2 ), new Vector3($x + $i, $y - $i - 2, $z + 2 ), function ($v3, $level) {
+							BuildingUtils::fillCallback(new Vector3($x + $i, $y - $i - 2, $z - 2 ), new Vector3($x + $i, $y - $i - 2, $z + 2 ), function ($v3, ChunkManager $level) {
 								if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 									$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
 							}, $this->level);
 							break;
 						case self::DIR_XMIN :
 							BuildingUtils::fill($this->level, new Vector3($x - $i, $y - $i - 1, $z - 2 ), new Vector3($x - $i, $y - $i + 3, $z + 2 ), Block::get(Block::AIR ));
-							BuildingUtils::fillCallback(new Vector3($x - $i, $y - $i - 2, $z - 2 ), new Vector3($x - $i, $y - $i - 2, $z + 2 ), function ($v3, $level) {
+							BuildingUtils::fillCallback(new Vector3($x - $i, $y - $i - 2, $z - 2 ), new Vector3($x - $i, $y - $i - 2, $z + 2 ), function ($v3, ChunkManager $level) {
 								
 								if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 									$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
@@ -384,7 +384,7 @@ class MineshaftPopulator extends AmountPopulator {
 							break;
 						case self::DIR_ZPLUS :
 							BuildingUtils::fill($this->level, new Vector3($x - 2, $y - $i - 1, $z + $i ), new Vector3($x + 2, $y - $i + 3, $z + $i ), Block::get(Block::AIR ));
-							BuildingUtils::fillCallback(new Vector3($x - 2, $y - $i - 2, $z + $i ), new Vector3($x + 2, $y - $i - 2, $z + $i ), function ($v3, $level) {
+							BuildingUtils::fillCallback(new Vector3($x - 2, $y - $i - 2, $z + $i ), new Vector3($x + 2, $y - $i - 2, $z + $i ), function ($v3, ChunkManager $level) {
 								
 								if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 									$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
@@ -392,7 +392,7 @@ class MineshaftPopulator extends AmountPopulator {
 							break;
 						case self::DIR_ZMIN :
 							BuildingUtils::fill($this->level, new Vector3($x - 2, $y - $i - 1, $z - $i ), new Vector3($x + 2, $y - $i + 3, $z - $i ), Block::get(Block::AIR ));
-							BuildingUtils::fillCallback(new Vector3($x - 2, $y - $i - 2, $z - $i ), new Vector3($x + 2, $y - $i - 2, $z - $i ), function ($v3, $level) {
+							BuildingUtils::fillCallback(new Vector3($x - 2, $y - $i - 2, $z - $i ), new Vector3($x + 2, $y - $i - 2, $z - $i ), function ($v3, ChunkManager $level) {
 								
 								if ($level->getBlockIdAt($v3->x, $v3->y, $v3->z ) == Block::AIR)
 									$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::PLANK);
@@ -402,7 +402,7 @@ class MineshaftPopulator extends AmountPopulator {
 				}
 				
 				// Next one
-				switch ($path) {
+				switch ($i) {
 					case self::DIR_XPLUS :
 						$this->generateMineshaftPart($x + 4, $y - 4, $z, self::DIR_XPLUS, $random);
 						break;
