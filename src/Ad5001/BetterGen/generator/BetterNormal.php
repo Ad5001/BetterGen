@@ -163,33 +163,42 @@ class BetterNormal extends Generator {
 		$cover = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\GroundCover() : new \pocketmine\level\generator\populator\GroundCover();
 		$this->generationPopulators[] = $cover;
 		
-		if() {
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Lakes", self::$options["delStruct"])) {
 			$lake = new LakePopulator();
 			$lake->setBaseAmount(0);
 			$lake->setRandomAmount(1);
 			$this->generationPopulators[] = $lake;
+		}
 
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Caves", self::$options["delStruct"])) {
 			$cave = new CavePopulator ();
 			$cave->setBaseAmount(0);
 			$cave->setRandomAmount(2);
 			$this->generationPopulators[] = $cave;
+		}
 
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Ravines", self::$options["delStruct"])) {
 			$ravine = new RavinePopulator ();
 			$ravine->setBaseAmount(0);
 			$ravine->setRandomAmount(51);
 			$this->generationPopulators[] = $ravine;
+		}
 
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Mineshafts", self::$options["delStruct"])) {
 			$mineshaft = new MineshaftPopulator ();
 			$mineshaft->setBaseAmount(0);
 			$mineshaft->setRandomAmount(102);
 			$this->populators[] = $mineshaft;
+		}
 
-
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("FloatingIslands", self::$options["delStruct"])) {
 			$fisl = new FloatingIslandPopulator();
 			$fisl->setBaseAmount(0);
 			$fisl->setRandomAmount(132);
 			$this->populators[] = $fisl;
+		}
 
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Ores", self::$options["delStruct"])) {
 			$ores = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\Ore() : new \pocketmine\level\generator\populator\Ore();
 			if(Main::isOtherNS()) $ores->setOreTypes([ 
 					new OreType2(new CoalOre (), 20, 16, 0, 128),
@@ -212,6 +221,7 @@ class BetterNormal extends Generator {
 					new OreType(new Gravel (), 10, 16, 0, 128) 
 			]);
 			$this->populators[] = $ores;
+		}
 	}
 	
 	/*

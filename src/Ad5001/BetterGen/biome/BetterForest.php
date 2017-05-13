@@ -42,21 +42,21 @@ class BetterForest extends ForestBiome implements Mountainable {
 		
 		$bush = new BushPopulator($type);
 		$bush->setBaseAmount(10);
-		$this->addPopulator($bush);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Bushes", BetterNormal::$options["delStruct"])) $this->addPopulator($bush);
 		
 		$ft = new FallenTreePopulator($type);
 		$ft->setBaseAmount(0);
 		$ft->setRandomAmount(4);
-		$this->addPopulator($ft);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("FallenTrees", BetterNormal::$options["delStruct"])) $this->addPopulator($ft);
 
 		$trees = new TreePopulator($type);
 		$trees->setBaseAmount((null !== @constant(TreePopulator::$types[$type] . "::maxPerChunk")) ? constant(TreePopulator::$types[$type] . "::maxPerChunk") : 5);
-		$this->addPopulator($trees);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Trees", BetterNormal::$options["delStruct"])) $this->addPopulator($trees);
 		
 		$tallGrass = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\TallGrass () : new \pocketmine\level\generator\populator\TallGrass();
 		$tallGrass->setBaseAmount(3);
 		
-		$this->addPopulator($tallGrass);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("TallGrass", BetterNormal::$options["delStruct"])) $this->addPopulator($tallGrass);
 		
 		$this->setElevation(63, 69);
 		

@@ -42,10 +42,10 @@ class BetterMesaPlains extends SandyBiome {
 				Main::isOtherNS() ? new \pocketmine\level\generator\normal\object\OreType(new GoldOre (), 2, 8, 0, 32) : new \pocketmine\level\generator\object\OreType(new GoldOre (), 2, 8, 0, 32) 
 		]);
 		
-		$this->addPopulator($cactus);
-		$this->addPopulator($deadBush);
-		$this->addPopulator($sugarCane);
-		$this->addPopulator($ores);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Cactus", BetterNormal::$options["delStruct"])) $this->addPopulator($cactus);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("DeadBush", BetterNormal::$options["delStruct"])) $this->addPopulator($deadBush);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("SugarCane", BetterNormal::$options["delStruct"])) $this->addPopulator($sugarCane);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Ores", BetterNormal::$options["delStruct"])) $this->addPopulator($ores);
 		
 		$this->setElevation(62, 67);
 		// $this->setElevation(66, 70);

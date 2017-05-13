@@ -18,6 +18,7 @@ use Ad5001\BetterGen\populator\DeadbushPopulator;
 use Ad5001\BetterGen\populator\SugarCanePopulator;
 use Ad5001\BetterGen\populator\TemplePopulator;
 use Ad5001\BetterGen\populator\WellPopulator;
+use Ad5001\BetterGen\generator\BetterNormal;
 use pocketmine\block\Block;
 use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\normal\biome\SandyBiome;
@@ -41,11 +42,11 @@ class BetterDesert extends SandyBiome implements Mountainable {
 		
 		$well = new WellPopulator ();
 		
-		$this->addPopulator($cactus);
-		$this->addPopulator($deadBush);
-		$this->addPopulator($sugarCane);
-		$this->addPopulator($temple);
-		$this->addPopulator($well);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Cactus", BetterNormal::$options["delStruct"])) $this->addPopulator($cactus);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Deadbush", BetterNormal::$options["delStruct"])) $this->addPopulator($deadBush);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("SugarCane", BetterNormal::$options["delStruct"])) $this->addPopulator($sugarCane);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Temples", BetterNormal::$options["delStruct"])) $this->addPopulator($temple);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Wells", BetterNormal::$options["delStruct"])) $this->addPopulator($well);
 		
 		$this->setElevation(63, 70);
 		// $this->setElevation(66, 70);

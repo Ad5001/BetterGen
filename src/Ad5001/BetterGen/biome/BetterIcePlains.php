@@ -30,12 +30,12 @@ class BetterIcePlains extends SnowyBiome implements Mountainable {
 				Block::get(Block::DIRT, 0),
 				Block::get(Block::DIRT, 0) 
 		]);
-		$this->addPopulator(new IglooPopulator ());
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Igloos", BetterNormal::$options["delStruct"])) $this->addPopulator(new IglooPopulator ());
 				
 		$tallGrass = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\TallGrass() : new \pocketmine\level\generator\populator\TallGrass();
 		$tallGrass->setBaseAmount(3);
 		
-		$this->addPopulator($tallGrass);
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("TallGrass", BetterNormal::$options["delStruct"])) $this->addPopulator($tallGrass);
 		
 		$this->setElevation(63, 74);
 		
