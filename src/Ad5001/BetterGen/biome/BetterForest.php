@@ -50,7 +50,7 @@ class BetterForest extends ForestBiome implements Mountainable {
 		$this->addPopulator($ft);
 
 		$trees = new TreePopulator($type);
-		$trees->setBaseAmount((null !== @constant(TreePopulator::$types [$type] . "::maxPerChunk" )) ? constant(TreePopulator::$types [$type] . "::maxPerChunk" ) : 5);
+		$trees->setBaseAmount((null !== @constant(TreePopulator::$types [$type] . "::maxPerChunk")) ? constant(TreePopulator::$types [$type] . "::maxPerChunk") : 5);
 		$this->addPopulator($trees);
 		
 		$tallGrass = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\TallGrass () : new \pocketmine\level\generator\populator\TallGrass();
@@ -81,10 +81,10 @@ class BetterForest extends ForestBiome implements Mountainable {
 	 * @return bool
 	 */
 	public static function registerForest(string $name, string $treeClass, array $infos): bool {
-		self::$types [] = str_ireplace("tree", "", explode("\\", $treeClass ) [count(explode("\\", $treeClass ) )] ) . " Forest";
+		self::$types [] = str_ireplace("tree", "", explode("\\", $treeClass) [count(explode("\\", $treeClass))]) . " Forest";
 		TreePopulator::$types [] = $treeClass;
-		self::$ids [] = Main::SAKURA_FOREST + (count(self::$types ) - 2);
-		Main::register(Main::SAKURA_FOREST + (count(self::$types ) - 2), new BetterForest(count(self::$types ) - 1, $infos ));
+		self::$ids [] = Main::SAKURA_FOREST + (count(self::$types) - 2);
+		Main::register(Main::SAKURA_FOREST + (count(self::$types) - 2), new BetterForest(count(self::$types) - 1, $infos));
 		return true;
 	}
 }

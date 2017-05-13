@@ -46,7 +46,7 @@ class SugarCanePopulator extends AmountPopulator {
 			$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
 			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
 			$y = $this->getHighestWorkableBlock($x, $z);
-			if ($y !== -1 and $sugarcane->canPlaceObject($level, $x, $y, $z, $random )) {
+			if ($y !== -1 and $sugarcane->canPlaceObject($level, $x, $y, $z, $random)) {
 				$sugarcane->placeObject($level, $x, $y, $z);
 			}
 		}

@@ -36,10 +36,10 @@ class RavinePopulator extends AmountPopulator {
 		$this->level = $level;
 		$amount = $this->getAmount($random);
 		if ($amount > 50) { // Only build one per chunk
-			$depth = $random->nextBoundedInt(60 ) + 30; // 2Much4U?
+			$depth = $random->nextBoundedInt(60) + 30; // 2Much4U?
 			$x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
 			$z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
-			$y = $random->nextRange(5, $this->getHighestWorkableBlock($x, $z ));
+			$y = $random->nextRange(5, $this->getHighestWorkableBlock($x, $z));
 			$deffX = $x;
 			$deffZ = $z;
 			$height = $random->nextRange(15, 30);
@@ -60,11 +60,11 @@ class RavinePopulator extends AmountPopulator {
 					$length = 10;
 				if ($length < 5)
 					$length = 5;
-				$x += $random->nextRange(0 + $diffX, 2 + $diffX ) - 1;
-				$y += $random->nextRange(0, 2 ) - 1;
-				$z += $random->nextRange(0 + $diffZ, 2 + $diffZ ) - 1;
-				$height += $random->nextRange(0, 2 ) - 1;
-				$length += $random->nextRange(0, 2 ) - 1;
+				$x += $random->nextRange(0 + $diffX, 2 + $diffX) - 1;
+				$y += $random->nextRange(0, 2) - 1;
+				$z += $random->nextRange(0 + $diffZ, 2 + $diffZ) - 1;
+				$height += $random->nextRange(0, 2) - 1;
+				$length += $random->nextRange(0, 2) - 1;
 			}
 		}
 	}
@@ -103,9 +103,9 @@ class RavinePopulator extends AmountPopulator {
 			for($yy = $y; $yy <= $y + $height; $yy ++) {
 				for($zz = $z - $length; $zz <= $z + $length; $zz ++) {
 					$oldXB = $xBounded;
-					$xBounded = $random->nextBoundedInt(self::NOISE * 2 ) - self::NOISE;
+					$xBounded = $random->nextBoundedInt(self::NOISE * 2) - self::NOISE;
 					$oldZB = $zBounded;
-					$zBounded = $random->nextBoundedInt(self::NOISE * 2 ) - self::NOISE;
+					$zBounded = $random->nextBoundedInt(self::NOISE * 2) - self::NOISE;
 					if ($xBounded > self::NOISE - 2) {
 						$xBounded = 1;
 					} elseif ($xBounded < - self::NOISE + 2) {
@@ -120,8 +120,8 @@ class RavinePopulator extends AmountPopulator {
 					} else {
 						$zBounded = $oldZB;
 					}
-					if (abs((abs($xx ) - abs($x )) ** 2 + (abs($zz ) - abs($z )) ** 2 ) < ((($length / 2 - $xBounded) + ($length / 2 - $zBounded)) / 2) ** 2 && $y > 0 && ! in_array($this->level->getBlockIdAt(( int ) round($xx ),(int ) round($yy ),(int ) round($zz ) ), BuildingUtils::TO_NOT_OVERWRITE ) && ! in_array($this->level->getBlockIdAt(( int ) round($xx ),(int ) round($yy + 1 ),(int ) round($zz ) ), BuildingUtils::TO_NOT_OVERWRITE )) {
-						$this->level->setBlockIdAt(( int ) round($xx ),(int ) round($yy ),(int ) round($zz ), Block::AIR);
+					if (abs((abs($xx) - abs($x)) ** 2 + (abs($zz) - abs($z)) ** 2) < ((($length / 2 - $xBounded) + ($length / 2 - $zBounded)) / 2) ** 2 && $y > 0 && ! in_array($this->level->getBlockIdAt(( int) round($xx),(int) round($yy),(int) round($zz)), BuildingUtils::TO_NOT_OVERWRITE) && ! in_array($this->level->getBlockIdAt(( int) round($xx),(int) round($yy + 1),(int) round($zz)), BuildingUtils::TO_NOT_OVERWRITE)) {
+						$this->level->setBlockIdAt(( int) round($xx),(int) round($yy),(int) round($zz), Block::AIR);
 					}
 				}
 			}

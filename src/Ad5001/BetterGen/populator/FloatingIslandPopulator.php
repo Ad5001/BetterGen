@@ -146,7 +146,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 	public function populateOres(ChunkManager $level, Vector3 $pos, int $width, int $height, Random $random) {
 		$ores = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\Ore() : new \pocketmine\level\generator\populator\Ore();
 		if(Main::isOtherNS()) $ores->setOreTypes([
-				new OreType2(new CoalOre (), 20, 16, $pos->y - $height, $pos->y ),
+				new OreType2(new CoalOre (), 20, 16, $pos->y - $height, $pos->y),
 				new OreType2(new IronOre (), 20, 8,  $pos->y - $height, $pos->y - round($height * 0.75)),
 				new OreType2(new RedstoneOre (), 8, 7,  $pos->y - $height, $pos->y - round($height / 2)),
 				new OreType2(new LapisOre (), 1, 6, $pos->y - $height, $pos->y - round($height / 2)),
@@ -154,7 +154,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 				new OreType2(new DiamondOre (), 1, 7, $pos->y - $height, $pos->y - round($height / 4))
 		]);
 		if(!Main::isOtherNS()) $ores->setOreTypes([
-				new OreType(new CoalOre (), 20, 16, $pos->y - $height, $pos->y ),
+				new OreType(new CoalOre (), 20, 16, $pos->y - $height, $pos->y),
 				new OreType(new IronOre (), 20, 8,  $pos->y - $height, $pos->y - round($height * 0.75)),
 				new OreType(new RedstoneOre (), 8, 7,  $pos->y - $height, $pos->y - round($height / 2)),
 				new OreType(new LapisOre (), 1, 6, $pos->y - $height, $pos->y - round($height / 2)),

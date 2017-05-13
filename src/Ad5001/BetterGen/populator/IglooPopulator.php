@@ -33,13 +33,13 @@ class IglooPopulator extends AmountPopulator {
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
-		if ($random->nextBoundedInt(100 ) > 30)
+		if ($random->nextBoundedInt(100) > 30)
 			return;
 		$igloo = new Igloo ();
 		$x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
 		$z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
-		$y = $this->getHighestWorkableBlock($x, $z ) - 1;
-		if ($igloo->canPlaceObject($level, $x, $y, $z, $random ))
+		$y = $this->getHighestWorkableBlock($x, $z) - 1;
+		if ($igloo->canPlaceObject($level, $x, $y, $z, $random))
 			$igloo->placeObject($level, $x, $y, $z, $random);
 	}
 	

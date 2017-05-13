@@ -99,7 +99,7 @@ class BetterNormal extends Generator {
 		}
 		
 		$b = $this->selector->pickBiome($x + $xNoise - 1, $z + $zNoise - 1);
-		if ($b instanceof Mountainable && $this->random->nextBoundedInt(1000 ) < 3) {
+		if ($b instanceof Mountainable && $this->random->nextBoundedInt(1000) < 3) {
 			$b = clone $b;
 			// $b->setElevation($b->getMinElevation () + (50 * $b->getMinElevation () / 100), $b->getMaxElevation () + (50 * $b->getMinElevation () / 100));
 		}
@@ -122,35 +122,35 @@ class BetterNormal extends Generator {
 		$this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 32);
 		$this->random->setSeed($this->level->getSeed ());
 		
-		$this->registerBiome(Biome::getBiome(Biome::OCEAN ));
-		$this->registerBiome(Biome::getBiome(Biome::PLAINS ));
+		$this->registerBiome(Biome::getBiome(Biome::OCEAN));
+		$this->registerBiome(Biome::getBiome(Biome::PLAINS));
 		$this->registerBiome(new BetterDesert ());
 		$this->registerBiome(new BetterMesa ());
 		$this->registerBiome(new BetterMesaPlains ());
-		$this->registerBiome(Biome::getBiome(Biome::TAIGA ));
-		$this->registerBiome(Biome::getBiome(Biome::SWAMP ));
+		$this->registerBiome(Biome::getBiome(Biome::TAIGA));
+		$this->registerBiome(Biome::getBiome(Biome::SWAMP));
 		$this->registerBiome(new BetterRiver ());
 		$this->registerBiome(new BetterIcePlains ());
 		$this->registerBiome(new BetterForest(0, [ 
 				0.6,
 				0.5 
-		] ));
+		]));
 		$this->registerBiome(new BetterForest(1, [ 
 				0.7,
 				0.8 
-		] ));
+		]));
 		$this->registerBiome(new BetterForest(2, [ 
 				0.6,
 				0.4 
-		] ));
+		]));
 		
 		$this->selector = new BetterBiomeSelector($random, [ 
 				self::class,
 				"getBiome" 
-		], self::getBiome(0, 0 ));
+		], self::getBiome(0, 0));
 		
-		foreach(self::$biomes as $rain ) {
-			foreach($rain as $biome ) {
+		foreach(self::$biomes as $rain) {
+			foreach($rain as $biome) {
 				$this->selector->addBiome($biome);
 			}
 		}
@@ -189,24 +189,24 @@ class BetterNormal extends Generator {
 		
 		$ores = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\Ore() : new \pocketmine\level\generator\populator\Ore();
 		if(Main::isOtherNS()) $ores->setOreTypes([ 
-				new OreType2(new CoalOre (), 20, 16, 0, 128 ),
-				new OreType2(new IronOre (), 20, 8, 0, 64 ),
-				new OreType2(new RedstoneOre (), 8, 7, 0, 16 ),
-				new OreType2(new LapisOre (), 1, 6, 0, 32 ),
-				new OreType2(new GoldOre (), 2, 8, 0, 32 ),
-				new OreType2(new DiamondOre (), 1, 7, 0, 16 ),
-				new OreType2(new Dirt (), 20, 32, 0, 128 ),
-				new OreType2(new Gravel (), 10, 16, 0, 128 ) 
+				new OreType2(new CoalOre (), 20, 16, 0, 128),
+				new OreType2(new IronOre (), 20, 8, 0, 64),
+				new OreType2(new RedstoneOre (), 8, 7, 0, 16),
+				new OreType2(new LapisOre (), 1, 6, 0, 32),
+				new OreType2(new GoldOre (), 2, 8, 0, 32),
+				new OreType2(new DiamondOre (), 1, 7, 0, 16),
+				new OreType2(new Dirt (), 20, 32, 0, 128),
+				new OreType2(new Gravel (), 10, 16, 0, 128) 
 		]);
 		if(!Main::isOtherNS()) $ores->setOreTypes([ 
-				new OreType(new CoalOre (), 20, 16, 0, 128 ),
-				new OreType(new IronOre (), 20, 8, 0, 64 ),
-				new OreType(new RedstoneOre (), 8, 7, 0, 16 ),
-				new OreType(new LapisOre (), 1, 6, 0, 32 ),
-				new OreType(new GoldOre (), 2, 8, 0, 32 ),
-				new OreType(new DiamondOre (), 1, 7, 0, 16 ),
-				new OreType(new Dirt (), 20, 32, 0, 128 ),
-				new OreType(new Gravel (), 10, 16, 0, 128 ) 
+				new OreType(new CoalOre (), 20, 16, 0, 128),
+				new OreType(new IronOre (), 20, 8, 0, 64),
+				new OreType(new RedstoneOre (), 8, 7, 0, 16),
+				new OreType(new LapisOre (), 1, 6, 0, 32),
+				new OreType(new GoldOre (), 2, 8, 0, 32),
+				new OreType(new DiamondOre (), 1, 7, 0, 16),
+				new OreType(new Dirt (), 20, 32, 0, 128),
+				new OreType(new Gravel (), 10, 16, 0, 128) 
 		]);
 		$this->populators [] = $ores;
 	}
@@ -220,10 +220,10 @@ class BetterNormal extends Generator {
 		if(\Ad5001\BetterGen\utils\CommonUtils::in_arrayi($biome->getName(), self::$options["deleteBiomes"])) {
 			return false;
 		}
-		foreach(self::$levels as $lvl ) if(isset($lvl->selector)) $lvl->selector->addBiome($biome); // If no selector created, it would cause errors. These will be added when selectoes
-		if (! isset(self::$biomes[(string) $biome->getRainfall ()] )) self::$biomes [( string ) $biome->getRainfall ()] = [ ];
-		self::$biomes [( string ) $biome->getRainfall ()] [( string ) $biome->getTemperature ()] = $biome;
-		ksort(self::$biomes [( string ) $biome->getRainfall ()]);
+		foreach(self::$levels as $lvl) if(isset($lvl->selector)) $lvl->selector->addBiome($biome); // If no selector created, it would cause errors. These will be added when selectoes
+		if (! isset(self::$biomes[(string) $biome->getRainfall ()])) self::$biomes [( string) $biome->getRainfall ()] = [ ];
+		self::$biomes [( string) $biome->getRainfall ()] [( string) $biome->getTemperature ()] = $biome;
+		ksort(self::$biomes [( string) $biome->getRainfall ()]);
 		ksort(self::$biomes);
 		self::$biomeById[$biome->getId()] = $biome;
 		return true;
@@ -236,26 +236,26 @@ class BetterNormal extends Generator {
 	 */
 	public static function getBiome($temperature, $rainfall) {
 		$ret = null;
-		if (! isset(self::$biomes [( string ) round($rainfall, 1 )] )) {
-			while(! isset(self::$biomes [( string ) round($rainfall, 1 )] ) ) {
-				if (abs($rainfall - round($rainfall, 1 ) ) >= 0.05)
+		if (! isset(self::$biomes [( string) round($rainfall, 1)])) {
+			while(! isset(self::$biomes [( string) round($rainfall, 1)])) {
+				if (abs($rainfall - round($rainfall, 1)) >= 0.05)
 					$rainfall += 0.1;
-				if (abs($rainfall - round($rainfall, 1 ) ) < 0.05)
+				if (abs($rainfall - round($rainfall, 1)) < 0.05)
 					$rainfall -= 0.1;
-				if (round($rainfall, 1 ) < 0)
+				if (round($rainfall, 1) < 0)
 					$rainfall = 0;
-				if (round($rainfall, 1 ) >= 0.9)
+				if (round($rainfall, 1) >= 0.9)
 					$rainfall = 0.9;
 			}
 		}
-		$b = self::$biomes [( string ) round($rainfall, 1 )];
-		foreach($b as $t => $biome ) {
-			if ($temperature <=(float ) $t) {
+		$b = self::$biomes [( string) round($rainfall, 1)];
+		foreach($b as $t => $biome) {
+			if ($temperature <=(float) $t) {
 				$ret = $biome;
 				break;
 			}
 		}
-		if (is_string($ret )) {
+		if (is_string($ret)) {
 			$ret = new $ret ();
 		}
 		return $ret;
@@ -304,7 +304,7 @@ class BetterNormal extends Generator {
 							$adjacent = $biome;
 						} else {
 							$index = Level::chunkHash($chunkX * 16 + $x + $sx, $chunkZ * 16 + $z + $sz);
-							if (isset($biomeCache [$index] )) {
+							if (isset($biomeCache [$index])) {
 								$adjacent = $biomeCache [$index];
 							} else {
 								$biomeCache [$index] = $adjacent = $this->pickBiome($chunkX * 16 + $x + $sx, $chunkZ * 16 + $z + $sz);
@@ -338,7 +338,7 @@ class BetterNormal extends Generator {
 			}
 		}
 		
-		foreach($this->generationPopulators as $populator ) {
+		foreach($this->generationPopulators as $populator) {
 			$populator->populate($this->level, $chunkX, $chunkZ, $this->random);
 		}
 	}
@@ -350,7 +350,7 @@ class BetterNormal extends Generator {
 	 */
 	public function populateChunk($chunkX, $chunkZ) {
 		$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed ());
-		foreach($this->populators as $populator ) {
+		foreach($this->populators as $populator) {
 			$populator->populate($this->level, $chunkX, $chunkZ, $this->random);
 		}
 		
@@ -358,12 +358,12 @@ class BetterNormal extends Generator {
 		for($x = $chunkX; $x < $chunkX + 16; $x ++)
 			for($z = $chunkZ; $z < $chunkZ + 16; $z ++)
 				for($y = 1; $y < 11; $y ++) {
-					if (! in_array($this->level->getBlockIdAt($x, $y, $z ), self::NOT_OVERWRITABLE ))
+					if (! in_array($this->level->getBlockIdAt($x, $y, $z), self::NOT_OVERWRITABLE))
 						$this->level->setBlockIdAt($x, $y, $z, Block::LAVA);
 				}
 		
 		$chunk = $this->level->getChunk($chunkX, $chunkZ);
-		$biome = self::getBiomeById($chunk->getBiomeId(7, 7 ));
+		$biome = self::getBiomeById($chunk->getBiomeId(7, 7));
 		$biome->populateChunk($this->level, $chunkX, $chunkZ, $this->random);
 	}
 	
@@ -429,7 +429,7 @@ class BetterNormal extends Generator {
 	 * Returns a safe spawn location
 	 */
 	public function getSafeSpawn() {
-		return new Vector3(127.5, $this->getHighestWorkableBlock(127, 127 ), 127.5);
+		return new Vector3(127.5, $this->getHighestWorkableBlock(127, 127), 127.5);
 	}
 	
 	/*

@@ -42,13 +42,13 @@ class LakePopulator extends AmountPopulator {
 			$x += $random->nextRange(- 1, 1);
 			$y += $random->nextRange(- 1, 1);
 			$z += $random->nextRange(- 1, 1);
-			if ($level->getBlockIdAt($x, $y, $z ) !== Block::AIR)
-				BuildingUtils::buildRandom($this->level, new Vector3($x, $y, $z ), new Vector3(5, 5, 5 ), $random, Block::get(Block::WATER ));
+			if ($level->getBlockIdAt($x, $y, $z) !== Block::AIR)
+				BuildingUtils::buildRandom($this->level, new Vector3($x, $y, $z), new Vector3(5, 5, 5), $random, Block::get(Block::WATER));
 		}
 		for($xx = $x - 8; $xx <= $x + 8; $xx ++)
 			for($zz = $z - 8; $zz <= $z + 8; $zz ++)
 				for($yy = $ory + 1; $yy <= $y + 3; $yy ++)
-					if ($level->getBlockIdAt($xx, $yy, $zz ) == Block::WATER)
+					if ($level->getBlockIdAt($xx, $yy, $zz) == Block::WATER)
 						$level->setBlockIdAt($xx, $yy, $zz, Block::AIR);
 	}
 	

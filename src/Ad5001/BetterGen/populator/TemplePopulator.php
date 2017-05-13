@@ -33,13 +33,13 @@ class TemplePopulator extends AmountPopulator {
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
-		if ($random->nextBoundedInt(1000 ) > 70)
+		if ($random->nextBoundedInt(1000) > 70)
 			return;
 		$temple = new Temple ();
 		$x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
 		$z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
 		$y = $this->getHighestWorkableBlock($x, $z);
-		if ($temple->canPlaceObject($level, $x, $y, $z, $random ))
+		if ($temple->canPlaceObject($level, $x, $y, $z, $random))
 			$temple->placeObject($level, $x, $y - 1, $z, $random);
 	}
 	

@@ -47,7 +47,7 @@ class CactusPopulator extends AmountPopulator {
 			$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
 			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
 			$y = $this->getHighestWorkableBlock($x, $z);
-			if ($y !== -1 and $cactus->canPlaceObject($level, $x, $y, $z, $random )) {
+			if ($y !== -1 and $cactus->canPlaceObject($level, $x, $y, $z, $random)) {
 				$cactus->placeObject($level, $x, $y, $z);
 			}
 		}

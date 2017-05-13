@@ -53,23 +53,23 @@ class BetterDesert extends SandyBiome implements Mountainable {
 		$this->temperature = 0.5;
 		$this->rainfall = 0;
 		$this->setGroundCover([ 
-				Block::get(Block::SAND, 0 ),
-				Block::get(Block::SAND, 0 ),
-				Block::get(Block::SAND, 0 ),
-				Block::get(Block::SAND, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ),
-				Block::get(Block::SANDSTONE, 0 ) 
+				Block::get(Block::SAND, 0),
+				Block::get(Block::SAND, 0),
+				Block::get(Block::SAND, 0),
+				Block::get(Block::SAND, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0),
+				Block::get(Block::SANDSTONE, 0) 
 		]);
 	}
 	public function getName(): string {

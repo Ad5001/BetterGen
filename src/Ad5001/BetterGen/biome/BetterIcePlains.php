@@ -24,11 +24,11 @@ class BetterIcePlains extends SnowyBiome implements Mountainable {
 	public function __construct() {
 		parent::__construct ();
 		$this->setGroundCover([ 
-				Block::get(Block::SNOW, 0 ),
-				Block::get(Block::GRASS, 0 ),
-				Block::get(Block::DIRT, 0 ),
-				Block::get(Block::DIRT, 0 ),
-				Block::get(Block::DIRT, 0 ) 
+				Block::get(Block::SNOW, 0),
+				Block::get(Block::GRASS, 0),
+				Block::get(Block::DIRT, 0),
+				Block::get(Block::DIRT, 0),
+				Block::get(Block::DIRT, 0) 
 		]);
 		$this->addPopulator(new IglooPopulator ());
 				

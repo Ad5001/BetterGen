@@ -680,7 +680,7 @@ class SakuraTree extends Tree {
 		$data = [
 			$this->leafType,
 			$this->leaf2Type
-		] [( int )$random->nextBoolean()];
+		] [( int)$random->nextBoolean()];
 		$level->setBlockIdAt($x, $y, $z, $this->realLeafBlock);
 		$level->setBlockDataAt($x, $y, $z, $data);
 	}

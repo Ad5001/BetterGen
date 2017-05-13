@@ -69,7 +69,7 @@ class Well extends Object {
 		for($xx = $x - 2; $xx <= $x + 2; $xx ++)
 			for($yy = $y; $yy <= $y + 3; $yy ++)
 				for($zz = $z - 2; $zz <= $z + 2; $zz ++)
-					if (! isset($this->overridable [$level->getBlockIdAt($xx, $yy, $zz )] ))
+					if (! isset($this->overridable [$level->getBlockIdAt($xx, $yy, $zz)]))
 						return false;
 		return true;
 	}
@@ -84,7 +84,7 @@ class Well extends Object {
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		$this->level = $level;
-		foreach($this->directions as $direction ) {
+		foreach($this->directions as $direction) {
 			// Building pillars
 			for($yy = $y; $yy < $y + 3; $yy ++)
 				$this->placeBlock($x + $direction [0], $yy, $z + $direction [1], Block::SANDSTONE);

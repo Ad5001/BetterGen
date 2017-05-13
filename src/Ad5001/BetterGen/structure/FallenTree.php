@@ -155,7 +155,7 @@ class FallenTree extends Object {
 	 * @param $level pocketmine\level\ChunkManager
 	 */
 	public function placeBlock($x, $y, $z, ChunkManager $level) {
-		if (isset(self::$overridable [$level->getBlockIdAt($x, $y, $z )] ) && ! isset(self::$overridable [$level->getBlockIdAt($x, $y - 1, $z )] )) {
+		if (isset(self::$overridable [$level->getBlockIdAt($x, $y, $z)]) && ! isset(self::$overridable [$level->getBlockIdAt($x, $y - 1, $z)])) {
 			$level->setBlockIdAt($x, $y, $z, $this->trunk [0]);
 			$level->setBlockDataAt($x, $y, $z, $this->trunk [1]);
 		}
