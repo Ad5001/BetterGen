@@ -97,7 +97,7 @@ class BetterNormal extends Generator {
 		$b = $this->selector->pickBiome($x + $xNoise - 1, $z + $zNoise - 1);
 		if ($b instanceof Mountainable && $this->random->nextBoundedInt(1000 ) < 3) {
 			$b = clone $b;
-			$b->setElevation($b->getMinElevation () + (50 * $b->getMinElevation () / 100), $b->getMaxElevation () + (50 * $b->getMinElevation () / 100));
+			// $b->setElevation($b->getMinElevation () + (50 * $b->getMinElevation () / 100), $b->getMaxElevation () + (50 * $b->getMinElevation () / 100));
 		}
 		return $b;
 	}

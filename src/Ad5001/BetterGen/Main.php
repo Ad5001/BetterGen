@@ -144,6 +144,22 @@ class Main extends PluginBase implements \pocketmine\event\Listener {
 				$this->getServer()->loadLevel($name);
 				return true;
 				break;
+				case "worldtp":
+				if(isset($args[0])) {
+					if(is_null($this->getServer()->getLevelByName($args[0]))) {
+						$this->getServer()->loadLevel($args[0]);
+						if(is_null($this->getServer()->getLevelByName($args[0]))) {
+							$sender->sendMessage("Could not find level {$args[0]}.");
+							return false;
+						}
+					}
+					$sender->teleport(\pocketmine\level\Position::fromObject($player, $this->getServer()->getLevelByName($args[0])));
+					$sender->sendMessage("§aTeleporting to {$args[0]}...");
+					return true;
+				} else {
+					return false;
+				}
+				break;
 		}
 	}
 	
