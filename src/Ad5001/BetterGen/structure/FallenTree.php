@@ -79,7 +79,7 @@ class FallenTree extends Object {
 			break;
 			case 2:
 			case 3: // X+
-			$return = arra_BuildingUtils::fillCallback(new Vector3($x, $y, $z), new Vector3($x + $this->length, $y, $z), function($v3, $level) {
+			$return = BuildingUtils::fillCallback(new Vector3($x, $y, $z), new Vector3($x + $this->length, $y, $z), function($v3, $level) {
 				if(!isset(\Ad5001\BetterGen\structure\FallenTree::$overridable[$level->getBlockIdAt($v3->x, $v3->y, $v3->z)])) {
 					echo $level->getBlockIdAt($v3->x, $v3->y, $v3->z) . " is not overridable";
 					return false;
