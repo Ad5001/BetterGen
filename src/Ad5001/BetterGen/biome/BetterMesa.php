@@ -19,6 +19,7 @@ use Ad5001\BetterGen\populator\CactusPopulator;
 use Ad5001\BetterGen\populator\DeadbushPopulator;
 use Ad5001\BetterGen\populator\SugarCanePopulator;
 use Ad5001\BetterGen\populator\TreePopulator;
+use Ad5001\BetterGen\generator\BetterNormal;
 use pocketmine\block\Block;
 use pocketmine\block\GoldOre;
 use pocketmine\level\generator\normal\biome\SandyBiome;

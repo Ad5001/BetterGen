@@ -16,6 +16,7 @@ namespace Ad5001\BetterGen\biome;
 
 use Ad5001\BetterGen\Main;
 use Ad5001\BetterGen\populator\IglooPopulator;
+use Ad5001\BetterGen\generator\BetterNormal;
 use pocketmine\block\Block;
 use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\normal\biome\SnowyBiome;

@@ -19,6 +19,7 @@ use Ad5001\BetterGen\Main;
 use Ad5001\BetterGen\populator\BushPopulator;
 use Ad5001\BetterGen\populator\FallenTreePopulator;
 use Ad5001\BetterGen\populator\TreePopulator;
+use Ad5001\BetterGen\generator\BetterNormal;
 use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\normal\biome\ForestBiome;
 
