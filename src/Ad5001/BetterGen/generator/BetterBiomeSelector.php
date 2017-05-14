@@ -21,16 +21,16 @@ use pocketmine\utils\Random;
 class BetterBiomeSelector extends BiomeSelector {
 	
 	/** @var Biome */
-	private $fallback;
+	protected $fallback;
 	
 	/** @var Simplex */
-	private $temperature;
+	protected $temperature;
 	/** @var Simplex */
-	private $rainfall;
+	protected $rainfall;
 	
 	/** @var Biome[] */
-	private $biomes = [ ];
-	private $lookup;
+	protected $biomes = [ ];
+	protected $lookup;
 	public function __construct(Random $random, callable $lookup, Biome $fallback) {
 		parent::__construct($random, $lookup, $fallback);
 		$this->fallback = $fallback;

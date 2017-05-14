@@ -39,7 +39,7 @@ class FallenTree extends Object {
 	protected $tree;
 	protected $direction;
 	protected $random;
-	private $length = 0;
+	protected $length = 0;
 
 	/*
 	 * Constructs the class

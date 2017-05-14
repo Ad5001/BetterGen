@@ -73,7 +73,7 @@ class BetterNormal extends Generator {
 	public static $levels = [ ];
 	protected static $GAUSSIAN_KERNEL = null; // From main class
 	protected static $SMOOTH_SIZE = 2;
-	protected static $options = [
+	public static $options = [
 		"delBio" => [
 		],
 		"delStruct" => [
@@ -81,7 +81,7 @@ class BetterNormal extends Generator {
 		]
 	];
 	protected $waterHeight = 63;
-	private $noiseBase;
+	protected $noiseBase;
 
 	/*
 	 * Picks a biome by X and Z
@@ -407,7 +407,7 @@ class BetterNormal extends Generator {
 	/*
 	 * Generates the generation kernel based on smooth size (here 2)
 	 */
-	private static function generateKernel() {
+	protected static function generateKernel() {
 		self::$GAUSSIAN_KERNEL = [ ];
 		
 		$bellSize = 1 / self::$SMOOTH_SIZE;

@@ -41,7 +41,7 @@ class FloatingIslandPopulator extends AmountPopulator {
 	 * @param $random 	pocketmine\utils\Random
 	 */
 	/** @var ChunkManager */
-	private $level;
+	protected $level;
 
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;

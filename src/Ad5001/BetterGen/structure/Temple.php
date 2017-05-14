@@ -108,8 +108,8 @@ class Temple extends Object {
 		]
 	];
 	/** @var ChunkManager */
-	private $level;
-	private $direction = 0;
+	protected $level;
+	protected $direction = 0;
 
 	/*
 	 * Checks if a temple is placeable

@@ -53,7 +53,7 @@ class DeadbushPopulator extends AmountPopulator {
 	 * @param $z
 	 * @return int
 	 */
-	private function getHighestWorkableBlock($x, $z){
+	protected function getHighestWorkableBlock($x, $z){
 		for($y = Level::Y_MAX - 1; $y > 0; --$y){
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if($b === Block::DIRT or $b === Block::GRASS or $b === Block::SAND or $b === Block::SANDSTONE or $b === Block::HARDENED_CLAY or $b === Block::STAINED_HARDENED_CLAY){

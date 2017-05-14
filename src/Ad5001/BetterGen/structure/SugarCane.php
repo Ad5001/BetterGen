@@ -30,7 +30,7 @@ class SugarCane extends Object {
 	 * @param $z int
 	 * @param $random pocketmine\utils\Random
 	 */
-	private $totalHeight;
+	protected $totalHeight;
 
 	public function canPlaceObject(ChunkManager $level, int $x, int $y, int $z, Random $random): bool {
 		$this->totalHeight = 1 + $random->nextBoundedInt(3);
