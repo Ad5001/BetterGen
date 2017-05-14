@@ -14,10 +14,12 @@
 
 namespace Ad5001\BetterGen\structure;
 
+use Ad5001\BetterGen\Main;
 use Ad5001\BetterGen\utils\BuildingUtils;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\object\Object;
+use pocketmine\level\Position;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
@@ -113,14 +115,13 @@ class Temple extends Object {
 
 	/**
 	 * Checks if a temple is placeable
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
+	 * @param ChunkManager $level
+	 * @param $x
+	 * @param $y
+	 * @param $z
+	 * @param Random $random
 	 * @return bool
 	 */
-
 	public function canPlaceObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		$this->level = $level;
 		$this->direction = $random->nextBoundedInt(4);
@@ -134,11 +135,11 @@ class Temple extends Object {
 
 	/**
 	 * Places a temple
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
+	 * @param ChunkManager $level
+	 * @param $x
+	 * @param $y
+	 * @param $z
+	 * @param Random $random
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		// Clearing space...
@@ -216,20 +217,19 @@ class Temple extends Object {
 				$this->placeBlock($xx, $y - 13, $zz, Block::TNT);
 		$this->placeBlock($x, $y - 11, $z, Block::STONE_PRESSURE_PLATE);
 
-		//TODO TILES
-		$this->placeBlock($x, $y - 11, $z + 2, Block::CHEST, 4);
-		$this->placeBlock($x, $y - 11, $z - 2, Block::CHEST, 2);
-		$this->placeBlock($x + 2, $y - 11, $z, Block::CHEST, 5);
-		$this->placeBlock($x - 2, $y - 11, $z, Block::CHEST, 3);
 		$this->placeBlock($x, $y - 10, $z + 2, Block::AIR);
 		$this->placeBlock($x, $y - 10, $z - 2, Block::AIR);
 		$this->placeBlock($x + 2, $y - 10, $z, Block::AIR);
 		$this->placeBlock($x - 2, $y - 10, $z, Block::AIR);
 		// Chests
-		/*LootTable::buildLootTable(new Vector3($x, $y - 11, $z + 2), LootTable::LOOT_DESERT_TEMPLE, $random);//TODO: Improve using addon
-		LootTable::buildLootTable(new Vector3($x, $y - 11, $z - 2), LootTable::LOOT_DESERT_TEMPLE, $random);
-		LootTable::buildLootTable(new Vector3($x + 2, $y - 11, $z), LootTable::LOOT_DESERT_TEMPLE, $random);
-		LootTable::buildLootTable(new Vector3($x - 2, $y - 11, $z), LootTable::LOOT_DESERT_TEMPLE, $random);*/
+		#$this->placeBlock($x, $y - 11, $z + 2, Block::CHEST, 4);
+		#$this->placeBlock($x, $y - 11, $z - 2, Block::CHEST, 2);
+		#$this->placeBlock($x + 2, $y - 11, $z, Block::CHEST, 5);
+		#$this->placeBlock($x - 2, $y - 11, $z, Block::CHEST, 3);
+		Main::placeLootChest(Block::get(Block::CHEST, 2, new Position($x, $y - 11, $z + 2, $this->level)), 'loot_tables\\chests\\desert_pyramid');
+		Main::placeLootChest(Block::get(Block::CHEST, 3, new Position($x, $y - 11, $z - 2, $this->level)), 'loot_tables\\chests\\desert_pyramid');
+		Main::placeLootChest(Block::get(Block::CHEST, 4, new Position($x + 2, $y - 11, $z, $this->level)), 'loot_tables\\chests\\desert_pyramid');
+		Main::placeLootChest(Block::get(Block::CHEST, 5, new Position($x - 2, $y - 11, $z, $this->level)), 'loot_tables\\chests\\desert_pyramid');
 
 		// Entrance is a rectangular parallelepiped
 		switch ($this->direction) {
@@ -896,6 +896,7 @@ class Temple extends Object {
 	 * @param $z int
 	 * @param $id int
 	 * @param $meta int
+	 * @param bool $top
 	 * @return void
 	 */
 	protected function placeSlab($x, $y, $z, $id = 44, $meta = 1, $top = false) {

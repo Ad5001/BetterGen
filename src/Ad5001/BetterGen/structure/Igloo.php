@@ -35,11 +35,11 @@ class Igloo extends Object {
 
 	/**
 	 * Places an igloo
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
+	 * @param ChunkManager $level
+	 * @param $x
+	 * @param $y
+	 * @param $z
+	 * @param Random $random
 	 * @return bool placed
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
@@ -347,11 +347,11 @@ class Igloo extends Object {
 
 	/**
 	 * Checks if an igloo is placeable
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
+	 * @param ChunkManager $level
+	 * @param $x
+	 * @param $y
+	 * @param $z
+	 * @param Random $random
 	 * @return bool
 	 */
 	public function canPlaceObject(ChunkManager $level, $x, $y, $z, Random $random) {

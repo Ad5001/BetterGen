@@ -23,23 +23,23 @@ use Ad5001\BetterGen\structure\SakuraTree;
 use Ad5001\BetterGen\structure\Temple;
 use Ad5001\BetterGen\structure\Well;
 use pocketmine\block\Block;
+use pocketmine\block\Chest;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\item\Item;
 use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\Generator;
 use pocketmine\level\generator\object\OakTree;
 use pocketmine\level\Position;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\tile\Chest as TileChest;
-use pocketmine\block\Chest;
 use pocketmine\tile\Tile;
 use pocketmine\utils\Config;
 use pocketmine\utils\Random;
@@ -48,6 +48,7 @@ use pocketmine\utils\TextFormat;
 class Main extends PluginBase implements Listener {
 	const PREFIX = "§l§o§b[§r§l§2Better§aGen§o§b]§r§f ";
 	const SAKURA_FOREST = 100; // Letting some place for future biomes.
+	private static $instance;
 
 
 	/**
@@ -61,20 +62,38 @@ class Main extends PluginBase implements Listener {
 	}
 
 	/**
+	 * Places a looting chest block and creates the corresponding tile
+	 * @param Block $block
+	 * @param $lootfile
+	 */
+	static public function placeLootChest(Block $block, $lootfile) {
+		$block->getLevel()->setBlock($block, $block, true);
+		$nbt = new CompoundTag("", [
+			new StringTag("id", Tile::CHEST),
+			new IntTag("x", (int)$block->x),
+			new IntTag("y", (int)$block->y),
+			new IntTag("z", (int)$block->z),
+			new StringTag("generateLoot", $lootfile)
+		]);
+		$tile = new TileChest($block->getLevel(), $nbt);
+		$tile->spawnToAll();
+	}
+
+	/**
 	 * Called when the plugin enables
 	 */
 	public function onEnable() {
+		self::$instance = $this;
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		Generator::addGenerator(BetterNormal::class, "betternormal");
 		if ($this->isOtherNS()) $this->getLogger()->warning("Tesseract detected. Note that Tesseract is not up to date with the generation structure and some generation features may be limited or not working");
 		@mkdir($this->getDataFolder());
-		if (!file_exists(LootTable::getPluginFolder() . "processingLoots.json"))
-			file_put_contents(LootTable::getPluginFolder() . "processingLoots.json", "{}");
+		if (!in_array($this->getDataFolder() . 'resources\mcpe-default-addon\.', $this->getResources())) $this->getLogger()->alert('The loot files are missing! Make sure you got all files / did git clone --recursive');
 	}
 
 	/**
 	 * Check if it's a Tesseract like namespace
-	 * @return 	bool
+	 * @return    bool
 	 */
 	public static function isOtherNS() {
 		try {
@@ -84,13 +103,11 @@ class Main extends PluginBase implements Listener {
 		}
 	}
 
-
 	/**
 	 * Called when the plugin disables
 	 */
 	public function onDisable() {
 	}
-
 
 	/**
 	 * Called when one of the defined commands of the plugin has been called
@@ -261,8 +278,9 @@ class Main extends PluginBase implements Listener {
 	 * Registers a forest type.
 	 * @param $name string
 	 * @param $treeClass string
-	 * @params $infos Array(temperature, rainfall)
+	 * @param array $infos
 	 * @return bool
+	 * @params $infos Array(temperature, rainfall)
 	 */
 	public function registerForest(string $name, string $treeClass, array $infos): bool {
 		if (!@class_exists($treeClass))
@@ -274,14 +292,52 @@ class Main extends PluginBase implements Listener {
 		return BetterForest::registerForest($name, $treeClass, $infos);
 	}
 
-
 	/**
 	 * Checks when a player attempts to open a loot chest which is not created yet
 	 * @param PlayerInteractEvent $event
 	 */
 	public function onInteract(PlayerInteractEvent $event) {
-		if (($block = $event->getBlock())->getId() !== Block::CHEST) return;
+		if (($block = $event->getBlock())->getId() !== Block::CHEST || $event->getAction() !== PlayerInteractEvent::RIGHT_CLICK_BLOCK) return;
 		$this->generateLootChest($block);
+	}
+
+	/**
+	 * Fills a chest with loot
+	 * @param Block $block
+	 * @param Random|null $random
+	 */
+	static public function generateLootChest(Block $block, Random $random = null) {
+		if (!$block instanceof Chest) return;
+		$tile = $block->getLevel()->getTile($block);
+		if (is_null($tile)) {
+			//TODO new tile, but no loot, because we don't know which type of loot chest this is
+			$nbt = new CompoundTag("", [
+				new StringTag("id", Tile::CHEST),
+				new IntTag("x", (int)$block->x),
+				new IntTag("y", (int)$block->y),
+				new IntTag("z", (int)$block->z)
+			]);
+			$tile = new TileChest($block->getLevel(), $nbt);
+			$tile->spawnToAll();
+			return;
+		}
+		if (!$tile instanceof TileChest) return;
+		//Check if lootchest (or already generated loot)
+		if (!isset($tile->namedtag->generateLoot)) return;
+		$table = new LootTable($config = new Config(self::getInstance()->getDataFolder() . '\\resources\\mcpe-default-addon\\' . $tile->namedtag->generateLoot . '.json'));
+		$size = $tile->getInventory()->getSize();
+		$loot = $table->getRandomLoot($random);
+		$items = array_pad($loot, $size, Item::get(0));
+		shuffle($items);
+		$tile->getInventory()->setContents($items);
+		unset($tile->namedtag->generateLoot);
+	}
+
+	/**
+	 * @return Main
+	 */
+	static public function getInstance() {
+		return self::$instance;
 	}
 
 	/**
@@ -291,17 +347,5 @@ class Main extends PluginBase implements Listener {
 	public function onBlockBreak(BlockBreakEvent $event) {
 		if (($block = $event->getBlock())->getId() !== Block::CHEST) return;
 		$this->generateLootChest($block);
-	}
-
-	private function generateLootChest(Block $block) {
-		//TODO
-		if (!$block instanceof Chest) return;
-		if (is_null($block->getLevel()->getTile($block))) {
-			//TODO new tile, but no loot, because we don't know which type of loot it is
-			return;
-		}
-		if (!($tile = $block->getLevel()->getTile($block)) instanceof TileChest) return;
-		/** TileChest $tile */
-		$tile->getInventory()->setContents([]);//TODO
 	}
 }
