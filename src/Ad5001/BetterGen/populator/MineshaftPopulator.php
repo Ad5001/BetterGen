@@ -80,7 +80,7 @@ class MineshaftPopulator extends AmountPopulator {
 	 * @param Random $random
 	 */
 	public function generateMineshaftPart(int $x, int $y, int $z, int $dir, Random $random) {
-		if ($this->maxPath -- < 1)
+		if ($this->maxPath -- < 1 || $y >= $level->getChunk(($x - ($x % 16)) / 16, ($z - ($z % 16)) / 16)->getHighestBlockAt($x % 16, $z % 16) - 10)
 			return;
 		$type = $random->nextBoundedInt(3);
 		$level = $this->level;
