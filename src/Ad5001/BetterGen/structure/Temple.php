@@ -111,7 +111,7 @@ class Temple extends Object {
 	private $level;
 	private $direction = 0;
 
-	/*
+	/**
 	 * Checks if a temple is placeable
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $x int
@@ -132,7 +132,7 @@ class Temple extends Object {
 		return true;
 	}
 
-	/*
+	/**
 	 * Places a temple
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $x int

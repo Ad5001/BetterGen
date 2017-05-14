@@ -1,10 +1,10 @@
 <?php
 /**
- *  ____             __     __                    ____                       
- * /\  _`\          /\ \__ /\ \__                /\  _`\                     
- * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___    
- *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\  
- *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
+ *  ____             __     __                    ____
+ * /\  _`\          /\ \__ /\ \__                /\  _`\
+ * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___
+ *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\
+ *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
  * Tomorrow's pocketmine generator.
@@ -20,8 +20,8 @@ use pocketmine\level\generator\object\Object;
 use pocketmine\utils\Random;
 
 class Cactus extends Object {
-	
-	/*
+
+	/**
 	 * Checks if a cactus is placeable
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $x int
@@ -34,15 +34,15 @@ class Cactus extends Object {
 	public function canPlaceObject(ChunkManager $level, int $x, int $y, int $z, Random $random): bool {
 		$this->totalHeight = 1 + $random->nextBoundedInt(3);
 		$below = $level->getBlockIdAt($x, $y - 1, $z);
-		for($yy = $y; $yy <= $y + $this->totalHeight; $yy ++) {
+		for ($yy = $y; $yy <= $y + $this->totalHeight; $yy++) {
 			if ($level->getBlockIdAt($x, $yy, $z) !== Block::AIR || ($below !== Block::SAND && $below !== Block::CACTUS) || ($level->getBlockIdAt($x - 1, $yy, $z) !== Block::AIR || $level->getBlockIdAt($x + 1, $yy, $z) !== Block::AIR || $level->getBlockIdAt($x, $yy, $z - 1) !== Block::AIR || $level->getBlockIdAt($x, $yy, $z + 1) !== Block::AIR)) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
-	/*
+
+	/**
 	 * Places a cactus
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $x int
@@ -50,7 +50,7 @@ class Cactus extends Object {
 	 * @param $z int
 	 */
 	public function placeObject(ChunkManager $level, int $x, int $y, int $z) {
-		for($yy = 0; $yy < $this->totalHeight; $yy ++) {
+		for ($yy = 0; $yy < $this->totalHeight; $yy++) {
 			if ($level->getBlockIdAt($x, $y + $yy, $z) != Block::AIR) {
 				return;
 			}

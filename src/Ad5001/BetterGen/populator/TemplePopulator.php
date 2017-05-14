@@ -1,10 +1,10 @@
 <?php
 /**
- *  ____             __     __                    ____                       
- * /\  _`\          /\ \__ /\ \__                /\  _`\                     
- * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___    
- *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\  
- *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
+ *  ____             __     __                    ____
+ * /\  _`\          /\ \__ /\ \__                /\  _`\
+ * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___
+ *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\
+ *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
  * Tomorrow's pocketmine generator.
@@ -23,8 +23,8 @@ use pocketmine\utils\Random;
 class TemplePopulator extends AmountPopulator {
 	/** @var  Level */
 	protected $level;
-	
-	/*
+
+	/**
 	 * Populate the chunk
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $chunkX int
@@ -42,20 +42,20 @@ class TemplePopulator extends AmountPopulator {
 		if ($temple->canPlaceObject($level, $x, $y, $z, $random))
 			$temple->placeObject($level, $x, $y - 1, $z, $random);
 	}
-	
-	/*
+
+	/**
 	 * Gets the top block (y) on an x and z axes
 	 * @param $x int
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = Level::Y_MAX - 1; $y > 0; -- $y) {
+		for ($y = Level::Y_MAX - 1; $y > 0; --$y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::SAND) {
 				break;
 			}
 		}
-		
+
 		return ++$y;
 	}
 }

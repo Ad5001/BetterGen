@@ -25,7 +25,8 @@ class FallenTreePopulator extends AmountPopulator {
 	/** @var ChunkManager */
 	protected $level;
 	protected $type;
-	/*
+
+	/**
 	 * Constructs the class
 	 * @param $type int
 	 */
@@ -35,7 +36,7 @@ class FallenTreePopulator extends AmountPopulator {
 		$this->setRandomAmount(2);
 	}
 
-	/*
+	/**
 	 * Populate the chunk
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $chunkX int
@@ -45,15 +46,15 @@ class FallenTreePopulator extends AmountPopulator {
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
 		$amount = $this->getAmount($random);
-		$tree =  TreePopulator::$types[$this->type];
+		$tree = TreePopulator::$types[$this->type];
 		$fallenTree = new \Ad5001\BetterGen\structure\FallenTree(
 			new $tree()
 		);
-		for($i = 0; $i < $amount; $i++) {
+		for ($i = 0; $i < $amount; $i++) {
 			$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
 			$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
 			$y = $this->getHighestWorkableBlock($x, $z);
-			if(isset(FallenTree::$overridable[$level->getBlockIdAt($x, $y, $z)])) $y--; // Changing $y if 1 block to high.
+			if (isset(FallenTree::$overridable[$level->getBlockIdAt($x, $y, $z)])) $y--; // Changing $y if 1 block to high.
 			if ($y !== -1 and $fallenTree->canPlaceObject($level, $x, $y + 1, $z, $random)) {
 				$fallenTree->placeObject($level, $x, $y + 1, $z);
 			}
@@ -66,12 +67,12 @@ class FallenTreePopulator extends AmountPopulator {
 	 * @param $z
 	 * @return int
 	 */
-	private function getHighestWorkableBlock($x, $z){
-		for($y = Level::Y_MAX - 1; $y > 0; --$y){
+	private function getHighestWorkableBlock($x, $z) {
+		for ($y = Level::Y_MAX - 1; $y > 0; --$y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
-			if($b === Block::DIRT or $b === Block::GRASS){
+			if ($b === Block::DIRT or $b === Block::GRASS) {
 				break;
-			}elseif($b !== Block::AIR and $b !== Block::SNOW_LAYER){
+			} elseif ($b !== Block::AIR and $b !== Block::SNOW_LAYER) {
 				return -1;
 			}
 		}

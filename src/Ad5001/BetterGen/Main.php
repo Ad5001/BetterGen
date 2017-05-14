@@ -17,44 +17,52 @@ namespace Ad5001\BetterGen;
 use Ad5001\BetterGen\biome\BetterForest;
 use Ad5001\BetterGen\generator\BetterNormal;
 use Ad5001\BetterGen\loot\LootTable;
+use Ad5001\BetterGen\structure\FallenTree;
+use Ad5001\BetterGen\structure\Igloo;
+use Ad5001\BetterGen\structure\SakuraTree;
 use Ad5001\BetterGen\structure\Temple;
+use Ad5001\BetterGen\structure\Well;
 use pocketmine\block\Block;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\command\ConsoleCommandSender;
 use pocketmine\event\block\BlockBreakEvent;
-use pocketmine\event\level\ChunkPopulateEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\Generator;
+use pocketmine\level\generator\object\OakTree;
+use pocketmine\level\Position;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
-use pocketmine\tile\Chest;
+use pocketmine\tile\Chest as TileChest;
+use pocketmine\block\Chest;
 use pocketmine\tile\Tile;
 use pocketmine\utils\Config;
 use pocketmine\utils\Random;
+use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase implements Listener {
 	const PREFIX = "§l§o§b[§r§l§2Better§aGen§o§b]§r§f ";
 	const SAKURA_FOREST = 100; // Letting some place for future biomes.
 
-	/*
-	 * Called when the plugin enables
-	 */
 
+	/**
+	 * Registers a biome for the normal generator. Normal means(Biome::register) doesn't allow biome to be generated
+	 * @param $id int
+	 * @param $biome Biome
+	 * @return void
+	 */
 	public static function registerBiome(int $id, Biome $biome) {
 		BetterNormal::registerBiome($biome);
 	}
 
-	/*
-	 * Called when the plugin disables
+	/**
+	 * Called when the plugin enables
 	 */
-
 	public function onEnable() {
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		Generator::addGenerator(BetterNormal::class, "betternormal");
@@ -64,15 +72,10 @@ class Main extends PluginBase implements Listener {
 			file_put_contents(LootTable::getPluginFolder() . "processingLoots.json", "{}");
 	}
 
-	/*
-	 * Called when one of the defined commands of the plugin has been called
-	 * @param $sender \pocketmine\command\CommandSender
-	 * @param $cmd \pocketmine\command\Command
-	 * @param $label mixed
-	 * @param $args array
-	 * return bool
+	/**
+	 * Check if it's a Tesseract like namespace
+	 * @return 	bool
 	 */
-
 	public static function isOtherNS() {
 		try {
 			return @class_exists("pocketmine\\level\\generator\\normal\\object\\OakTree");
@@ -81,24 +84,22 @@ class Main extends PluginBase implements Listener {
 		}
 	}
 
-	/*
-	 * Registers a forest type.
-	 * @param $name string
-	 * @param $treeClass string
-	 * @params $infos Array(temperature, rainfall)
-	 * @return bool
-	 */
 
+	/**
+	 * Called when the plugin disables
+	 */
 	public function onDisable() {
 	}
 
-	/*
-	 * Registers a biome for the normal generator. Normal means(Biome::register) doesn't allow biome to be generated
-	 * @param $id int
-	 * @param $biome Biome
-	 * @return void
-	 */
 
+	/**
+	 * Called when one of the defined commands of the plugin has been called
+	 * @param $sender \pocketmine\command\CommandSender
+	 * @param $cmd \pocketmine\command\Command
+	 * @param $label mixed
+	 * @param $args array
+	 * @return bool
+	 */
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args): bool {
 		switch ($cmd->getName()) {
 			case "createworld": // /createworld <name> [generator = betternormal] [seed = rand()] [options(json)]
@@ -179,49 +180,90 @@ class Main extends PluginBase implements Listener {
 				return true;
 				break;
 			case "worldtp":
-				if(isset($args[0])) {
-					if(is_null($this->getServer()->getLevelByName($args[0]))) {
+				if (!$sender instanceof Player) {
+					$sender->sendMessage(TextFormat::RED . 'You can\'t use this command');
+					return true;
+				}
+				/** @var Player $sender */
+				if (isset($args[0])) {
+					if (is_null($this->getServer()->getLevelByName($args[0]))) {
 						$this->getServer()->loadLevel($args[0]);
-						if(is_null($this->getServer()->getLevelByName($args[0]))) {
+						if (is_null($this->getServer()->getLevelByName($args[0]))) {
 							$sender->sendMessage("Could not find level {$args[0]}.");
 							return false;
 						}
 					}
-					$sender->teleport(\pocketmine\level\Position::fromObject($player, $this->getServer()->getLevelByName($args[0])));
+					$sender->teleport(Position::fromObject($sender, $this->getServer()->getLevelByName($args[0])));
 					$sender->sendMessage("§aTeleporting to {$args[0]}...");
 					return true;
 				} else {
 					return false;
 				}
 				break;
-			case 'temple':{
-				if($sender instanceof ConsoleCommandSender) return false;
+			case 'structure': {
+				if (!$sender instanceof Player) {
+					$sender->sendMessage(TextFormat::RED . 'You can\'t use this command');
+					return true;
+				}
 				/** @var Player $sender */
-				$temple = new Temple();
-				$temple->placeObject($sender->getLevel(), $sender->x, $sender->y, $sender->z, new Random(microtime()));
+				if (isset($args[0])) {
+					switch ($args[0]) {
+						case 'temple': {
+							$temple = new Temple();
+							$temple->placeObject($sender->getLevel(), $sender->x, $sender->y, $sender->z, new Random(microtime()));
+							return true;
+						}
+							break;
+						case 'fallen': {
+							$temple = new FallenTree(new OakTree());
+							$temple->placeObject($sender->getLevel(), $sender->x, $sender->y, $sender->z);
+							return true;
+						}
+							break;
+						case 'igloo': {
+							$temple = new Igloo();
+							$temple->placeObject($sender->getLevel(), $sender->x, $sender->y, $sender->z, new Random(microtime()));
+							return true;
+						}
+							break;
+						case 'well': {
+							$temple = new Well();
+							$temple->placeObject($sender->getLevel(), $sender->x, $sender->y, $sender->z, new Random(microtime()));
+							return true;
+						}
+							break;
+						case 'sakura': {
+							$temple = new SakuraTree();
+							$temple->placeObject($sender->getLevel(), $sender->x, $sender->y, $sender->z, new Random(microtime()));
+							return true;
+						}
+							break;
+						default: {
+						}
+					}
+				}
+				$sender->sendMessage(implode(', ', ['temple', 'fallen', 'igloo', 'well', 'sakura']));
 				return true;
 			}
 		}
 		return false;
 	}
 
-	/*
+	/**
 	 * Generates a(semi) random seed.
 	 * @return int
 	 */
-
 	public function generateRandomSeed(): int {
 		return (int)round(rand(0, round(time()) / memory_get_usage(true)) * (int)str_shuffle("127469453645108") / (int)str_shuffle("12746945364"));
 	}
 
-	// Listener
-
-	/*
-	 * Checks after a chunk populates so we an add tiles and loot tables
-	 * @param $event pocketmine\event\level\ChunkPopulateEvent
-	 * @return int
+	/**
+	 * Registers a forest type.
+	 * @param $name string
+	 * @param $treeClass string
+	 * @params $infos Array(temperature, rainfall)
+	 * @return bool
 	 */
-
 	public function registerForest(string $name, string $treeClass, array $infos): bool {
 		if (!@class_exists($treeClass))
 			return false;
@@ -233,65 +275,33 @@ class Main extends PluginBase implements Listener {
 	}
 
 
-	/*
-	 * Checks when a player interacts with a loot chest to create it.
+	/**
+	 * Checks when a player attempts to open a loot chest which is not created yet
+	 * @param PlayerInteractEvent $event
 	 */
-
-	public function onChunkPopulate(ChunkPopulateEvent $event) {
-		$cfg = new Config(LootTable::getPluginFolder() . "processingLoots.json", Config::JSON);
-		foreach ($cfg->getAll() as $key => $value) {
-			list($x, $y, $z) = explode(";", $key);
-			if ($value["saveAs"] == "chest" && $event->getLevel()->getBlockIdAt($x, $y, $z) == Block::AIR) {
-				$event->getLevel()->setBlockIdAt($x, $y, $z, Block::CHEST);
-			} else {
-				$cfg->remove($key);
-				$cfg->save();
-			}
-		}
-	}
-
-
-	/*
-	 * Checks when a player breaks a loot chest which is not created to create it
-	 */
-
 	public function onInteract(PlayerInteractEvent $event) {
-		$cfg = new Config(LootTable::getPluginFolder() . "processingLoots.json", Config::JSON);
-		if ($event->getBlock()->getId() !== Block::CHEST) return;
-		if (!$cfg->exists($event->getBlock()->getX() . ";" . $event->getBlock()->getY() . ";" . $event->getBlock()->getZ())) return;
-		$nbt = new CompoundTag("", [
-			new ListTag("Items", []),
-			new StringTag("id", Tile::CHEST),
-			new IntTag("x", $event->getBlock()->x),
-			new IntTag("y", $event->getBlock()->y),
-			new IntTag("z", $event->getBlock()->z)
-		]);
-		/** @var Chest $chest */
-		$chest = Tile::createTile(Tile::CHEST, $event->getBlock()->getLevel(), $nbt);
-		$chest->setName("§k(Fake)§r Minecart chest");
-		LootTable::fillChest($chest->getInventory(), $event->getBlock());
+		if (($block = $event->getBlock())->getId() !== Block::CHEST) return;
+		$this->generateLootChest($block);
 	}
 
-	/*
-	* Check if it's a Tesseract like namespace
-	* @return 	bool
-	*/
-
+	/**
+	 * Checks when a player breaks a loot chest which is not created yet
+	 * @param BlockBreakEvent $event
+	 */
 	public function onBlockBreak(BlockBreakEvent $event) {
-		$cfg = new Config(LootTable::getPluginFolder() . "processingLoots.json", Config::JSON);
-		if ($event->getBlock()->getId() !== Block::CHEST) return;
-		if (!$cfg->exists($event->getBlock()->getX() . ";" . $event->getBlock()->getY() . ";" . $event->getBlock()->getZ())) return;
-		$nbt = new CompoundTag("", [
-			new ListTag("Items", []),
-			new StringTag("id", Tile::CHEST),
-			new IntTag("x", $event->getBlock()->x),
-			new IntTag("y", $event->getBlock()->y),
-			new IntTag("z", $event->getBlock()->z)
-		]);
-		/** @var Chest $chest */
-		$chest = Tile::createTile(Tile::CHEST, $event->getBlock()->getLevel(), $nbt);
-		$chest->setName("§k(Fake)§r Minecart chest");
-		LootTable::fillChest($chest->getInventory(), $event->getBlock());
-		// $event->setCancelled(); //i think nope. You want to break it with items
+		if (($block = $event->getBlock())->getId() !== Block::CHEST) return;
+		$this->generateLootChest($block);
+	}
+
+	private function generateLootChest(Block $block) {
+		//TODO
+		if (!$block instanceof Chest) return;
+		if (is_null($block->getLevel()->getTile($block))) {
+			//TODO new tile, but no loot, because we don't know which type of loot it is
+			return;
+		}
+		if (!($tile = $block->getLevel()->getTile($block)) instanceof TileChest) return;
+		/** TileChest $tile */
+		$tile->getInventory()->setContents([]);//TODO
 	}
 }

@@ -1,17 +1,17 @@
-<?php 
+<?php
 /**
- *  ____             __     __                    ____                       
- * /\  _`\          /\ \__ /\ \__                /\  _`\                     
- * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___    
- *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\  
- *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
+ *  ____             __     __                    ____
+ * /\  _`\          /\ \__ /\ \__                /\  _`\
+ * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___
+ *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\
+ *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
  * Tomorrow's pocketmine generator.
  * @author Ad5001
  * @link https://github.com/Ad5001/BetterGen
  */
- 
+
 namespace Ad5001\BetterGen\populator;
 
 use Ad5001\BetterGen\generator\BetterNormal;
@@ -32,20 +32,20 @@ use pocketmine\utils\Random;
 
 
 class FloatingIslandPopulator extends AmountPopulator {
-	
-	/*
+
+	/**
 	 * Populate the chunk
-	 * @param $level 	pocketmine\level\ChunkManager
-	 * @param $chunkX 	int
-	 * @param $chunkZ 	int
-	 * @param $random 	pocketmine\utils\Random
+	 * @param $level    pocketmine\level\ChunkManager
+	 * @param $chunkX    int
+	 * @param $chunkZ    int
+	 * @param $random    pocketmine\utils\Random
 	 */
 	/** @var ChunkManager */
 	private $level;
 
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
-		if($this->getAmount($random) > 130) {
+		if ($this->getAmount($random) > 130) {
 			$x = $random->nextRange(($chunkX << 4), ($chunkX << 4) + 15);
 			$z = $random->nextRange(($chunkX << 4), ($chunkX << 4) + 15);
 			$y = $random->nextRange($this->getHighestWorkableBlock($x, $z) < 96 ? $this->getHighestWorkableBlock($x, $z) + 20 : $this->getHighestWorkableBlock($x, $z), 126);
@@ -55,21 +55,20 @@ class FloatingIslandPopulator extends AmountPopulator {
 			$chunk = $level->getChunk($chunkX, $chunkZ);
 			$biome = BetterNormal::$biomeById[$chunk->getBiomeId($x % 16, $z % 16)];
 			$populators = $biome->getPopulators();
-			foreach($populators as $populator) {
+			foreach ($populators as $populator) {
 				$populator->populate($level, $chunkX, $chunkZ, $random);
 			}
-		} 
+		}
 	}
-	
-	
-	
-	/*
+
+
+	/**
 	 * Gets the top block (y) on an x and z axes
 	 * @param $x int
 	 * @param $z int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
-		for($y = Level::Y_MAX - 1; $y > 0; -- $y) {
+		for ($y = Level::Y_MAX - 1; $y > 0; --$y) {
 			$b = $this->level->getBlockIdAt($x, $y, $z);
 			if ($b === Block::DIRT or $b === Block::GRASS or $b === Block::PODZOL or $b === Block::SAND) {
 				break;
@@ -77,39 +76,38 @@ class FloatingIslandPopulator extends AmountPopulator {
 				return 90;
 			}
 		}
-		
+
 		return ++$y;
 	}
-	
-	
-	
-	/*
+
+
+	/**
 	 * Builds a an island shape
-	 * @param 	$level 		pocketmine\level\ChunkManager
-	 * @param 	$pos 		pocketmine\math\Vector3
-	 * @param	$radius		int
-	 * @param 	$random 	pocketmine\utils\Random
-	 * @return 	int			lowest ore point
+	 * @param    $level        pocketmine\level\ChunkManager
+	 * @param    $pos        pocketmine\math\Vector3
+	 * @param    $radius        int
+	 * @param    $random    pocketmine\utils\Random
+	 * @return    int            lowest ore point
 	 */
 	public function buildIslandBottomShape(ChunkManager $level, Vector3 $pos, int $radius, Random $random) {
 		$pos = $pos->round();
 		$currentLen = 1;
 		$hBound = 0;
 		$current = 0;
-		for($y = $pos->y - 1; $radius > 0; $y--) {
-			for($x = $pos->x - $radius; $x <= $pos->x + $radius; $x++) {
-				for($z = $pos->z - $radius; $z <= $pos->z + $radius; $z ++) {
-					if(abs(abs($x - $pos->x) ** 2) + abs(abs($z - $pos->z) ** 2) == ($radius ** 2) * 0.67) {
+		for ($y = $pos->y - 1; $radius > 0; $y--) {
+			for ($x = $pos->x - $radius; $x <= $pos->x + $radius; $x++) {
+				for ($z = $pos->z - $radius; $z <= $pos->z + $radius; $z++) {
+					if (abs(abs($x - $pos->x) ** 2) + abs(abs($z - $pos->z) ** 2) == ($radius ** 2) * 0.67) {
 						$isEdge = true;
 					} else {
 						$isEdge = false;
 					}
-					if(abs(abs($x - $pos->x) ** 2) + abs(abs($z - $pos->z) ** 2) <= ($radius ** 2) * 0.67 && $y < 128) { 
-						if($chunk = $level->getChunk($x >> 4, $z >> 4)) {
+					if (abs(abs($x - $pos->x) ** 2) + abs(abs($z - $pos->z) ** 2) <= ($radius ** 2) * 0.67 && $y < 128) {
+						if ($chunk = $level->getChunk($x >> 4, $z >> 4)) {
 							$biome = BetterNormal::$biomeById[$chunk->getBiomeId($x % 16, $z % 16)];
 							$block = $biome->getGroundCover()[$pos->y - $y - 1] ?? Block::get(Block::STONE);
 							$block = $block->getId();
-						} elseif($random->nextBoundedInt(5) == 0 && $isEdge) {
+						} elseif ($random->nextBoundedInt(5) == 0 && $isEdge) {
 							$block = Block::AIR;
 						} else {
 							$block = Block::STONE;
@@ -121,8 +119,8 @@ class FloatingIslandPopulator extends AmountPopulator {
 			$current++;
 			$oldHB = $hBound;
 			$hBound = $random->nextFloat();
-			if($current >= $currentLen + $hBound) {
-				if($radius == 0) return $pos->y;
+			if ($current >= $currentLen + $hBound) {
+				if ($radius == 0) return $pos->y;
 				$current = 0;
 				$currentLen += 0.3 * ($random->nextFloat() + 0.5);
 				$radius--;
@@ -130,36 +128,34 @@ class FloatingIslandPopulator extends AmountPopulator {
 		}
 		return $pos->y - 1 - $y;
 	}
-	
-	
-	
-	
-	/*
+
+
+	/**
 	 * BPopulate the island with ores
-	 * @param 	$level 		pocketmine\level\ChunkManager
-	 * @param 	$pos 		pocketmine\math\Vector3 
-	 * @param	$width		int
-	 * @param 	$height 	int
-	 * @param 	$random 	pocketmine\utils\Random
-	 * @return 	void
+	 * @param    $level        pocketmine\level\ChunkManager
+	 * @param    $pos        pocketmine\math\Vector3
+	 * @param    $width        int
+	 * @param    $height    int
+	 * @param    $random    pocketmine\utils\Random
+	 * @return    void
 	 */
 	public function populateOres(ChunkManager $level, Vector3 $pos, int $width, int $height, Random $random) {
 		$ores = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\Ore() : new \pocketmine\level\generator\populator\Ore();
-		if(Main::isOtherNS()) $ores->setOreTypes([
-				new OreType2(new CoalOre (), 20, 16, $pos->y - $height, $pos->y),
-				new OreType2(new IronOre (), 20, 8,  $pos->y - $height, $pos->y - round($height * 0.75)),
-				new OreType2(new RedstoneOre (), 8, 7,  $pos->y - $height, $pos->y - round($height / 2)),
-				new OreType2(new LapisOre (), 1, 6, $pos->y - $height, $pos->y - round($height / 2)),
-				new OreType2(new GoldOre (), 2, 8, $pos->y - $height, $pos->y - round($height / 2)),
-				new OreType2(new DiamondOre (), 1, 7, $pos->y - $height, $pos->y - round($height / 4))
+		if (Main::isOtherNS()) $ores->setOreTypes([
+			new OreType2(new CoalOre (), 20, 16, $pos->y - $height, $pos->y),
+			new OreType2(new IronOre (), 20, 8, $pos->y - $height, $pos->y - round($height * 0.75)),
+			new OreType2(new RedstoneOre (), 8, 7, $pos->y - $height, $pos->y - round($height / 2)),
+			new OreType2(new LapisOre (), 1, 6, $pos->y - $height, $pos->y - round($height / 2)),
+			new OreType2(new GoldOre (), 2, 8, $pos->y - $height, $pos->y - round($height / 2)),
+			new OreType2(new DiamondOre (), 1, 7, $pos->y - $height, $pos->y - round($height / 4))
 		]);
-		if(!Main::isOtherNS()) $ores->setOreTypes([
-				new OreType(new CoalOre (), 20, 16, $pos->y - $height, $pos->y),
-				new OreType(new IronOre (), 20, 8,  $pos->y - $height, $pos->y - round($height * 0.75)),
-				new OreType(new RedstoneOre (), 8, 7,  $pos->y - $height, $pos->y - round($height / 2)),
-				new OreType(new LapisOre (), 1, 6, $pos->y - $height, $pos->y - round($height / 2)),
-				new OreType(new GoldOre (), 2, 8, $pos->y - $height, $pos->y - round($height / 2)),
-				new OreType(new DiamondOre (), 1, 7, $pos->y - $height, $pos->y - round($height / 4))
+		if (!Main::isOtherNS()) $ores->setOreTypes([
+			new OreType(new CoalOre (), 20, 16, $pos->y - $height, $pos->y),
+			new OreType(new IronOre (), 20, 8, $pos->y - $height, $pos->y - round($height * 0.75)),
+			new OreType(new RedstoneOre (), 8, 7, $pos->y - $height, $pos->y - round($height / 2)),
+			new OreType(new LapisOre (), 1, 6, $pos->y - $height, $pos->y - round($height / 2)),
+			new OreType(new GoldOre (), 2, 8, $pos->y - $height, $pos->y - round($height / 2)),
+			new OreType(new DiamondOre (), 1, 7, $pos->y - $height, $pos->y - round($height / 4))
 		]);
 		$ores->populate($level, $pos->x >> 4, $pos->z >> 4, $random);//x z undefined
 	}

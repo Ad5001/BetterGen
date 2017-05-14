@@ -1,10 +1,10 @@
 <?php
 /**
- *  ____             __     __                    ____                       
- * /\  _`\          /\ \__ /\ \__                /\  _`\                     
- * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___    
- *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\  
- *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \ 
+ *  ____             __     __                    ____
+ * /\  _`\          /\ \__ /\ \__                /\  _`\
+ * \ \ \L\ \     __ \ \ ,_\\ \ ,_\     __   _ __ \ \ \L\_\     __     ___
+ *  \ \  _ <'  /'__`\\ \ \/ \ \ \/   /'__`\/\`'__\\ \ \L_L   /'__`\ /' _ `\
+ *   \ \ \L\ \/\  __/ \ \ \_ \ \ \_ /\  __/\ \ \/  \ \ \/, \/\  __/ /\ \/\ \
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
  * Tomorrow's pocketmine generator.
@@ -21,8 +21,8 @@ use pocketmine\level\generator\object\Object;
 use pocketmine\utils\Random;
 
 class SugarCane extends Object {
-	
-	/*
+
+	/**
 	 * Checks if a cactus is placeable
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $x int
@@ -40,8 +40,8 @@ class SugarCane extends Object {
 		}
 		return false;
 	}
-	
-	/*
+
+	/**
 	 * Places a cactus
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $x int
@@ -49,7 +49,7 @@ class SugarCane extends Object {
 	 * @param $z int
 	 */
 	public function placeObject(ChunkManager $level, int $x, int $y, int $z) {
-		for($yy = 0; $yy < $this->totalHeight; $yy ++) {
+		for ($yy = 0; $yy < $this->totalHeight; $yy++) {
 			if ($level->getBlockIdAt($x, $y + $yy, $z) != Block::AIR) {
 				return;
 			}

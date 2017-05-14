@@ -445,7 +445,7 @@ class SakuraTree extends Tree {
 	public $leafType;
 	public $leaf2Type;
 
-	/*
+	/**
 	 * Constructs the class
 	 */
 	public function __construct() {
@@ -457,7 +457,7 @@ class SakuraTree extends Tree {
 		$this->type = Wood::OAK;
 	}
 
-	/*
+	/**
 	 * Builds the tree.
 	 * @param $level \pocketmine\level\ChunkManager
 	 * @param $x int
@@ -656,7 +656,7 @@ class SakuraTree extends Tree {
 		}
 	}
 
-	/*
+	/**
 	 * Fills a log at.
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $x int
@@ -668,7 +668,7 @@ class SakuraTree extends Tree {
 		$level->setBlockDataAt($x, $y, $z, $this->type);
 	}
 
-	/*
+	/**
 	 * Fills a leave at.
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $x int
