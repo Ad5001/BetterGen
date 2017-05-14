@@ -23,6 +23,7 @@ use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
+use pocketmine\level\Level;
 
 class MineshaftPopulator extends AmountPopulator {
 	/** var int */
@@ -86,7 +87,7 @@ class MineshaftPopulator extends AmountPopulator {
 	 * @param Random $random
 	 */
 	public function generateMineshaftPart(int $x, int $y, int $z, int $dir, Random $random) {
-		if ($this->maxPath -- < 1 || $y >= $this->level->getChunk(($x - ($x % 16)) / 16, ($z - ($z % 16)) / 16)->getHighestBlockAt($x % 16, $z % 16) - 10)
+		if ($this->maxPath -- < 1 || $y >= $this->getHighestBlockAt($x, $z) - 10)
 			return;
 		$type = $random->nextBoundedInt(3);
 		$level = $this->level;
@@ -424,6 +425,22 @@ class MineshaftPopulator extends AmountPopulator {
 				}
 				break;
 		}
+	}
+	
+	/**
+	 * Gets the top block (y) on an x and z axes
+	 * @param int $x
+	 * @param int $z
+	 */
+	protected function getHighestWorkableBlock($x, $z) {
+		for($y = Level::Y_MAX - 1; $y > 0; -- $y) {
+			$b = $this->level->getBlockIdAt($x, $y, $z);
+			if ($b === Block::SAND) {
+				break;
+			}
+		}
+		
+		return ++$y;
 	}
 }
 ?>
