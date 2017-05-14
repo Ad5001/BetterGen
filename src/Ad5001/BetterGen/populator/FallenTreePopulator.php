@@ -28,22 +28,24 @@ class FallenTreePopulator extends AmountPopulator {
 	/** @var ChunkManager */
 	protected $level;
 	protected $type;
-	/*
+	/**
 	 * Constructs the class
-	 * @param $type int
+	 * @param int $type
 	 */
 	public function __construct(int $type = 0) {
 		$this->type = $type;
 		$this->setBaseAmount(1);
 		$this->setRandomAmount(2);
 	}
-
-	/*
-	 * Populate the chunk
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $chunkX int
-	 * @param $chunkZ int
-	 * @param $random pocketmine\utils\Random
+	
+	/**
+	 * Populates the chunk
+	 *
+	 * @param ChunkManager $level
+	 * @param int $chunkX
+	 * @param int $chunkZ
+	 * @param Random $random
+	 * @return void
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;

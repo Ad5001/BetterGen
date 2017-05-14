@@ -21,6 +21,9 @@ use pocketmine\block\Block;
 use pocketmine\level\generator\biome\Biome;
 
 class BetterRiver extends Biome {
+	/**
+	 * Constructs the class
+	 */
 	public function __construct() {
 		$this->clearPopulators ();
 		
@@ -43,14 +46,22 @@ class BetterRiver extends Biome {
 		$this->temperature = 0.5;
 		$this->rainfall = 0.7;
 	}
-	public function getName() {
+
+	/**
+	 * Returns the biome name
+	 *
+	 * @return string
+	 */
+	public function getName(): string {
 		return "BetterRiver";
 	}
 	
-	/*
-	 * Returns the ID relatively.
+	/**
+	 * Returns the biome id
+	 *
+	 * @return int
 	 */
-	public function getId() {
+	public function getId(): int {
 		return Biome::RIVER;
 	}
 }

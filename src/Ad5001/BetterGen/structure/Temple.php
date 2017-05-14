@@ -114,16 +114,17 @@ class Temple extends Object {
 	protected $level;
 	protected $direction = 0;
 
-	/*
-	 * Checks if a temple is placeable
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
-	 * @return bool
+	
+	/**
+	 * Checks if a temple is placable
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param Random $random
+	 * @return void
 	 */
-
 	public function canPlaceObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		$this->level = $level;
 		$this->direction = $random->nextBoundedInt(4);
@@ -135,13 +136,15 @@ class Temple extends Object {
 		return true;
 	}
 
-	/*
-	 * Places a temple
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
+	/**
+	 * Builds a temple
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param Random $random
+	 * @return void
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		// Clearing space...
@@ -157,26 +160,13 @@ class Temple extends Object {
 
 		// Floor top
 		BuildingUtils::fill($level, new Vector3($x - 5, $y + 4, $z - 5), new Vector3($x + 5, $y + 4, $z + 5), Block::get(Block::SANDSTONE));
-		#for ($xx = $x + 5; $xx >= $x - 5; $xx--)
-		#	for ($zz = $z + 5; $zz >= $z - 5; $zz--)
-		#		$this->placeBlock($xx, $y + 4, $zz);
-
 		// Creating hole
 		BuildingUtils::fill($level, new Vector3($x - 1, $y - 11, $z - 1), new Vector3($x + 1, $y + 4, $z + 1), Block::get(Block::AIR));
-		#for ($xx = $x - 1; $xx <= $x + 1; $xx++)
-		#	for ($yy = $y - 11; $yy <= $y + 4; $yy++)
-		#		for ($zz = $z - 1; $zz <= $z + 1; $zz++)
-		#			$this->placeBlock($xx, $yy, $zz, Block::AIR);
-
 		// Hole walls
 		BuildingUtils::walls($level, new Vector3($x - 2, $y - 1, $z - 2), new Vector3($x + 2, $y - 8, $z + 2), Block::get(Block::SANDSTONE));
 
 		//Floor bottom
 		BuildingUtils::fill($level, new Vector3($x - 9, $y, $z - 9), new Vector3($x + 9, $y, $z + 9), Block::get(Block::SANDSTONE));
-		#for ($xx = $x + 9; $xx >= $x - 9; $xx--)
-		#	for ($zz = $z + 9; $zz >= $z - 9; $zz--)
-		#		$this->placeBlock($xx, $y, $zz);
-
 		// Floor pattern
 		for ($i = -2; $i <= 1; $i++) {//straight
 			$xextra = ($i + 1) % 2;

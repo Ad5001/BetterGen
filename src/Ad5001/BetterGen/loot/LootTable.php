@@ -57,11 +57,12 @@ class LootTable {
 	const LOOT_IGLOO = 1;
 	const LOOT_MINESHAFT = 2;
 	
-	/*
-	 * Asynchronous loot table choosing
-	 * @param $place pocketmine\math\Vector3
-	 * @param $type int
-	 * @param $random pocketmine\utils\Random
+	/**
+	 * Asynchronous method to build a loot table
+	 *
+	 * @param Vector3 $place
+	 * @param int $type
+	 * @param Random $random
 	 * @return void
 	 */
 	public static function buildLootTable(Vector3 $place, int $type, Random $random) {
@@ -82,10 +83,11 @@ class LootTable {
 		$cfg->save();
 	}
 	
-	/*
-	 * Synchronous inventory filling with loot table.
-	 * @param $inv pocketmine\inventory\BaseInventory
-	 * @param $pos pocketmine\math\Vector3
+	/**
+	 * Synchronous inventory filling method
+	 *
+	 * @param BaseInventory $inv
+	 * @param Vector3 $pos
 	 * @return void
 	 */
 	public static function fillChest(BaseInventory $inv, Vector3 $pos) {
@@ -108,7 +110,7 @@ class LootTable {
 		}
 	}
 	
-	/*
+	/**
 	 * Returns the plugins folder.
 	 * @return string
 	 */
@@ -119,7 +121,7 @@ class LootTable {
 		return str_ireplace("phar://", "", implode(DIRECTORY_SEPARATOR, $dir)) . DIRECTORY_SEPARATOR . "BetterGen" . DIRECTORY_SEPARATOR;
 	}
 	
-	/*
+	/**
 	 * Returns the resources folder.
 	 * @return string
 	 */

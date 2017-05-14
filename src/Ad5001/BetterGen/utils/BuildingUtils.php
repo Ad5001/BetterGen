@@ -33,12 +33,13 @@ class BuildingUtils {
 			Block::PLANK 
 	];
 	
-	/*
+	/**
 	 * Fills an area
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $pos1 pocketmine\math\Vector3
-	 * @param $pos2 pocketmine\math\Vector3
-	 * @param $block pocketmine\block\Block
+	 *
+	 * @param ChunkManager $level
+	 * @param Vector3 $pos1
+	 * @param Vector3 $pos2
+	 * @param Block $block
 	 * @return void
 	 */
 	public static function fill(ChunkManager $level, Vector3 $pos1, Vector3 $pos2, Block $block = null) {
@@ -51,14 +52,15 @@ class BuildingUtils {
 	}
 	
 	
-	/*
+	/**
 	 * Fills an area randomly
-	 * @param 		$level		pocketmine\level\ChunkManager
-	 * @param 		$pos1 		pocketmine\math\Vector3
-	 * @param 		$pos2 		pocketmine\math\Vector3
-	 * @param 		$block		pocketmine\block\Block
-	 * @param 		$random		pocketmine\utils
-	 * @param 		$randMax	pocketmine\utils
+	 *
+	 * @param ChunkManager $level
+	 * @param Vector3 $pos1
+	 * @param Vector3 $pos2
+	 * @param Block $block
+	 * @param Random $random
+	 * @param int $randMax
 	 * @return void
 	 */
 	public static function fillRandom(ChunkManager $level, Vector3 $pos1, Vector3 $pos2, Block $block = null, Random $random = null, $randMax = 3) {
@@ -70,12 +72,13 @@ class BuildingUtils {
 				}
 	}
 	
-	/*
-	 * Fills an area by custom filling
-	 * @param $pos1 pocketmine\math\Vector3
-	 * @param $pos2 pocketmine\math\Vector3
-	 * @param $call callback
-	 * @param $params array
+	/**
+	 * Custom area filling
+	 *
+	 * @param Vector3 $pos1
+	 * @param Vector3 $pos2
+	 * @param callable $call
+	 * @param array $params
 	 * @return array
 	 */
 	public static function fillCallback(Vector3 $pos1, Vector3 $pos2, callable $call, ...$params) : array {
@@ -87,12 +90,13 @@ class BuildingUtils {
 		return $return;
 	}
 	
-	/*
+	/**
 	 * Creates walls
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $pos1 pocketmine\math\Vector3
-	 * @param $pos2 pocketmine\math\Vector3
-	 * @param $block pocketmine\block\Block
+	 *
+	 * @param ChunkManager $level
+	 * @param Vector3 $pos1
+	 * @param Vector3 $pos2
+	 * @param Block $block
 	 * @return void
 	 */
 	public static function walls(ChunkManager $level, Vector3 $pos1, Vector3 $pos2, Block $block) {
@@ -113,12 +117,13 @@ class BuildingUtils {
 		}
 	}
 	
-	/*
+	/**
 	 * Creates the top of a structure
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $pos1 pocketmine\math\Vector3
-	 * @param $pos2 pocketmine\math\Vector3
-	 * @param $block pocketmine\block\Block
+	 *
+	 * @param ChunkManager $level
+	 * @param Vector3 $pos1
+	 * @param Vector3 $pos2
+	 * @param Block $block
 	 * @return void
 	 */
 	public static function top(ChunkManager $level, Vector3 $pos1, Vector3 $pos2, Block $block) {
@@ -130,12 +135,13 @@ class BuildingUtils {
 			}
 	}
 	
-	/*
-	 * Creates all corners from positions. Used for Mineshaft.
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $pos1 pocketmine\math\Vector3
-	 * @param $pos2 pocketmine\math\Vector3
-	 * @param $block pocketmine\block\Block
+	/**
+	 * Creates the corners of the structures. Used for mineshaft "towers"
+	 *
+	 * @param ChunkManager $level
+	 * @param Vector3 $pos1
+	 * @param Vector3 $pos2
+	 * @param Block $block
 	 * @return void
 	 */
 	public static function corners(ChunkManager $level, Vector3 $pos1, Vector3 $pos2, Block $block) {
@@ -152,12 +158,13 @@ class BuildingUtils {
 		}
 	}
 	
-	/*
-	 * Creates the bottom of a structure
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $pos1 pocketmine\math\Vector3
-	 * @param $pos2 pocketmine\math\Vector3
-	 * @param $block pocketmine\block\Block
+	/**
+	 * Fills the bottom of a structure
+	 *
+	 * @param ChunkManager $level
+	 * @param Vector3 $pos1
+	 * @param Vector3 $pos2
+	 * @param Block $block
 	 * @return void
 	 */
 	public static function bottom(ChunkManager $level, Vector3 $pos1, Vector3 $pos2, Block $block) {
@@ -169,13 +176,14 @@ class BuildingUtils {
 			}
 	}
 	
-	/*
-	 * Builds a random structure depending of length, height, depth and random
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $pos pocketmine\math\Vector3
-	 * @param $infos pocketmine\math\Vector3
-	 * @param $random pocketmine\utils\Random
-	 * @param $block pocketmine\block\Block
+	/**
+	 * Builds a structure randomly based on a circle algorithm. Used in caves and lakes.
+	 *
+	 * @param ChunkManager $level
+	 * @param Vector3 $pos
+	 * @param Vector3 $infos
+	 * @param Random $random
+	 * @param Block $block
 	 * @return void
 	 */
 	public static function buildRandom(ChunkManager $level, Vector3 $pos, Vector3 $infos, Random $random, Block $block) {
@@ -196,10 +204,11 @@ class BuildingUtils {
 		}
 	}
 	
-	/*
-	 * Returns 2 vector3, one with minimal values, one with max values of the provided ones.
-	 * @param $pos1 pocketmine\math\Vector3
-	 * @param $pos2 pocketmine\math\Vector3
+	/**
+	 * Returns two Vector three, the biggest and lowest ones based on two provided vectors
+	 *
+	 * @param Vector3 $pos1
+	 * @param Vector3 $pos2
 	 * @return array
 	 */
 	protected static function minmax(Vector3 $pos1, Vector3 $pos2): array {

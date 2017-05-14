@@ -28,12 +28,14 @@ class RavinePopulator extends AmountPopulator {
 	protected $level;
 	const NOISE = 250;
 	
-	/*
-	 * Populate the chunk
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $chunkX int
-	 * @param $chunkZ int
-	 * @param $random pocketmine\utils\Random
+	/**
+	 * Populates the chunk
+	 *
+	 * @param ChunkManager $level
+	 * @param int $chunkX
+	 * @param int $chunkZ
+	 * @param Random $random
+	 * @return void
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
@@ -90,14 +92,16 @@ class RavinePopulator extends AmountPopulator {
 		return ++$y;
 	}
 	
-	/*
-	 * Builds a ravine part
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $height int
-	 * @param $length int
-	 * @param $random pocketmine\utils\Random
+	/**
+	 * Buidls a ravine part
+	 *
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param int $height
+	 * @param int $length
+	 * @param Random $random
+	 * @return void
 	 */
 	protected function buildRavinePart($x, $y, $z, $height, $length, Random $random) {
 		$xBounded = 0;

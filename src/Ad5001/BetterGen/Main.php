@@ -46,18 +46,22 @@ class Main extends PluginBase implements Listener {
 	const PREFIX = "§l§o§b[§r§l§2Better§aGen§o§b]§r§f ";
 	const SAKURA_FOREST = 100; // Letting some place for future biomes.
 
-	/*
-	 * Called when the plugin enables
+	/**
+	 * Regisetrs a biome to betternormal
+	 *
+	 * @param int $id
+	 * @param Biome $biome
+	 * @return void
 	 */
-
 	public static function registerBiome(int $id, Biome $biome) {
 		BetterNormal::registerBiome($biome);
 	}
 
-	/*
-	 * Called when the plugin disables
+	/**
+	 * Called when the plugin enales
+	 *
+	 * @return void
 	 */
-
 	public function onEnable() {
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		Generator::addGenerator(BetterNormal::class, "betternormal");
@@ -67,15 +71,12 @@ class Main extends PluginBase implements Listener {
 			file_put_contents(LootTable::getPluginFolder() . "processingLoots.json", "{}");
 	}
 
-	/*
-	 * Called when one of the defined commands of the plugin has been called
-	 * @param $sender \pocketmine\command\CommandSender
-	 * @param $cmd \pocketmine\command\Command
-	 * @param $label mixed
-	 * @param $args array
-	 * return bool
+	
+	/**
+	 * Checks for tesseract like namespaces. Returns true if thats the case
+	 *
+	 * @return boolean
 	 */
-
 	public static function isOtherNS() {
 		try {
 			return @class_exists("pocketmine\\level\\generator\\normal\\object\\OakTree");
@@ -84,24 +85,15 @@ class Main extends PluginBase implements Listener {
 		}
 	}
 
-	/*
-	 * Registers a forest type.
-	 * @param $name string
-	 * @param $treeClass string
-	 * @params $infos Array(temperature, rainfall)
+	/**
+	 * Called when a command executes
+	 *
+	 * @param CommandSender $sender
+	 * @param Command $cmd
+	 * @param int $label
+	 * @param array $args
 	 * @return bool
 	 */
-
-	public function onDisable() {
-	}
-
-	/*
-	 * Registers a biome for the normal generator. Normal means(Biome::register) doesn't allow biome to be generated
-	 * @param $id int
-	 * @param $biome Biome
-	 * @return void
-	 */
-
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args): bool {
 		switch ($cmd->getName()) {
 			case "createworld": // /createworld <name> [generator = betternormal] [seed = rand()] [options(json)]
@@ -208,23 +200,22 @@ class Main extends PluginBase implements Listener {
 		return false;
 	}
 
-	/*
-	 * Generates a(semi) random seed.
+	/**
+	 * Generates a (semi) random seed.
 	 * @return int
 	 */
-
 	public function generateRandomSeed(): int {
 		return (int)round(rand(0, round(time()) / memory_get_usage(true)) * (int)str_shuffle("127469453645108") / (int)str_shuffle("12746945364"));
 	}
 
-	// Listener
-
-	/*
-	 * Checks after a chunk populates so we an add tiles and loot tables
-	 * @param $event pocketmine\event\level\ChunkPopulateEvent
-	 * @return int
+	/**
+	 * Registers a forest from a tree class
+	 *
+	 * @param string $name
+	 * @param string $treeClass
+	 * @param array $infos
+	 * @return bool
 	 */
-
 	public function registerForest(string $name, string $treeClass, array $infos): bool {
 		if (!@class_exists($treeClass))
 			return false;
@@ -236,10 +227,12 @@ class Main extends PluginBase implements Listener {
 	}
 
 
-	/*
-	 * Checks when a player interacts with a loot chest to create it.
+	/**
+	 * Checks when a chunk populates to populate chests back
+	 *
+	 * @param ChunkPopulateEvent $event
+	 * @return void
 	 */
-
 	public function onChunkPopulate(ChunkPopulateEvent $event) {
 		$cfg = new Config(LootTable::getPluginFolder() . "processingLoots.json", Config::JSON);
 		foreach ($cfg->getAll() as $key => $value) {
@@ -254,10 +247,12 @@ class Main extends PluginBase implements Listener {
 	}
 
 
-	/*
-	 * Checks when a player breaks a loot chest which is not created to create it
+	/**
+	 * Checks when a player touches an ungenerated chest to generate it.
+	 *
+	 * @param PlayerInteractEvent $event
+	 * @return void
 	 */
-
 	public function onInteract(PlayerInteractEvent $event) {
 		$cfg = new Config(LootTable::getPluginFolder() . "processingLoots.json", Config::JSON);
 		if ($event->getBlock()->getId() !== Block::CHEST) return;
@@ -275,11 +270,12 @@ class Main extends PluginBase implements Listener {
 		LootTable::fillChest($chest->getInventory(), $event->getBlock());
 	}
 
-	/*
-	* Check if it's a Tesseract like namespace
-	* @return 	bool
-	*/
-
+	/**
+	 * Checks when a players breaks an ungenerated chest to generate it.
+	 *
+	 * @param BlockBreakEvent $event
+	 * @return void
+	 */
 	public function onBlockBreak(BlockBreakEvent $event) {
 		$cfg = new Config(LootTable::getPluginFolder() . "processingLoots.json", Config::JSON);
 		if ($event->getBlock()->getId() !== Block::CHEST) return;
@@ -295,6 +291,5 @@ class Main extends PluginBase implements Listener {
 		$chest = Tile::createTile(Tile::CHEST, $event->getBlock()->getLevel(), $nbt);
 		$chest->setName("§k(Fake)§r Minecart chest");
 		LootTable::fillChest($chest->getInventory(), $event->getBlock());
-		// $event->setCancelled(); //i think nope. You want to break it with items
 	}
 }

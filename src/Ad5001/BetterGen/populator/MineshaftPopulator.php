@@ -25,6 +25,7 @@ use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
 class MineshaftPopulator extends AmountPopulator {
+	/** var int */
 	protected $maxPath;
 	/** @var ChunkManager */
 	protected $level;
@@ -36,12 +37,14 @@ class MineshaftPopulator extends AmountPopulator {
 	const TYPE_CROSSPATH = 1;
 	const TYPE_STAIRS = 2;
 	
-	/*
-	 * Populate the chunk
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $chunkX int
-	 * @param $chunkZ int
-	 * @param $random pocketmine\utils\Random
+	/**
+	 * Populates the chunk
+	 *
+	 * @param ChunkManager $level
+	 * @param int $chunkX
+	 * @param int $chunkZ
+	 * @param Random $random
+	 * @return void
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		if ($this->getAmount($random) < 100)

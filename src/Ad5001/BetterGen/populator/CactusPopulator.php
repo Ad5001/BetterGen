@@ -27,7 +27,7 @@ use pocketmine\utils\Random;
 class CactusPopulator extends AmountPopulator {
 	/** @var ChunkManager */
 	protected $level;
-	/*
+	/**
 	 * Constructs the class
 	 */
 	public function __construct() {
@@ -35,12 +35,14 @@ class CactusPopulator extends AmountPopulator {
 		$this->setRandomAmount(2);
 	}
 	
-	/*
-	 * Populate the chunk
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $chunkX int
-	 * @param $chunkZ int
-	 * @param $random pocketmine\utils\Random
+	/**
+	 * Populates the chunk
+	 *
+	 * @param ChunkManager $level
+	 * @param int $chunkX
+	 * @param int $chunkZ
+	 * @param Random $random
+	 * @return void
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
@@ -56,10 +58,13 @@ class CactusPopulator extends AmountPopulator {
 		}
 	}
 	
-	/*
-	 * Gets the top block (y) on an x and z axes
-	 * @param $x int
-	 * @param $z int
+	
+	/**
+	 * Gets the highest workable block
+	 *
+	 * @param int $x
+	 * @param int $z
+	 * @return void
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
 		for($y = Level::Y_MAX - 1; $y >= 0; -- $y) {

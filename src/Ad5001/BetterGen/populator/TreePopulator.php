@@ -34,9 +34,10 @@ class TreePopulator extends AmountPopulator {
 	];
 	/** @var ChunkManager */
 	protected $level;
+	/** @var int */
 	protected $type;
 	
-	/*
+	/**
 	 * Constructs the class
 	 */
 	public function __construct($type = 0) {
@@ -50,12 +51,15 @@ class TreePopulator extends AmountPopulator {
 		}
 	}
 	
-	/*
-	 * Populate the chunk
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $chunkX int
-	 * @param $chunkZ int
-	 * @param $random pocketmine\utils\Random
+	
+	/**
+	 * Populates the chunk
+	 *
+	 * @param ChunkManager $level
+	 * @param int $chunkX
+	 * @param int $chunkZ
+	 * @param Random $random
+	 * @return void
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
@@ -74,10 +78,10 @@ class TreePopulator extends AmountPopulator {
 		}
 	}
 	
-	/*
+	/**
 	 * Gets the top block (y) on an x and z axes
-	 * @param $x int
-	 * @param $z int
+	 * @param int $x
+	 * @param int $z
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
 		for($y = Level::Y_MAX - 1; $y > 0; -- $y) {

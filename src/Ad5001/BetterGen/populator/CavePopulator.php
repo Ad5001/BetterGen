@@ -30,12 +30,14 @@ class CavePopulator extends AmountPopulator {
 	const STOP = false;
 	const CONTINUE = true;
 	
-	/*
-	 * Populate the chunk
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $chunkX int
-	 * @param $chunkZ int
-	 * @param $random pocketmine\utils\Random
+	/**
+	 * Populates the chunk
+	 *
+	 * @param ChunkManager $level
+	 * @param int $chunkX
+	 * @param int $chunkZ
+	 * @param Random $random
+	 * @return void
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
@@ -63,10 +65,10 @@ class CavePopulator extends AmountPopulator {
 		}
 	}
 	
-	/*
+	/**
 	 * Gets the top block (y) on an x and z axes
-	 * @param $x int
-	 * @param $z int
+	 * @param int $x
+	 * @param int $z
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
 		for($y = Level::Y_MAX - 1; $y > 0; -- $y) {
@@ -81,12 +83,13 @@ class CavePopulator extends AmountPopulator {
 		return ++$y;
 	}
 	
-	/*
+	/**
 	 * Generates a cave
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
+	 *
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param Random $random
 	 * @return void
 	 */
 	public function generateCave($x, $y, $z, Random $random) {
@@ -100,16 +103,18 @@ class CavePopulator extends AmountPopulator {
 			}
 		}
 	}
-	/*
-	 * Generates a cave branch.
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $length int
-	 * @param $height int
-	 * @param $depth int
-	 * @param $random pocketmine\utils\Random
-	 * @yield int
+
+	/**
+	 * Generates a cave branch
+	 *
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param int $length
+	 * @param int $height
+	 * @param int $depth
+	 * @param Random $random
+	 * @yield Vector3
 	 * @return void
 	 */
 	public function generateBranch($x, $y, $z, $length, $height, $depth, Random $random) {

@@ -27,6 +27,10 @@ use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\normal\biome\SandyBiome;
 
 class BetterDesert extends SandyBiome implements Mountainable {
+
+	/**
+	 * Constructs the class
+	 */
 	public function __construct() {
 		parent::__construct();
 		$deadBush = new DeadbushPopulator ();
@@ -76,14 +80,22 @@ class BetterDesert extends SandyBiome implements Mountainable {
 				Block::get(Block::SANDSTONE, 0) 
 		]);
 	}
+
+	/**
+	 * Constructs the class
+	 *
+	 * @return string
+	 */
 	public function getName(): string {
 		return "BetterDesert";
 	}
 	
-	/*
+	/**
 	 * Returns biome id
+	 * 
+	 * @return int
 	 */
-	public function getId() {
+	public function getId(): int {
 		return Biome::DESERT;
 	}
 }

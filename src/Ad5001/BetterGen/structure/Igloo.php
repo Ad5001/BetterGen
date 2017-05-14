@@ -34,16 +34,18 @@ class Igloo extends Object {
 			Block::LOG2 => true,
 			Block::LEAVES2 => true 
 	];
+	/** @var int */
 	protected $direction;
 	
-	/*
-	 * Checks if an igloo is placeable
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
-	 * @return bool
+	/**
+	 * Checks if an igloo is placable
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param Random $random
+	 * @return void
 	 */
 	public function canPlaceObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		$this->direction = $random->nextBoundedInt(4);
@@ -80,14 +82,15 @@ class Igloo extends Object {
 		return true;
 	}
 	
-	/*
+	/**
 	 * Places an igloo
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
-	 * @return bool placed
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param Random $random
+	 * @return void
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		if (! isset($this->direction) && ! $this->canPlaceObject($level, $x, $y, $z, $random))

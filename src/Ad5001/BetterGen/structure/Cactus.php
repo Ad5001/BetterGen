@@ -24,16 +24,18 @@ use pocketmine\utils\Random;
 
 class Cactus extends Object {
 	
-	/*
-	 * Checks if a cactus is placeable
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
-	 */
 	protected $totalHeight;
 
+	/**
+	 * Checks if a cactus is placeable
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param Random $random
+	 * @return bool
+	 */
 	public function canPlaceObject(ChunkManager $level, int $x, int $y, int $z, Random $random): bool {
 		$this->totalHeight = 1 + $random->nextBoundedInt(3);
 		$below = $level->getBlockIdAt($x, $y - 1, $z);
@@ -45,12 +47,14 @@ class Cactus extends Object {
 		return true;
 	}
 	
-	/*
+	/**
 	 * Places a cactus
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @return void
 	 */
 	public function placeObject(ChunkManager $level, int $x, int $y, int $z) {
 		for($yy = 0; $yy < $this->totalHeight; $yy ++) {

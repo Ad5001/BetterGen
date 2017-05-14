@@ -35,17 +35,18 @@ use pocketmine\utils\Random;
 
 
 class FloatingIslandPopulator extends AmountPopulator {
-	
-	/*
-	 * Populate the chunk
-	 * @param $level 	pocketmine\level\ChunkManager
-	 * @param $chunkX 	int
-	 * @param $chunkZ 	int
-	 * @param $random 	pocketmine\utils\Random
-	 */
 	/** @var ChunkManager */
 	protected $level;
 
+	/**
+	 * Populates the chunk
+	 *
+	 * @param ChunkManager $level
+	 * @param int $chunkX
+	 * @param int $chunkZ
+	 * @param Random $random
+	 * @return void
+	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;
 		if($this->getAmount($random) > 130) {
@@ -66,10 +67,10 @@ class FloatingIslandPopulator extends AmountPopulator {
 	
 	
 	
-	/*
+	/**
 	 * Gets the top block (y) on an x and z axes
-	 * @param $x int
-	 * @param $z int
+	 * @param int $x
+	 * @param int $z
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
 		for($y = Level::Y_MAX - 1; $y > 0; -- $y) {
@@ -86,13 +87,14 @@ class FloatingIslandPopulator extends AmountPopulator {
 	
 	
 	
-	/*
-	 * Builds a an island shape
-	 * @param 	$level 		pocketmine\level\ChunkManager
-	 * @param 	$pos 		pocketmine\math\Vector3
-	 * @param	$radius		int
-	 * @param 	$random 	pocketmine\utils\Random
-	 * @return 	int			lowest ore point
+	/**
+	 * Builds an island bottom shape
+	 *
+	 * @param ChunkManager $level
+	 * @param Vector3 $pos
+	 * @param int $radius
+	 * @param Random $random
+	 * @return int Bottom place of the island
 	 */
 	public function buildIslandBottomShape(ChunkManager $level, Vector3 $pos, int $radius, Random $random) {
 		$pos = $pos->round();
@@ -137,14 +139,15 @@ class FloatingIslandPopulator extends AmountPopulator {
 	
 	
 	
-	/*
-	 * BPopulate the island with ores
-	 * @param 	$level 		pocketmine\level\ChunkManager
-	 * @param 	$pos 		pocketmine\math\Vector3 
-	 * @param	$width		int
-	 * @param 	$height 	int
-	 * @param 	$random 	pocketmine\utils\Random
-	 * @return 	void
+	/**
+	 * Populates the island with ores
+	 *
+	 * @param ChunkManager $level
+	 * @param Vector3 $pos
+	 * @param int $width
+	 * @param int $height
+	 * @param Random $random
+	 * @return void
 	 */
 	public function populateOres(ChunkManager $level, Vector3 $pos, int $width, int $height, Random $random) {
 		$ores = Main::isOtherNS() ? new \pocketmine\level\generator\normal\populator\Ore() : new \pocketmine\level\generator\populator\Ore();

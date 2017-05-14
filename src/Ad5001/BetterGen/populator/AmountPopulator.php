@@ -22,11 +22,11 @@ abstract class AmountPopulator extends Populator {
 	protected $baseAmount = 0;
 	protected $randomAmount = 0;
 	
-	/*
+	/**
 	 * Crosssoftware class for random amount
 	 */
 	
-	/*
+	/**
 	 * Sets the random addition amount
 	 * @param $amount int
 	 */
@@ -34,7 +34,7 @@ abstract class AmountPopulator extends Populator {
 		$this->randomAmount = $amount;
 	}
 	
-	/*
+	/**
 	 * Sets the base addition amount
 	 * @param $amount int
 	 */
@@ -42,24 +42,28 @@ abstract class AmountPopulator extends Populator {
 		$this->baseAmount = $amount;
 	}
 	
-	/*
+	/**
 	 * Returns the amount based on random
-	 * @param $random Random
+	 *
+	 * @param Random $random
+	 * @return int
 	 */
 	public function getAmount(Random $random) {
 		return $this->baseAmount + $random->nextRange(0, $this->randomAmount + 1);
 	}
 	
-	/*
-	 * Returns the base amount
+	/**
+	 * Returns base amount
+	 *
 	 * @return int
 	 */
 	public function getBaseAmount(): int {
 		return $this->baseAmount;
 	}
 	
-	/*
+	/**
 	 * Returns the random additional amount
+	 * 
 	 * @return int
 	 */
 	public function getRandomAmount(): int {

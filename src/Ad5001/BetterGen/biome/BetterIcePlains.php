@@ -25,6 +25,10 @@ use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\normal\biome\SnowyBiome;
 
 class BetterIcePlains extends SnowyBiome implements Mountainable {
+
+	/**
+	 * Constructs the class
+	 */
 	public function __construct() {
 		parent::__construct ();
 		$this->setGroundCover([ 
@@ -46,15 +50,22 @@ class BetterIcePlains extends SnowyBiome implements Mountainable {
 		$this->temperature = 0.05;
 		$this->rainfall = 0.8;
 	}
-	public function getName() {
+
+	/**
+	 * Returns the biome name
+	 *
+	 * @return string
+	 */
+	public function getName(): string {
 		return "BetterIcePlains";
 	}
 	
 	/**
 	 * Returns the biomes' id.
+	 * 
 	 * @return int biome id
 	 */
-	public function getId() {
+	public function getId(): int {
 		return Biome::ICE_PLAINS;
 	}
 }

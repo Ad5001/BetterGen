@@ -28,16 +28,25 @@ use pocketmine\level\generator\normal\biome\ForestBiome;
 
 
 class BetterForest extends ForestBiome implements Mountainable {
+	/** @var string[] **/
 	static $types = [ 
 			"Oak Forest",
 			"Birch Forest",
 			"Sakura Forest" 
 	];
+	/** @var int[] **/
 	static $ids = [ 
 			Biome::FOREST,
 			Biome::BIRCH_FOREST,
 			Main::SAKURA_FOREST 
 	];
+
+	/**
+	 * Constructs the class
+	 * 
+	 * @param int $type = 0
+	 * @param array $infos
+	 */
 	public function __construct($type = 0, array $infos = [0.6, 0.5]) {
 		parent::__construct($type);
 		$this->clearPopulators ();
@@ -73,12 +82,15 @@ class BetterForest extends ForestBiome implements Mountainable {
 
 	/**
 	 * Returns the ID relatively.
+	 * 
 	 * @return int
 	 */
 	public function getId() {
 		return self::$ids[$this->type];
 	}
 	/**
+	 * Registers a forest
+	 * 
 	 * @param string $name
 	 * @param string $treeClass
 	 * @param array $infos

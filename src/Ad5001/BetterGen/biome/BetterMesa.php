@@ -28,6 +28,10 @@ use pocketmine\block\GoldOre;
 use pocketmine\level\generator\normal\biome\SandyBiome;
 
 class BetterMesa extends SandyBiome {
+
+	/**
+	 * Constructs the class
+	 */
 	public function __construct() {
 		parent::__construct();
 		$deadBush = new DeadbushPopulator ();
@@ -108,12 +112,20 @@ class BetterMesa extends SandyBiome {
 				Block::get(Block::RED_SANDSTONE, 0) 
 		]);
 	}
+
+	/**
+	 * Returns the biome name
+	 *
+	 * @return string
+	 */
 	public function getName(): string {
 		return "BetterMesa";
 	}
 	
-	/*
+	/**
 	 * Returns biome id
+	 * 
+	 * @return int
 	 */
 	public function getId() {
 		return 39;

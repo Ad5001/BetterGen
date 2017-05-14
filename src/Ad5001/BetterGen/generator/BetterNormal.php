@@ -68,14 +68,21 @@ class BetterNormal extends Generator {
 	protected $level;
 	/** @var Random */
 	protected $random;
+	/** @var Populator[] */
 	protected $populators = [ ];
+	/** @var Populator[] */
 	protected $generationPopulators = [ ];
+	/** @var Biome[][] */
 	public static $biomes = [ ];
 	/** @var Biome[] */
 	public static $biomeById = [ ];
+	/** @var Level[] */
 	public static $levels = [ ];
+	/** @var int[][] */
 	protected static $GAUSSIAN_KERNEL = null; // From main class
+	/** @var int */
 	protected static $SMOOTH_SIZE = 2;
+	/** @var mixed[][] */
 	public static $options = [
 		"delBio" => [
 		],
@@ -83,11 +90,13 @@ class BetterNormal extends Generator {
 			"Lakes"
 		]
 	];
+	/** @var int */
 	protected $waterHeight = 63;
 	protected $noiseBase;
 
-	/*
+	/**
 	 * Picks a biome by X and Z
+	 * 
 	 * @param	$x	int
 	 * @param	$z 	int
 	 * @return Biome
@@ -245,8 +254,9 @@ class BetterNormal extends Generator {
 		return true;
 	}
 	
-	/*
+	/**
 	 * Returns a biome by temperature
+	 * 
 	 * @param $temperature float
 	 * @param $rainfall float
 	 */
@@ -277,20 +287,22 @@ class BetterNormal extends Generator {
 		return $ret;
 	}
 	
-	/*
+	/**
 	 * Returns a biome by its id
-	 * @param 	$id 	int
+	 * 
+	 * @param 	int 	$id
 	 * @return	Biome
 	 */
 	public function getBiomeById(int $id): Biome {
 		return self::$biomeById[$id] ?? self::$biomeById[Biome::OCEAN];
 	}
 	
-	/*
+	/**
 	 * Generates a chunk.
+	 * 
 	 * Cloning method to make it work with new methods.
-	 * @param $chunkX int
-	 * @param $chunkZ int
+	 * @param int $chunkX
+	 * @param int $chunkZ
 	 */
 	public function generateChunk($chunkX, $chunkZ) {
 		
@@ -359,10 +371,12 @@ class BetterNormal extends Generator {
 		}
 	}
 	
-	/*
-	 * Populates a chunk.
-	 * @param $chunkX int
-	 * @param $chunk2 int
+	/**
+	 * Populates a chunk
+	 *
+	 * @param int $chunkX
+	 * @param int $chunkZ
+	 * @return void
 	 */
 	public function populateChunk($chunkX, $chunkZ) {
 		$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed ());
@@ -383,9 +397,10 @@ class BetterNormal extends Generator {
 		$biome->populateChunk($this->level, $chunkX, $chunkZ, $this->random);
 	}
 	
-	/*
+	/**
 	 * Constructs the class
-	 * @param $options array
+	 *
+	 * @param array $options
 	 */
 	public function __construct(array $options = []) {
 		self::$options["preset"] = $options["preset"];
@@ -407,7 +422,7 @@ class BetterNormal extends Generator {
 		}
 	}
 	
-	/*
+	/**
 	 * Generates the generation kernel based on smooth size (here 2)
 	 */
 	protected static function generateKernel() {
@@ -427,24 +442,37 @@ class BetterNormal extends Generator {
 		}
 	}
 	
-	//  Returns the name of the generator
-	public function getName() {
+	/**
+	 * Return the name of the generator
+	 *
+	 * @return string
+	 */
+	public function getName(): string {
 		return "betternormal";
 	}
 	
-	/*
+	/**
 	 * Gives the generators settings.
+	 * 
 	 * @return array
 	 */
 	public function getSettings(): array {
 		return self::$options;
 	}
-	public function getSpawn() {
+
+	/**
+	 * Returns spawn location
+	 *
+	 * @return Vector3
+	 */
+	public function getSpawn(): Vector3 {
 		return new Vector3(127.5, 128, 127.5);
 	}
-	
-	/*
+
+	/**
 	 * Returns a safe spawn location
+	 *
+	 * @return Vector3
 	 */
 	public function getSafeSpawn() {
 		return new Vector3(127.5, $this->getHighestWorkableBlock(127, 127), 127.5);

@@ -443,12 +443,14 @@ class SakuraTree extends Tree {
 	];
 	const maxPerChunk = 2;
 
-
+	/** @var int */
 	public $trunkHeight = 11;
+	/** @var int */
 	public $leafType;
+	/** @var int */
 	public $leaf2Type;
 
-	/*
+	/**
 	 * Constructs the class
 	 */
 	public function __construct() {
@@ -460,13 +462,15 @@ class SakuraTree extends Tree {
 		$this->type = Wood::OAK;
 	}
 
-	/*
-	 * Builds the tree.
-	 * @param $level \pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random $random
+	/**
+	 * Builds a tree
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param Random $random
+	 * @return void
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		$percentage = $random->nextBoundedInt(100);
@@ -572,9 +576,7 @@ class SakuraTree extends Tree {
 			$totalLength = $stickLen + $stickLen2; // Length of the stick
 			$sideLen = $totalLength ** 2; // Side length
 
-			//TODO CHECK WHAT THIS IS SUPPOSED TO BE
 			$numForward = ($totalLength % 2 == 0) ? $totalLength - 1 : $totalLength;
-			//TODO END
 			$lX1 = $lZ1 = $lX = $lZ = 0;
 
 			// First branch part + first leave part
@@ -624,8 +626,6 @@ class SakuraTree extends Tree {
 				}
 			}
 
-			// continue;
-
 			switch ($dir + 1) {
 				case 4 :
 					$xd2 = 0;
@@ -659,25 +659,29 @@ class SakuraTree extends Tree {
 		}
 	}
 
-	/*
-	 * Fills a log at.
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
+	/**
+	 * Fills a log
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @return void
 	 */
 	public function setLog(ChunkManager $level, $x, $y, $z) {
 		$level->setBlockIdAt($x, $y, $z, $this->trunkBlock);
 		$level->setBlockDataAt($x, $y, $z, $this->type);
 	}
 
-	/*
-	 * Fills a leave at.
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
+	/**
+	 * Fills leaves
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param Random $random
+	 * @return void
 	 */
 	public function setLeave(ChunkManager $level, $x, $y, $z, Random $random) {
 		$data = [

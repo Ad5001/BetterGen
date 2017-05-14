@@ -26,6 +26,7 @@ use pocketmine\utils\Random;
 class SugarCanePopulator extends AmountPopulator {
 	/** @var ChunkManager */
 	protected $level;
+
 	/**
 	 * Constructs the class
 	 */
@@ -35,11 +36,13 @@ class SugarCanePopulator extends AmountPopulator {
 	}
 	
 	/**
-	 * Populate the chunk
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $chunkX int
-	 * @param $chunkZ int
-	 * @param $random pocketmine\utils\Random
+	 * Populates the chunk
+	 *
+	 * @param ChunkManager $level
+	 * @param int $chunkX
+	 * @param int $chunkZ
+	 * @param Random $random
+	 * @return void
 	 */
 	public function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random) {
 		$this->level = $level;

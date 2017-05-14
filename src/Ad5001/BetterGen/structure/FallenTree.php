@@ -39,27 +39,33 @@ class FallenTree extends Object {
 			Block::LEAVES2 => true,
 			Block::CACTUS => true 
 	];
+	/** @var Tree */
 	protected $tree;
+	/** @var int */
 	protected $direction;
+	/** @var Random */
 	protected $random;
+	/** @var int */
 	protected $length = 0;
 
-	/*
+	/**
 	 * Constructs the class
-	 * @param 	$tree 	ObjectTree
-	 * @throws 	Exeption
+	 *
+	 * @param ObjectTree $tree
 	 */
 	public function __construct(ObjectTree $tree) {
 		$this->tree = $tree;
 	}
 
-	/*
-	 * Places a fallen tree
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random pocketmine\utils\Random
+	/**
+	 * Checks the placement a fallen tree
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param Random $random
+	 * @return void
 	 */
 	public function canPlaceObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		echo "Checking at $x $y $z FallenTree\n";
@@ -106,12 +112,14 @@ class FallenTree extends Object {
 		return true;
 	}
 
-	/*
+	/**
 	 * Places a fallen tree
-	 * @param $level pocketmine\level\ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @return void
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z) {
 		echo "Placing at $x $y $z FallenTree D: $this->direction, L: $this->length\n";
@@ -150,12 +158,14 @@ class FallenTree extends Object {
 		}
 	}
 
-	/*
-	 * Places a Block
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $level pocketmine\level\ChunkManager
+	/**
+	 * Places a block
+	 *
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param ChunkManager $level
+	 * @return void
 	 */
 	public function placeBlock($x, $y, $z, ChunkManager $level) {
 		if (isset(self::$overridable[$level->getBlockIdAt($x, $y, $z)]) && ! isset(self::$overridable[$level->getBlockIdAt($x, $y - 1, $z)])) {

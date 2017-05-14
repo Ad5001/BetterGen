@@ -58,14 +58,15 @@ class Well extends Object {
 			] 
 	];
 
-	/*
-	 * Checks if a well is placeable
-	 * @param $level ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random Random
-	 * @return bool
+	/**
+	 * Checks if a Well is placable
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param Random $random
+	 * @return void
 	 */
 	public function canPlaceObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		$this->level = $level;
@@ -77,13 +78,15 @@ class Well extends Object {
 		return true;
 	}
 	
-	/*
+	/**
 	 * Places a well
-	 * @param $level ChunkManager
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $random Random
+	 *
+	 * @param ChunkManager $level
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param Random $random
+	 * @return void
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		$this->level = $level;
@@ -114,12 +117,14 @@ class Well extends Object {
 		$this->placeBlock($x, $y, $z, Block::WATER);
 	}
 	
-	/*
-	 * Places a slab
-	 * @param $x int
-	 * @param $y int
-	 * @param $z int
-	 * @param $id int
+	/**
+	 * Places a block
+	 *
+	 * @param int $x
+	 * @param int $y
+	 * @param int $z
+	 * @param int $id
+	 * @param int $meta
 	 * @return void
 	 */
 	public function placeBlock($x, $y, $z, $id = 0, $meta = 0) {
