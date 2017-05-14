@@ -8,8 +8,9 @@
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
  * Tomorrow's pocketmine generator.
- * @author Ad5001
+ * @author Ad5001 <mail@ad5001.eu>, XenialDan <https://github.com/thebigsmileXD>
  * @link https://github.com/Ad5001/BetterGen
+ * @version 1.1
  */
  
 namespace Ad5001\BetterGen\populator;

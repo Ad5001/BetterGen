@@ -8,8 +8,11 @@
  *    \ \____/\ \____\ \ \__\ \ \__\\ \____\\ \_\   \ \____/\ \____\\ \_\ \_\
  *     \/___/  \/____/  \/__/  \/__/ \/____/ \/_/    \/___/  \/____/ \/_/\/_/
  * Tomorrow's pocketmine generator.
- * @author Ad5001
+ * @author Ad5001 <mail@ad5001.eu>, XenialDan <https://github.com/thebigsmileXD>
  * @link https://github.com/Ad5001/BetterGen
+ * @category World Generator
+ * @api 3.0.0
+ * @version 1.1
  */
 
 namespace Ad5001\BetterGen\populator;
@@ -23,7 +26,7 @@ use pocketmine\utils\Random;
 class SugarCanePopulator extends AmountPopulator {
 	/** @var ChunkManager */
 	protected $level;
-	/*
+	/**
 	 * Constructs the class
 	 */
 	public function __construct() {
@@ -31,7 +34,7 @@ class SugarCanePopulator extends AmountPopulator {
 		$this->setRandomAmount(2);
 	}
 	
-	/*
+	/**
 	 * Populate the chunk
 	 * @param $level pocketmine\level\ChunkManager
 	 * @param $chunkX int
@@ -52,10 +55,11 @@ class SugarCanePopulator extends AmountPopulator {
 		}
 	}
 	
-	/*
+	/**
 	 * Gets the top block (y) on an x and z axes
 	 * @param $x int
 	 * @param $z int
+	 * @return int
 	 */
 	protected function getHighestWorkableBlock($x, $z) {
 		for($y = Level::Y_MAX - 1; $y >= 0; -- $y) {
