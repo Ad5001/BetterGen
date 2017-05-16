@@ -88,7 +88,8 @@ class Main extends PluginBase implements Listener {
 		Generator::addGenerator(BetterNormal::class, "betternormal");
 		if ($this->isOtherNS()) $this->getLogger()->warning("Tesseract detected. Note that Tesseract is not up to date with the generation structure and some generation features may be limited or not working");
 		@mkdir($this->getDataFolder());
-		if (!in_array($this->getDataFolder() . 'resources\mcpe-default-addon\.', $this->getResources())) $this->getLogger()->alert('The loot files are missing! Make sure you got all files / did git clone --recursive');
+		@mkdir($this->getDataFolder() . 'addon');
+		if ((($files = @scandir($this->getDataFolder() . 'addon')) && count($files) <= 2)) $this->getLogger()->alert('The loot files are missing, this means no loot will generate! You can get them here: https://aka.ms/behaviorpacktemplate or here https://github.com/dktapps/mcpe-default-addon for an optimised version');
 	}
 
 	/**
@@ -324,7 +325,7 @@ class Main extends PluginBase implements Listener {
 		if (!$tile instanceof TileChest) return;
 		//Check if lootchest (or already generated loot)
 		if (!isset($tile->namedtag->generateLoot)) return;
-		$table = new LootTable($config = new Config(self::getInstance()->getDataFolder() . '\\resources\\mcpe-default-addon\\' . $tile->namedtag->generateLoot . '.json'));
+		$table = new LootTable($config = new Config(self::getInstance()->getDataFolder() . 'addon\\' . $tile->namedtag->generateLoot . '.json', Config::DETECT, []));
 		$size = $tile->getInventory()->getSize();
 		$loot = $table->getRandomLoot($random);
 		$items = array_pad($loot, $size, Item::get(0));

@@ -56,7 +56,7 @@ class LootTable {
 				$val = $rolls["entries"][$this->getRandomWeightedElement($array)];
 				//typecheck
 				if ($val["type"] == "loot_table") {
-					$loottable = new LootTable(new Config(Main::getInstance()->getDataFolder() . '\\resources\\mcpe-default-addon\\' . $val["name"] . ".json"));
+					$loottable = new LootTable(new Config(Main::getInstance()->getDataFolder() . 'addon\\' . $val["name"] . ".json", Config::DETECT, []));
 					$items = array_merge($items, $loottable->getRandomLoot($random));
 					unset($loottable);
 				} elseif ($val["type"] == "item") {

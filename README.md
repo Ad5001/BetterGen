@@ -46,4 +46,14 @@ Welcome user to the home of a new PocketMine World Generator which features 9 ne
 ### These two biomes now are a bit better by the additions of bushes.   
 <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/bushes.png" style="width: 500px"></img>
 
+-----
+
+# Notice:
+
+### To generate loot like in vanilla MCPE, you have to put the default behaviour pack contents of the game into the "addon" folder.
+### Due to legal issues we are not able to include these directly into the repository.
+### You can get them here: https://aka.ms/behaviorpacktemplate or here https://github.com/dktapps/mcpe-default-addon for an optimised version
+### The folder has to look like this:
+<img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/addon_setup.png" style="width: 500px"></img>
+
 All content here is copyrighted (C) Ad5001 2017. Infos about this copyright can be found in the license file.
