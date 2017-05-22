@@ -276,7 +276,7 @@ class BetterNormal extends Generator {
 		}
 		$b = self::$biomes[( string) round($rainfall, 1)];
 		foreach($b as $t => $biome) {
-			if ($temperature <=(float) $t) {
+			if ($temperature <= (float) $t) {
 				$ret = $biome;
 				break;
 			}
