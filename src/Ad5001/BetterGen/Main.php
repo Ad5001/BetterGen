@@ -182,7 +182,7 @@ class Main extends PluginBase implements Listener {
 							return false;
 						}
 					}
-					$sender->teleport(\pocketmine\level\Position::fromObject($player, $this->getServer()->getLevelByName($args[0])));
+					$sender->teleport(\pocketmine\level\Position::fromObject($sender, $this->getServer()->getLevelByName($args[0])));
 					$sender->sendMessage("§aTeleporting to {$args[0]}...");
 					return true;
 				} else {
