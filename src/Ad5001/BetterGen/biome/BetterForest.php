@@ -76,7 +76,7 @@ class BetterForest extends ForestBiome implements Mountainable {
 		$this->temperature = $infos[0];
 		$this->rainfall = $infos[1];
 	}
-	public function getName() {
+	public function getName(): string {
 		return str_ireplace(" ", "", self::$types[$this->type]);
 	}
 
@@ -85,7 +85,7 @@ class BetterForest extends ForestBiome implements Mountainable {
 	 * 
 	 * @return int
 	 */
-	public function getId() {
+	public function getId(): int {
 		return self::$ids[$this->type];
 	}
 	/**

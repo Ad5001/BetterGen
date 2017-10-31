@@ -101,7 +101,7 @@ class BetterBiomeSelector extends BiomeSelector {
 	 *        	
 	 * @return Biome
 	 */
-	public function pickBiome($x, $z) {
+	public function pickBiome($x, $z): Biome {
 		$temperature = ($this->getTemperature($x, $z));
 		$rainfall = ($this->getRainfall($x, $z));
 		

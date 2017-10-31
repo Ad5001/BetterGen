@@ -20,11 +20,11 @@ namespace Ad5001\BetterGen\structure;
 use Ad5001\BetterGen\utils\BuildingUtils;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use pocketmine\level\generator\object\Object;
+use pocketmine\level\generator\object\PopulatorObject;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
-class Dungeons extends Object {
+class Dungeons extends PopulatorObject {
 	public $overridable = [
 			Block::AIR => true,
 			17 => true,

@@ -20,13 +20,13 @@ namespace Ad5001\BetterGen\structure;
 use Ad5001\BetterGen\utils\BuildingUtils;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use pocketmine\level\generator\object\Object;
+use pocketmine\level\generator\object\PopulatorObject;
 use pocketmine\level\generator\object\Tree as ObjectTree;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
 
-class FallenTree extends Object {
+class FallenTree extends PopulatorObject {
 	public static $overridable = [ 
 			Block::AIR => true,
 			6 => true,
@@ -37,8 +37,7 @@ class FallenTree extends Object {
 			Block::SNOW_LAYER => true,
 			Block::LOG2 => true,
 			Block::LEAVES2 => true,
-			Block::CACTUS => true 
-	];
+			Block::CACTUS => true];
 	/** @var Tree */
 	protected $tree;
 	/** @var int */
@@ -68,9 +67,9 @@ class FallenTree extends Object {
 	 * @return void
 	 */
 	public function canPlaceObject(ChunkManager $level, $x, $y, $z, Random $random) {
-		echo "Checking at $x $y $z FallenTree\n";
-		$randomHeight = round($random->nextBoundedInt($this->tree->trunkHeight < 6 ? 6 : $this->tree->trunkHeight) - ($this->tree->trunkHeight < 6 ? 3 : $this->tree->trunkHeight / 2));
-		$this->length = ($this->tree->trunkHeight ?? 5) + $randomHeight;
+		//echo "Checking at $x $y $z FallenTree\n";
+		$randomHeight = round($random->nextBoundedInt($this->tree->treeHeight < 6 ? 6 : $this->tree->treeHeight) - ($this->tree->treeHeight < 6 ? 3 : $this->tree->treeHeight / 2));
+		$this->length = ($this->tree->treeHeight ?? 5) + $randomHeight;
 		$this->direction = $random->nextBoundedInt(4);
 		$this->random = $random;
 		switch ($this->direction) {
@@ -78,12 +77,12 @@ class FallenTree extends Object {
 			case 1:// Z+
 			$return = array_merge(BuildingUtils::fillCallback(new Vector3($x, $y, $z), new Vector3($x, $y, $z + $this->length), function($v3, $level) {
 				if(!isset(\Ad5001\BetterGen\structure\FallenTree::$overridable[$level->getBlockIdAt($v3->x, $v3->y, $v3->z)])) {
-					echo "$v3 is not overwritable (" . $level->getBlockIdAt($v3->x, $v3->y, $v3->z) . ").\n";
+					//echo "$v3 is not overwritable (" . $level->getBlockIdAt($v3->x, $v3->y, $v3->z) . ").\n";
 					return false;
 				}
 			}, $level), BuildingUtils::fillCallback(new Vector3($x, $y - 1, $z), new Vector3($x, $y - 1, $z + $this->length), function($v3, $level) {
 				if(isset(\Ad5001\BetterGen\structure\FallenTree::$overridable[$level->getBlockIdAt($v3->x, $v3->y, $v3->z)])) {
-					echo "$v3 is overwritable (" . $level->getBlockIdAt($v3->x, $v3->y, $v3->z) . ").\n";
+					//echo "$v3 is overwritable (" . $level->getBlockIdAt($v3->x, $v3->y, $v3->z) . ").\n";
 					return false;
 				}
 			}, $level));
@@ -95,12 +94,12 @@ class FallenTree extends Object {
 			case 3: // X+
 			$return = array_merge(BuildingUtils::fillCallback(new Vector3($x, $y, $z), new Vector3($x + $this->length, $y, $z), function($v3, $level) {
 				if(!isset(\Ad5001\BetterGen\structure\FallenTree::$overridable[$level->getBlockIdAt($v3->x, $v3->y, $v3->z)])) {
-					echo "$v3 is not overwritable (" . $level->getBlockIdAt($v3->x, $v3->y, $v3->z) . ").\n";
+					//echo "$v3 is not overwritable (" . $level->getBlockIdAt($v3->x, $v3->y, $v3->z) . ").\n";
 					return false;
 				}
 			}, $level), BuildingUtils::fillCallback(new Vector3($x, $y - 1, $z), new Vector3($x + $this->length, $y - 1, $z), function($v3, $level) {
 				if(isset(\Ad5001\BetterGen\structure\FallenTree::$overridable[$level->getBlockIdAt($v3->x, $v3->y, $v3->z)])) {
-					echo "$v3 is overwritable (" . $level->getBlockIdAt($v3->x, $v3->y, $v3->z) . ").\n";
+					//echo "$v3 is overwritable (" . $level->getBlockIdAt($v3->x, $v3->y, $v3->z) . ").\n";
 					return false;
 				}
 			}, $level));
@@ -122,7 +121,7 @@ class FallenTree extends Object {
 	 * @return void
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z) {
-		echo "Placing at $x $y $z FallenTree D: $this->direction, L: $this->length\n";
+		//echo "Placing at $x $y $z FallenTree D: $this->direction, L: $this->length\n";
 		switch ($this->direction) {
 			case 0:
 				$level->setBlockIdAt($x, $y, $z, $this->tree->trunkBlock);
