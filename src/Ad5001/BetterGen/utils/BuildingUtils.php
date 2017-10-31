@@ -84,8 +84,8 @@ class BuildingUtils {
 		list($pos1, $pos2) = self::minmax($pos1, $pos2);
 		$return = [];
 		for($x = $pos1->x; $x >= $pos2->x; $x --) for($y = $pos1->y; $y >= $pos2->y; $y --) for($z = $pos1->z; $z >= $pos2->z; $z --) {
-					$return[] = call_user_func($call, new Vector3($x, $y, $z), ...$params);
-				}
+			$return[] = call_user_func($call, new Vector3($x, $y, $z), ...$params);
+		}
 		return $return;
 	}
 	

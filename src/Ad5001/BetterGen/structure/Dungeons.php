@@ -47,14 +47,21 @@ class Dungeons extends PopulatorObject {
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
 		$xDepth = 2 + $random->nextBoundedInt(4);
 		$zDepth = 2 + $random->nextBoundedInt(4);
-		BuildingUtils::fillCallback(new Vector3($x + $xDepth, $y, $x + $zDepth), new Vector3($x - $xDepth, $y, $z - $zDepth), function($v3, $level, $v3n2, $xDepth, $zDepth, $random) {
-			if($v3->x == $v3n2->x + $xDepth || $v3->x == $v3n2->x - $xDepth || $v3->y == $v3n2->y || $v3->y == $v3n2->y + 5 || $v3->z == $v3n2->z + $zDepth || $v3->z == $v3n2->z - $zDepth) {
+		echo "Building dungeon at $x, $y, $z\n";
+		BuildingUtils::fillCallback(new Vector3($x + $xDepth, $y, $x + $zDepth), new Vector3($x - $xDepth, $y + 5, $z - $zDepth), function($v3, $level, $v3n2, $xDepth, $zDepth, $random) {
+			if($v3->x == $v3n2->x + $xDepth || 
+			$v3->x == $v3n2->x - $xDepth || 
+			$v3->y == $v3n2->y || 
+			$v3->y == $v3n2->y + 5 || 
+			$v3->z == $v3n2->z + $zDepth || 
+			$v3->z == $v3n2->z - $zDepth) {
 				if($random->nextBoolean()) {
-					$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::MOSSY_STONE);
+					$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::MOSS_STONE);
 				} else {
 					$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::COBBLESTONE);
-
 				}
+			} else {
+				$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::AIR);
 			}
 		}, $level, new Vector3($x, $y, $z), $xDepth, $zDepth, $random);
 		$level->setBlockIdAt($x, $y + 1, $z, Block::MOB_SPAWNER);

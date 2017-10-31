@@ -46,4 +46,8 @@ Welcome user to the home of a new PocketMine World Generator which features 9 ne
 ### These two biomes now are a bit better by the additions of bushes.   
 <img src="https://raw.githubusercontent.com/Ad5001/BetterGen/master/imgs/bushes.png" style="width: 500px"></img>
 
-All content here is copyrighted (C) Ad5001 2017. Infos about this copyright can be found in the license file.
+# Contributors:
+BetterGen wouldn't be here today without the following guys who have made this plugin possible to get where it is now:    
+Ad5001    
+thebigsmileXD    
+wyt3dr4g0n    
