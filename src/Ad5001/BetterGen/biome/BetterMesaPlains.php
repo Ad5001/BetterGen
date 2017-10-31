@@ -122,7 +122,7 @@ class BetterMesaPlains extends SandyBiome {
 	 * 
 	 * @return int
 	 */
-	public function getId() {
+	public function getId(): int {
 		return 40;
 	}
 }

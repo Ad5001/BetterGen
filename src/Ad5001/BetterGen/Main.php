@@ -127,15 +127,15 @@ class Main extends PluginBase implements Listener {
 							return true;
 						}
 						$generatorName = strtolower($args[1]);
-						if (preg_match("[^\d]", $args[2]) !== false) {
-							$parts = str_split($args[2]);
-							foreach ($parts as $key => $str) {
-								$parts[$key] = ord($str);
-							}
-							$seed = implode("", $parts);
-						} else {
+//						if (preg_match("[^\d]", $args[2]) !== false) {
+//							$parts = str_split($args[2]);
+//							foreach ($parts as $key => $str) {
+//								$parts[$key] = ord($str);
+//							}
+//							$seed = implode("", $parts);
+//						} else {
 							$seed = $args[2];
-						}
+//						}
 						$options = [];
 						break;
 					default : // /createworld <name> [generator = betternormal] [seed = rand()] [options(json)]

@@ -19,10 +19,10 @@ namespace Ad5001\BetterGen\structure;
 
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use pocketmine\level\generator\object\Object;
+use pocketmine\level\generator\object\PopulatorObject;
 use pocketmine\utils\Random;
 
-class Igloo extends Object {
+class Igloo extends PopulatorObject {
 	public $overridable = [ 
 			Block::AIR => true,
 			6 => true,

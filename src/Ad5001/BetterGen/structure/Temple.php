@@ -20,11 +20,11 @@ namespace Ad5001\BetterGen\structure;
 use Ad5001\BetterGen\utils\BuildingUtils;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use pocketmine\level\generator\object\Object;
+use pocketmine\level\generator\object\PopulatorObject;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
-class Temple extends Object {
+class Temple extends PopulatorObject {
 	const DIRECTION_PLUSX = 0;
 	const DIRECTION_MINX = 1;
 	const DIRECTION_PLUSZ = 2;

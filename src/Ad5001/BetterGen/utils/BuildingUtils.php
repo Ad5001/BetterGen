@@ -30,8 +30,7 @@ class BuildingUtils {
 			Block::LAVA,
 			Block::BEDROCK,
 			Block::CACTUS,
-			Block::PLANK 
-	];
+			Block::PLANKS];
 	
 	/**
 	 * Fills an area

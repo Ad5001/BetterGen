@@ -101,7 +101,7 @@ class BetterNormal extends Generator {
 	 * @param	$z 	int
 	 * @return Biome
 	 */
-	public function pickBiome($x, $z) {
+	public function pickBiome($x, $z): Biome {
 		$hash = $x * 2345803 ^ $z * 9236449 ^ $this->level->getSeed ();
 		$hash *= $hash + 223;
 		$xNoise = $hash >> 20 & 3;
