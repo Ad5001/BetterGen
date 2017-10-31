@@ -127,13 +127,13 @@ class Main extends PluginBase implements Listener {
 							return true;
 						}
 						$generatorName = strtolower($args[1]);
-                                                $parts = str_split($seed);
+                                                $parts = str_split($args[2]);
                                                 foreach ($parts as $key=>$str) {
                                                         if(is_numeric($str) == false && $str <> '-'){
                                                                 $parts[$key] = ord($str);
                                                         }
-                                                        $seed = (int)implode("", $parts);
                                                 }
+                                                $seed = (int)implode("", $parts);
 						$options = [];
 						break;
 					default : // /createworld <name> [generator = betternormal] [seed = rand()] [options(json)]
@@ -145,13 +145,13 @@ class Main extends PluginBase implements Listener {
 						}
 						$generatorName = strtolower($args[1]);
 						if ($args[2] == "rand") $args[2] = $this->generateRandomSeed();
-                                                $parts = str_split($seed);
+                                                $parts = str_split($args[2]);
                                                 foreach ($parts as $key=>$str) {
                                                         if(is_numeric($str) == false && $str <> '-'){
                                                                 $parts[$key] = ord($str);
                                                         }
-                                                        $seed = (int)implode("", $parts);
                                                 }
+                                                $seed = (int)implode("", $parts);
 						unset($args[0], $args[1], $args[2]);
 						$options = json_decode($args[3], true);
 						if (!is_array($options)) {
