@@ -473,6 +473,7 @@ class SakuraTree extends Tree {
 	 * @return void
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
+		$this->random = $random;
 		$percentage = $random->nextBoundedInt(100);
 		if ($percentage > 10) {
 			return;
@@ -671,6 +672,12 @@ class SakuraTree extends Tree {
 	public function setLog(ChunkManager $level, $x, $y, $z) {
 		$level->setBlockIdAt($x, $y, $z, $this->trunkBlock);
 		$level->setBlockDataAt($x, $y, $z, $this->type);
+		if($this->random->nextBoundedInt(3) == 0){ // Setting a log near.
+			$x += $this->random->nextBoundedInt(3) - 1;
+			$z += $this->random->nextBoundedInt(3) - 1;
+			$level->setBlockIdAt($x, $y, $z, $this->trunkBlock);
+			$level->setBlockDataAt($x, $y, $z, $this->type);
+		}
 	}
 
 	/**

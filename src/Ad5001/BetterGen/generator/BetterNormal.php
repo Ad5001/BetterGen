@@ -29,6 +29,7 @@ use Ad5001\BetterGen\populator\CavePopulator;
 use Ad5001\BetterGen\populator\FloatingIslandPopulator;
 use Ad5001\BetterGen\populator\MineshaftPopulator;
 use Ad5001\BetterGen\populator\RavinePopulator;
+use Ad5001\BetterGen\populator\DungeonPopulator;
 use pocketmine\block\Block;
 use pocketmine\block\CoalOre;
 use pocketmine\block\DiamondOre;
@@ -202,12 +203,19 @@ class BetterNormal extends Generator {
 			$mineshaft->setRandomAmount(102);
 			$this->populators[] = $mineshaft;
 		}
-
+		
 		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("FloatingIslands", self::$options["delStruct"])) {
 			$fisl = new FloatingIslandPopulator();
 			$fisl->setBaseAmount(0);
 			$fisl->setRandomAmount(132);
 			$this->populators[] = $fisl;
+		}
+				
+		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Dungeons", self::$options["delStruct"])) {
+			$dungeon = new DungeonPopulator();
+			$dungeon->setBaseAmount(0);
+			$dungeon->setRandomAmount(20);
+			$this->populators[] = $dungeon;
 		}
 
 		if(!\Ad5001\BetterGen\utils\CommonUtils::in_arrayi("Ores", self::$options["delStruct"])) {

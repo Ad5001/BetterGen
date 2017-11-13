@@ -44,7 +44,7 @@ class DungeonPopulator extends AmountPopulator {
 		if($amount == 5) { // 1 out of 10 chunks
 			$x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
 			$z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
-			$y = $random->nextRange(10, $this->getHighestWorkableBlock($x, $z));
+			$y = $random->nextRange(10, $this->getHighestWorkableBlock($x, $z) - 6);
 			$d = new Dungeons();
 			$d->placeObject($level, $x, $y, $z, $random);
 		}

@@ -45,25 +45,57 @@ class Dungeons extends PopulatorObject {
 	 * @return void
 	 */
 	public function placeObject(ChunkManager $level, $x, $y, $z, Random $random) {
-		$xDepth = 2 + $random->nextBoundedInt(4);
-		$zDepth = 2 + $random->nextBoundedInt(4);
-		echo "Building dungeon at $x, $y, $z\n";
-		BuildingUtils::fillCallback(new Vector3($x + $xDepth, $y, $x + $zDepth), new Vector3($x - $xDepth, $y + 5, $z - $zDepth), function($v3, $level, $v3n2, $xDepth, $zDepth, $random) {
-			if($v3->x == $v3n2->x + $xDepth || 
-			$v3->x == $v3n2->x - $xDepth || 
-			$v3->y == $v3n2->y || 
-			$v3->y == $v3n2->y + 5 || 
-			$v3->z == $v3n2->z + $zDepth || 
-			$v3->z == $v3n2->z - $zDepth) {
-				if($random->nextBoolean()) {
-					$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::MOSS_STONE);
-				} else {
-					$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::COBBLESTONE);
+		$xDepth = 3 + $random->nextBoundedInt(3);
+		$zDepth = 3 + $random->nextBoundedInt(3);
+		// echo "Building dungeon at $x, $y, $z\n";
+		// Building walls
+		list($pos1, $pos2) = BuildingUtils::minmax(new Vector3($x + $xDepth, $y, $z + $zDepth), new Vector3($x - $xDepth, $y + 5, $z - $zDepth));
+		for($y = $pos1->y; $y >= $pos2->y; $y--) {
+			for($x = $pos1->x; $x >= $pos2->x; $x--) {
+				for($z = $pos1->z; $z >= $pos2->z; $z--) { // Cleaning the area first 
+					$level->setBlockIdAt($x, $y, $z, Block::AIR);
 				}
-			} else {
-				$level->setBlockIdAt($v3->x, $v3->y, $v3->z, Block::AIR);
+				// Starting random walls.
+				if($random->nextBoolean()) {
+					$level->setBlockIdAt($x, $y, $pos1->z, Block::MOSS_STONE);
+				} else {
+					$level->setBlockIdAt($x, $y, $pos1->z, Block::COBBLESTONE);
+				}
+				if($random->nextBoolean()) {
+					$level->setBlockIdAt($x, $y, $pos2->z, Block::MOSS_STONE);
+				} else {
+					$level->setBlockIdAt($x, $y, $pos2->z, Block::COBBLESTONE);
+				}
 			}
-		}, $level, new Vector3($x, $y, $z), $xDepth, $zDepth, $random);
+			for($z = $pos1->z; $z >= $pos2->z; $z--) {
+				if($random->nextBoolean()) {
+					$level->setBlockIdAt($pos1->x, $y, $z, Block::MOSS_STONE);
+				} else {
+					$level->setBlockIdAt($pos1->x, $y, $z, Block::COBBLESTONE);
+				}
+				if($random->nextBoolean()) {
+					$level->setBlockIdAt($pos2->x, $y, $z, Block::MOSS_STONE);
+				} else {
+					$level->setBlockIdAt($pos2->x, $y, $z, Block::COBBLESTONE);
+				}
+			}
+		}
+		// Bottom & top
+		for($x = $pos1->x; $x >= $pos2->x; $x--) {
+			for($z = $pos1->z; $z >= $pos2->z; $z--) {
+				if($random->nextBoolean()) {
+					$level->setBlockIdAt($x, $pos1->y, $z, Block::MOSS_STONE);
+				} else {
+					$level->setBlockIdAt($x, $pos1->y, $z, Block::COBBLESTONE);
+				}
+				if($random->nextBoolean()) {
+					$level->setBlockIdAt($x, $pos2->y, $z, Block::MOSS_STONE);
+				} else {
+					$level->setBlockIdAt($x, $pos2->y, $z, Block::COBBLESTONE);
+				}
+			}
+		}
+		// Setting the spawner
 		$level->setBlockIdAt($x, $y + 1, $z, Block::MOB_SPAWNER);
 	}
 }
