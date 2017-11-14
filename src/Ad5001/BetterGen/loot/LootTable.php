@@ -115,10 +115,7 @@ class LootTable {
 	 * @return string
 	 */
 	public static function getPluginFolder(): string {
-		$dir = explode(DIRECTORY_SEPARATOR, __DIR__);
-		$c = count($dir);
-		unset($dir[$c - 1], $dir[$c - 2], $dir[$c - 3], $dir[$c - 4], $dir[$c - 5]);
-		return str_ireplace("phar://", "", implode(DIRECTORY_SEPARATOR, $dir)) . DIRECTORY_SEPARATOR . "BetterGen" . DIRECTORY_SEPARATOR;
+		return getcwd() . DIRECTORY_SEPARATOR . "BetterGen" . DIRECTORY_SEPARATOR;
 	}
 	
 	/**
@@ -126,9 +123,6 @@ class LootTable {
 	 * @return string
 	 */
 	public static function getResourcesFolder(): string {
-		$dir = explode(DIRECTORY_SEPARATOR, __DIR__);
-		$c = count($dir);
-		unset($dir[$c - 1], $dir[$c - 2], $dir[$c - 3], $dir[$c - 4]);
-		return str_ireplace("phar://", "", implode(DIRECTORY_SEPARATOR, $dir)) . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR;
+		return self::getPluginFolder() . "resources" . DIRECTORY_SEPARATOR;
 	}
 }
