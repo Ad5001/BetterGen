@@ -115,7 +115,7 @@ class LootTable {
 	 * @return string
 	 */
 	public static function getPluginFolder(): string {
-		return getcwd() . DIRECTORY_SEPARATOR . "BetterGen" . DIRECTORY_SEPARATOR;
+		return getcwd() . DIRECTORY_SEPARATOR . "plugins" . DIRECTORY_SEPARATOR . "BetterGen" . DIRECTORY_SEPARATOR;
 	}
 	
 	/**
