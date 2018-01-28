@@ -66,7 +66,8 @@ class Main extends PluginBase implements Listener {
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		Generator::addGenerator(BetterNormal::class, "betternormal");
 		if ($this->isOtherNS()) $this->getLogger()->warning("Tesseract detected. Note that Tesseract is not up to date with the generation structure and some generation features may be limited or not working");
-		@mkdir($this->getDataFolder());
+		mkdir(LootTable::getPluginFolder());
+		mkdir(LootTable::getPluginFolder() . "loots");
 		if (!file_exists(LootTable::getPluginFolder() . "processingLoots.json"))
 			file_put_contents(LootTable::getPluginFolder() . "processingLoots.json", "{}");
 	}
