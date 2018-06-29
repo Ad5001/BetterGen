@@ -414,7 +414,7 @@ class BetterNormal extends Generator {
 		self::$options["preset"] = $options["preset"];
 		$options = (array) json_decode($options["preset"]);
 		if(isset($options["delBio"])) {
-			if(is_string($options["de"])) $options["delBio"] = explode(",", $options["delBio"]);
+			if(is_string($options["delBio"])) $options["delBio"] = explode(",", $options["delBio"]);
 			if(count($options["delBio"]) !== 0) {
 				self::$options["delBio"] = $options["delBio"];
 			}
