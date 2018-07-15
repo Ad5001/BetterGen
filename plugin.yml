@@ -20,7 +20,7 @@ contributors:
 main: Ad5001\BetterGen\Main
 version: 1.1
 load: STARTUP
-api: [3.0.0-ALPHA11]
+api: [3.0.0-ALPHA12]
 commands:
     createworld:
         description: Generates a new world.
